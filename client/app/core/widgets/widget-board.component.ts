@@ -22,10 +22,7 @@ import { WidgetDescriptorService } from './widget-description/widget-descriptor.
 	`]
 })
 export class WidgetBoardComponent {
-	public columns: WidgetColumn[] = [
-		new WidgetColumn(0, []),
-		new WidgetColumn(1, []),
-		new WidgetColumn(2, [])];
+	public columns: WidgetColumn[] = [];
 
 	private descriptors: WidgetDescriptor[];
 	private expandedWidgetDescriptor: WidgetDescriptor;
@@ -60,31 +57,44 @@ export class WidgetBoardComponent {
 		this.isExpanded = !this.expandedWidgetDescriptor.windowState.canExpand();
 	}
 
+	onWidgetsAdded(descriptor: WidgetDescriptor) {
+		this.addDescriptor(descriptor);
+		this.drawBoard();
+	}
+
+	private addDescriptor(descriptor: WidgetDescriptor) {
+		this.descriptors.push(
+			WidgetDescriptor.createWithId(
+				descriptor._id,
+				descriptor.widgetTypeName,
+				descriptor.column,
+				descriptor.row,
+				WindowState.FromValue(descriptor.windowState.value),
+				descriptor.parameters));
+	}
+
+	private drawBoard() {
+		this.columns = [
+			new WidgetColumn(0, []),
+			new WidgetColumn(1, []),
+			new WidgetColumn(2, [])];
+			console.log(this.columns);
+		for (let index in this.descriptors) {
+			const descriptor = this.descriptors[index];
+			this.orderDescriptor(descriptor);
+		}
+	}
+
 	public load(userId: number) {
 		this.widgetDescriptorService.getDescriptors().subscribe(descriptors => {
 			for (let index in descriptors) {
 				const descriptor = descriptors[index];
-
-				this.descriptors.push(
-					WidgetDescriptor.createWithId(
-						descriptor._id,
-						descriptor.widgetTypeName,
-						descriptor.column,
-						descriptor.row,
-						WindowState.FromValue(descriptor.windowState.value),
-						descriptor.parameters));
+				this.addDescriptor(descriptor);
 			}
 
-			for (let index in this.descriptors) {
-				const descriptor = this.descriptors[index];
-				this.orderDescriptor(descriptor);
-			}
+			this.drawBoard();
 		});
 
-	}
-
-	private addNewWidget():void{
-		alert("test");
 	}
 
 	private orderDescriptor(descriptor: WidgetDescriptor): void {

@@ -88,12 +88,13 @@ export class WidgetWrapperComponent {
 
 		this.compiler.compileModuleAndAllComponentsAsync(AppModule)
 			.then((moduleWithFactories) => {
-                const factory = moduleWithFactories.componentFactories.find(x => x.componentType === this.widgetDescriptorResolverService.Resolve(this.descriptor.widgetTypeName)); // Crucial: componentType.name, not componentType!!
+                const factory = moduleWithFactories.componentFactories.find(
+					x => x.componentType === this.widgetDescriptorResolverService.resolve(this.descriptor.widgetTypeName)); // Crucial: componentType.name, not componentType!!
                 this.cmpRef = (this.target as any).createComponent(factory)
                 this.instance = this.cmpRef.instance;
                 this.instance.setInitialWindowState(this.descriptor.windowState);
                 this.instance.windowStateController.windowStateSubject
-                .subscribe(state => this.onWindowStateChanged(state));
+					.subscribe(state => this.onWindowStateChanged(state));
             });
 	}
 

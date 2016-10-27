@@ -4,7 +4,7 @@ var ObjectId = mongojs.ObjectId;
 
 var removeDescriptors = function (descriptors) {
     for (var i in descriptors) {
-        //db.widgetDescriptors.remove({ _id: ObjectId(descriptors[i]._id) });
+        db.widgetDescriptors.remove({ _id: ObjectId(descriptors[i]._id) });
     }
 }
 var createDescriptors = function () {

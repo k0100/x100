@@ -9,6 +9,8 @@ import { DragulaModule  } from 'ng2-dragula/ng2-dragula'
 
 import { WidgetBoardComponent } from '../app/core/widgets/widget-board.component'
 import { WidgetWrapperComponent } from '../app/core/widgets/widget-wrapper.component'
+import { WidgetSelectorComponent } from '../app/core/widgets/widget-selector.component'
+
 
 import { ClockComponent } from '../app/widgets/clock/clock.component'
 import { EmptyComponent } from '../app/widgets/empty/empty.component'
@@ -31,6 +33,7 @@ import { TodoComponent } from '../app/widgets/todo/todo.component'
 
 		WidgetBoardComponent,
 		WidgetWrapperComponent,
+		WidgetSelectorComponent,
 
 		ClockComponent,
 		EmptyComponent,
