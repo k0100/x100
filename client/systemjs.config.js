@@ -21,7 +21,6 @@
         'rxjs': { main:'Rx.js', defaultExtension: 'js' },
         'dragula': { defaultExtension: "js" },
         'ng2-dragula': { defaultExtension: "js" },
-
     };
 
     var ngPackageNames = [

@@ -33,25 +33,23 @@ export class WidgetSelectorComponent {
 	}
 
 	private add(): void {
-		console.log(this.column);
-		// const column = this.column.index;
-		// let row = this.column.descriptors.length;
-		// console.log(this.column);
-		// for (let i in this.items) {
-		// 	const item = this.items[i];
-		// 	if (item.isSelected) {
-		// 		item.isSelected = false;
-		// 		const descriptor =
-		// 			new WidgetDescriptor(
-		// 				item.data.widget.name,
-		// 				column,
-		// 				row++,
-		// 				WindowState.Restored,
-		// 				[]);
-		// 		this.widgetDescriptorService.createDescriptor(descriptor).subscribe(x => {
-		// 			this.onWidgetsAdded.emit(descriptor);
-		// 		});
-		// 	}
-		// }
+		const column = this.column.index;
+		let row = this.column.descriptors.length;
+		for (let i in this.items) {
+			const item = this.items[i];
+			if (item.isSelected) {
+				item.isSelected = false;
+				const descriptor =
+					new WidgetDescriptor(
+						item.data.widget.name,
+						column,
+						row++,
+						WindowState.Restored,
+						[]);
+				this.widgetDescriptorService.createDescriptor(descriptor).subscribe(x => {
+					this.onWidgetsAdded.emit(descriptor);
+				});
+			}
+		}
 	}
 }

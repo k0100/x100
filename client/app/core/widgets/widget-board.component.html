@@ -4,13 +4,12 @@
 			<div *ngFor="let descriptor of col.descriptors;">
 				<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)"></widget-wrapper>
 			</div>
-			<a data-toggle="modal" data-target="#widgetSelector1"><span class="fa-stack fa-2x" style="color:rgb(212, 213, 218); display: table;
+			<a data-toggle="modal" [attr.data-target]="'#selector' + col.index"><span class="fa-stack fa-2x" style="color:rgb(212, 213, 218); display: table;
   margin: 0 auto;">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
             </span>
             </a>
-			{{col.index}}
 			<widget-selector (onWidgetsAdded)="onWidgetsAdded($event)" [column]="col"></widget-selector>
 		</div>
 	</div>
