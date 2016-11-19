@@ -6,13 +6,14 @@
 
     // map tells the System loader where to look for things
     var map = {
-        'app': 'app', // 'dist',
+        'app': '/app', // 'dist',
 
-        '@angular': 'node_modules/@angular',
+        '@angular': '/node_modules/@angular',
         //'@angular/router': 'node_modules/@angular/router/router.umd.js',
-        'rxjs': 'node_modules/rxjs',
-        'dragula': 'node_modules/dragula/dist/dragula.js',
-        'ng2-dragula': 'node_modules/ng2-dragula',
+        'rxjs': '/node_modules/rxjs',
+        'dragula': '/node_modules/dragula/dist/dragula.js',
+        'ng2-dragula': '/node_modules/ng2-dragula',
+        'ng2-toasty': '/node_modules/ng2-toasty'
     };
 
     // packages tells the System loader how to load when no filename and/or no extension
@@ -21,6 +22,7 @@
         'rxjs': { main:'Rx.js', defaultExtension: 'js' },
         'dragula': { defaultExtension: "js" },
         'ng2-dragula': { defaultExtension: "js" },
+        'ng2-toasty':  { main: 'index.js',  defaultExtension: 'js' },
     };
 
     var ngPackageNames = [

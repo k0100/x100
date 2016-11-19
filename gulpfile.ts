@@ -11,7 +11,8 @@ gulp.task("fonts", function() {
 });
  
 gulp.task("css", function() {
-    return gulp.src('./app/**/*.scss')
+    return gulp.src('./client/app/**/*.scss')
+	// return gulp.src(['./app/assets/vendor/toasty.css'])
 		.pipe(sass().on('error', sass.logError))
 		.pipe(concat('all.css'))
 		.pipe(gulp.dest('./css/'));

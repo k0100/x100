@@ -9,7 +9,7 @@ gulp.task("fonts", function () {
         .pipe(gulp.dest('./fonts/'));
 });
 gulp.task("css", function () {
-    return gulp.src('./app/**/*.scss')
+    return gulp.src('./client/app/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('all.css'))
         .pipe(gulp.dest('./css/'));

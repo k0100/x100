@@ -6,10 +6,15 @@ import { AppComponent }  from './app.component';
 import { routing }  from './app.routes';
 import { HomeComponent } from '../app/pages/home/home.component'
 import { DragulaModule  } from 'ng2-dragula/ng2-dragula'
+import { ToastyModule } from 'ng2-toasty';
+
 
 import { WidgetBoardComponent } from '../app/core/widgets/widget-board.component'
 import { WidgetWrapperComponent } from '../app/core/widgets/widget-wrapper.component'
 import { WidgetSelectorComponent } from '../app/core/widgets/widget-selector.component'
+
+import { SignUpComponent } from './pages/secure/signup.component';
+import { SignInComponent } from './pages/secure/signin.component';
 
 
 import { ClockComponent } from '../app/widgets/clock/clock.component'
@@ -25,11 +30,15 @@ import { TodoComponent } from '../app/widgets/todo/todo.component'
 		ReactiveFormsModule,
 		HttpModule,
 		DragulaModule,
-		routing
+		routing,
+		ToastyModule
 	],
 	declarations: [
 		AppComponent,
 		HomeComponent,
+		
+		SignUpComponent,
+		SignInComponent,
 
 		WidgetBoardComponent,
 		WidgetWrapperComponent,

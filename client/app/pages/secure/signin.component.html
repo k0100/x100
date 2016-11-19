@@ -1,0 +1,25 @@
+<div class="container animate">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Sign In</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form" (ngSubmit)="signIn(form)">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Sign In">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng2-toasty position="top-center"></ng2-toasty>
