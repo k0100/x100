@@ -7,6 +7,7 @@ var note = require('./server/widgets/note/note-widget');
 var secure = require('./server/secure/passport');
 var widgetDescriptor = require('./server/core/widgets/widget-descriptor');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
 var passport = require('passport');
 var path = require('path');
 
@@ -19,7 +20,7 @@ strategy(passport);
 
 var app = express()
 
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
