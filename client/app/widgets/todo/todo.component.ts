@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule  }from '@angular/forms';
-import {Task} from './task';
-import {WidgetBase} from '../../core/widgets/widget-base';
-import {TaskService} from './tasks.service';
+import { Task } from './task';
+import { WidgetBase } from '../../core/widgets/widget-base';
+import { TaskService } from './tasks.service';
 
 @Component({
 	selector: 'todo',

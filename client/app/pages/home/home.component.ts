@@ -1,7 +1,5 @@
 import { Component, ComponentRef, Input, ViewContainerRef, ViewChild, ComponentFactory} from '@angular/core'
 
-//import { WidgetDescriptor }  from '../../core/widgets/widget-descriptor';
-//import { WidgetParameter }  from '../../core/widgets/widget-parameter';
 import { WidgetBoardComponent }  from '../../core/widgets/widget-board.component';
 import { WindowState } from '../../core/widgets/window-state/window-state';
 
