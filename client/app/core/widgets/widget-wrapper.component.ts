@@ -1,8 +1,8 @@
-import {Component, ComponentRef, Input, Output, ViewContainerRef, Compiler, ViewChild, ComponentFactory, EventEmitter} from '@angular/core'
-import {WidgetBase} from './widget-base';
-import {WidgetDescriptor} from './widget-description/widget-descriptor';
-import {WindowStateBase} from './window-state/window-state-base';
-import {AppModule} from '../../app.module'
+import { Component, ComponentRef, Input, Output, ViewContainerRef, Compiler, ViewChild, ComponentFactory, EventEmitter } from '@angular/core'
+import { WidgetBase } from './widget-base';
+import { WidgetDescriptor } from './widget-description/widget-descriptor';
+import { WindowStateBase } from './window-state/window-state-base';
+import { AppModule } from '../../app.module'
 import { WidgetDescriptorResolverService } from './widget-description/widget-descriptor-resolver.service';
 
 @Component({
@@ -16,9 +16,10 @@ import { WidgetDescriptorResolverService } from './widget-description/widget-des
 			padding:0 4px 0 4px;
 			cursor: move;
 		}`,
-		`.block{
-			padding: 7px;
+		`.card-block {
+			padding: 5 20 5 20
 		}`
+
 	]
 })
 export class WidgetWrapperComponent {
@@ -88,14 +89,14 @@ export class WidgetWrapperComponent {
 
 		this.compiler.compileModuleAndAllComponentsAsync(AppModule)
 			.then((moduleWithFactories) => {
-                const factory = moduleWithFactories.componentFactories.find(
+				const factory = moduleWithFactories.componentFactories.find(
 					x => x.componentType === this.widgetDescriptorResolverService.resolve(this.descriptor.widgetTypeName)); // Crucial: componentType.name, not componentType!!
-                this.cmpRef = (this.target as any).createComponent(factory)
-                this.instance = this.cmpRef.instance;
-                this.instance.setInitialWindowState(this.descriptor.windowState);
-                this.instance.windowStateController.windowStateSubject
+				this.cmpRef = (this.target as any).createComponent(factory)
+				this.instance = this.cmpRef.instance;
+				this.instance.setInitialWindowState(this.descriptor.windowState);
+				this.instance.windowStateController.windowStateSubject
 					.subscribe(state => this.onWindowStateChanged(state));
-            });
+			});
 	}
 
 	ngOnChanges() {
