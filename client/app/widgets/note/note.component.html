@@ -7,7 +7,7 @@
 <div style="clear:both"></div>
 <ul style="overflow:auto; max-height:300px;" class="list-group">
 	<li *ngFor="let note of notes" href="#" class="list-group-item">
-		<span class="tag tag-default tag-pill pull-xs-right">
+		<span class="pull-xs-right">
 			<a class="pull-right" (click)="deleteNote(note)"><i class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
 		</span>
 		<h6 class="list-group-item-heading">{{ getNoteHeading(note) }}

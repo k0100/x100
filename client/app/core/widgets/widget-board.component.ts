@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Input, ViewContainerRef, Compiler, ViewChild, ComponentFactory} from '@angular/core'
+import { Component, ComponentRef, Input, ViewContainerRef, Compiler, ViewChild, ComponentFactory } from '@angular/core'
 import { WidgetDescriptor } from './widget-description/widget-descriptor';
 import { WidgetParameter } from './widget-description/widget-parameter';
 import { WidgetWrapperComponent } from '../../core/widgets/widget-wrapper.component';
@@ -62,6 +62,13 @@ export class WidgetBoardComponent {
 		this.drawBoard();
 	}
 
+	onWidgetRemoved(descriptor: WidgetDescriptor) {
+		const removedIndex = this.descriptors.indexOf(descriptor);
+		this.descriptors.splice(removedIndex, 1);
+		this.isExpanded = false;
+		this.drawBoard();
+	}
+
 	private addDescriptor(descriptor: WidgetDescriptor) {
 		this.descriptors.push(
 			WidgetDescriptor.createWithId(
@@ -78,7 +85,7 @@ export class WidgetBoardComponent {
 			new WidgetColumn(0, []),
 			new WidgetColumn(1, []),
 			new WidgetColumn(2, [])];
-			console.log(this.columns);
+
 		for (let index in this.descriptors) {
 			const descriptor = this.descriptors[index];
 			this.orderDescriptor(descriptor);

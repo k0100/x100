@@ -2,7 +2,7 @@
 	<div class="row" *ngIf="!isExpanded">
 		<div *ngFor="let col of columns;" class="col-md-4 container" [dragula]='"widgets"' [dragulaModel]='col.descriptors'>
 			<div *ngFor="let descriptor of col.descriptors;">
-				<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)"></widget-wrapper>
+				<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 			</div>
 			<a data-toggle="modal" [attr.data-target]="'#selector' + col.index"><span class="fa-stack fa-2x" style="color:rgb(212, 213, 218); display: table;
   margin: 0 auto;">
@@ -15,7 +15,7 @@
 	</div>
 	<div class="row" *ngIf="isExpanded">
 		<div class="col-md-12">
-			<widget-wrapper [descriptor]="expandedWidgetDescriptor" (onWindowStateChange)="onWindowStateChanged($event)"></widget-wrapper>
+			<widget-wrapper [descriptor]="expandedWidgetDescriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 		</div>
 	</div>
 </div>

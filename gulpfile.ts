@@ -10,13 +10,13 @@ var flatten = require('gulp-flatten');
 // 		.pipe(gulp.dest('./fonts/'));
 // });
  
-gulp.task("css", function() {
-    return gulp.src('./client/css/**/*.scss')
-	// return gulp.src(['./app/assets/vendor/toasty.css'])
-		.pipe(sass().on('error', sass.logError))
-		.pipe(concat('all.css'))
-		.pipe(gulp.dest('./css/'));
-});
+// gulp.task("css", function() {
+//     return gulp.src('./client/css/**/*.scss')
+// 	// return gulp.src(['./app/assets/vendor/toasty.css'])
+// 		.pipe(sass().on('error', sass.logError))
+// 		.pipe(concat('all.css'))
+// 		.pipe(gulp.dest('./css/'));
+// });
 
-gulp.task("build", ['css']);
+gulp.task("build", []);
  

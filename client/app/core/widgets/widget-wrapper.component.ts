@@ -1,6 +1,7 @@
 import { Component, ComponentRef, Input, Output, ViewContainerRef, Compiler, ViewChild, ComponentFactory, EventEmitter } from '@angular/core'
 import { WidgetBase } from './widget-base';
 import { WidgetDescriptor } from './widget-description/widget-descriptor';
+import { WidgetDescriptorService } from './widget-description/widget-descriptor.service';
 import { WindowStateBase } from './window-state/window-state-base';
 import { AppModule } from '../../app.module'
 import { WidgetDescriptorResolverService } from './widget-description/widget-descriptor-resolver.service';
@@ -8,7 +9,7 @@ import { WidgetDescriptorResolverService } from './widget-description/widget-des
 @Component({
 	selector: 'widget-wrapper',
 	templateUrl: './app/core/widgets/widget-wrapper.component.html',
-	providers: [WidgetDescriptorResolverService],
+	providers: [WidgetDescriptorResolverService, WidgetDescriptorService],
 	styles: [
 		`.title {
 			background-color:rgba(0,0,0,0.04);
@@ -27,13 +28,14 @@ export class WidgetWrapperComponent {
 
 	@Input() descriptor: WidgetDescriptor;
 	@Output() onWindowStateChange: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
+	@Output() onWidgetRemove: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
 	cmpRef: ComponentRef<WidgetBase>;
 	instance: WidgetBase;
 
 	private isViewInitialized: boolean = false;
 	private widgetClass: string;
 
-	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService) {
+	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService) {
 	}
 
 	canMinimize() {
@@ -99,6 +101,12 @@ export class WidgetWrapperComponent {
 			});
 	}
 
+	remove() {
+		this.widgetDescriptorService.deleteDescriptor(this.descriptor).subscribe(x => {
+			this.onWidgetRemove.emit(this.descriptor);
+		});
+	}
+
 	ngOnChanges() {
 		this.updateComponent();
 	}
@@ -113,4 +121,6 @@ export class WidgetWrapperComponent {
 			this.cmpRef.destroy();
 		}
 	}
+
+
 }

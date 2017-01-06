@@ -11,16 +11,19 @@ router.post('/', function (req, res, next) {
   var command = req.body.commandName;
   if (command == 'signup') {
     passport.authenticate('local-signup', function (error, user) {
+     
       if (error) {
         res.statusCode = 400;
         return res.json(error);
       }
       req.login(user, function (error) {
+        
         if (error) {
           res.statusCode = 400;
           return res.json(error);
         }
       });
+       console.log(user);
       res.json(user);
     })(req, res, next);
   }

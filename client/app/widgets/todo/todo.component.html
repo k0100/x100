@@ -18,7 +18,7 @@
     </form>
     <ul style="overflow:auto; max-height:300px;" class="list-group">
         <li *ngFor="let task of tasks" href="#" class="list-group-item"> 
-            <span class="tag tag-default tag-pill pull-xs-right"><a class="pull-right" (click)="deleteTask(task)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+            <span class="pull-xs-right"><a class="pull-right" (click)="deleteTask(task)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
 
             <h6 class="list-group-item-heading">{{ task.description }}<span class="pull-right"></span></h6>
         </li>
