@@ -27,12 +27,21 @@ app.use(bodyParser.urlencoded({
 
 }));
 
-app.use('/', express.static("./client"));
-app.use('/node_modules', express.static("./node_modules"));
+
 
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
+app.use(function (req, res, next) {
+  if (!req.user && req.path.startsWith('/api/') && !req.path.startsWith('/api/secure'))
+    res.json(401, 'Acccess Denied!');
+  else
+    next();
+});
+
+app.use('/', express.static("./client"));
+app.use('/node_modules', express.static("./node_modules"));
 
 app.use('/api/todo/', todo);
 app.use('/api/note/', note);
@@ -40,7 +49,6 @@ app.use('/api/core/widgets/widgetDescriptor/', widgetDescriptor);
 app.use('/api/secure/', secure);
 
 app.use(function (req, res) {
-  // Use res.sendfile, as it streams instead of reading the file into memory.
   res.sendFile(__dirname + '/client/index.html');
 });
 

@@ -23,7 +23,6 @@ router.post('/', function (req, res, next) {
           return res.json(error);
         }
       });
-       console.log(user);
       res.json(user);
     })(req, res, next);
   }
