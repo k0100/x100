@@ -35,7 +35,7 @@ app.use(passport.session()); // persistent login sessions
 
 app.use(function (req, res, next) {
   if (!req.user && req.path.startsWith('/api/') && !req.path.startsWith('/api/secure'))
-    res.json(401, 'Acccess Denied!');
+    res.status(401).json({ error: 'Acccess Denied!' });
   else
     next();
 });
@@ -51,10 +51,5 @@ app.use('/api/secure/', secure);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/client/index.html');
 });
-
-var myLogger = function (req, res, next) {
-  console.log('LOGGED');
-  next();
-};
 
 app.listen(3000)
