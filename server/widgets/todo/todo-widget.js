@@ -59,6 +59,24 @@ router.post('/', function (req, res, next) {
 				res.json(result);
 			});
 		}
+
+		if (command == 'toggle') {
+			var todo = req.body.data;
+
+			Todo.update({
+				_id: todo._id,
+				widgetId: widget._id,
+				userId: req.user._id,
+			}, {
+					$set: { isCompleted: todo.isCompleted }
+				}, function (err, result) {
+					if (err) {
+						res.send(err);
+					} else {
+						res.json(result);
+					}
+				});
+		}
 	});
 });
 module.exports = router;

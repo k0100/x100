@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var todoSchema = new Schema({
     description: String,
+    isCompleted: Boolean,
     widgetId: String,
     userId: String
 });

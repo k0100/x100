@@ -16,9 +16,9 @@ export class TodoService {
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
-	public createTodo(todo: Todo): Observable<Identity> {
+	public createTodo(todo: Todo): Observable<Todo> {
 		return this.http.post('/api/todo/', new ServerCommand("create", todo))
-			.map((res: Response) => res.json)
+			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
@@ -28,7 +28,21 @@ export class TodoService {
 				_id: todo._id,
 				widgetId: todo.widgetId
 			}))
-			.map((res: Response) => res.json)
+			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+	}
+
+	public toggleTodo(todo: Todo): Observable<Identity> {
+		return this.http.post('/api/todo/', new ServerCommand("toggle",
+			{
+				_id: todo._id,
+				widgetId: todo.widgetId,
+				isCompleted: todo.isCompleted
+			}))
+			.map((res: Response) => res.json())
+			.catch((error: any) => Observable.throw(error.json().error) || 'Server error'));
+
+
+
 	}
 }

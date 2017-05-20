@@ -27,10 +27,10 @@ export class TodoComponent extends WidgetBase {
 
 	public addNewTodo(form: FormGroup) {
 		if (form.valid) {
-			const todo = new Todo(this.id, this.newTodo.value);
+			const todo = new Todo(this.id, this.newTodo.value, false);
 			this.service.createTodo(todo)
 				.subscribe(result => {
-					this.todos.push(todo);
+					this.todos.push(result);
 					this.newTodo.setValue('');
 				});
 		}
@@ -41,6 +41,14 @@ export class TodoComponent extends WidgetBase {
 			.subscribe(result => {
 				const index = this.todos.indexOf(todo);
 				this.todos.splice(index, 1);
+			});
+	}
+
+	public toggleTodo(todo: Todo) {
+		todo.isCompleted = !todo.isCompleted;
+
+		this.service.toggleTodo(todo)
+			.subscribe(result => {
 			});
 	}
 

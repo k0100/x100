@@ -1,8 +1,8 @@
 <div *ngIf="isMinimized">
- <ul style="overflow:auto; max-height:300px;" class="list-group">
-        <li  class="list-group-item"> 
-    Total {{todos.length}}
-    </li>
+    <ul style="overflow:auto; max-height:300px;" class="list-group">
+        <li class="list-group-item">
+            Total {{todos.length}}
+        </li>
     </ul>
 </div>
 <div *ngIf="isRestored||isExpanded">
@@ -17,10 +17,15 @@
         </div>
     </form>
     <ul style="overflow:auto; max-height:300px;" class="list-group">
-        <li *ngFor="let todo of todos" href="#" class="list-group-item"> 
+        <li *ngFor="let todo of todos" href="#" class="list-group-item">
             <span class="pull-xs-right"><a class="pull-right" (click)="deleteTodo(todo)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
 
-            <h6 class="list-group-item-heading">{{ todo.description }}<span class="pull-right"></span></h6>
+            <h6 class="list-group-item-heading">
+                <i class="fa fa-lg fa-check" aria-hidden="true" *ngIf="todo.isCompleted"></i>
+                <i class="fa fa-lg fa-square-o" aria-hidden="true" *ngIf="!todo.isCompleted" (click)="toggleTodo(todo)"></i>                {{todo.description }}
+
+                <span class="pull-right">
+                    </span></h6>
         </li>
     </ul>
 </div>
