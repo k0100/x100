@@ -4,6 +4,7 @@ var WidgetDescriptor = require('./widget-descriptor-schema');
 
 router.post('/', function (req, res, next) {
     var command = req.body.commandName;
+
     if (command == 'list') {
         WidgetDescriptor.find({
             userId: req.user._id,
@@ -33,30 +34,36 @@ router.post('/', function (req, res, next) {
         });
     }
 
-    // if (command == 'delete') {
-    //     var descriptor = req.body.data;
+    if (command == 'delete') {
+        var descriptor = req.body.data;
 
-    //     db.widgetDescriptors.remove({ _id: ObjectId(descriptor._id) }, function (err, result) {
-    //         if (err) {
-    //             res.send(err);
-    //         } else {
-    //             res.json(result);
-    //         }
-    //     });
-    // }
+        WidgetDescriptor.remove({
+            _id: descriptor._id,
+            userId: req.user._id
+        }, function (err, result) {
+            if (err)
+                throw err;
+            res.json(result);
+        });
+    }
 
-    // if (command == 'reposition') {
-    //     var descriptor = req.body.data;
+    if (command == 'reposition') {
+        var descriptor = req.body.data;
 
-    //     db.widgetDescriptors.update({ _id: ObjectId(descriptor._id) },
-    //         { $set: { column: descriptor.column, row: descriptor.row } }, function (err, result) {
-    //             if (err) {
-    //                 res.send(err);
-    //             } else {
-    //                 res.json(result);
-    //             }
-    //         });
-    // }
+        WidgetDescriptor.update({
+            _id: descriptor._id,
+            userId: req.user._id
+        }, {
+            $set: { column: descriptor.column, row: descriptor.row }
+            }, function (err, result) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(result);
+                }
+            }
+        );
+    }
 });
 
 module.exports = router;

@@ -7,11 +7,11 @@ import { Identity } from '../../core/server/identity'
 
 @Injectable()
 export class NoteService {
-  constructor(private http: Http) {
+	constructor(private http: Http) {
 	}
 
-	public getNotes(): Observable<Note[]> {
-		return this.http.post('/api/note/', new ServerCommand("list", null))
+	public getNotes(widgetId: string): Observable<Note[]> {
+		return this.http.post('/api/note/', new ServerCommand("list", { widgetId: widgetId }))
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
@@ -24,7 +24,10 @@ export class NoteService {
 
 	public deleteNote(note: Note): Observable<Identity> {
 		return this.http.post('/api/note/', new ServerCommand("delete",
-			{ _id: note._id }))
+			{
+				_id: note._id,
+				widgetId: note.widgetId
+			}))
 			.map((res: Response) => res.json)
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}

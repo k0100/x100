@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WidgetBase } from '../widget-base';
-import { WidgetDescriptor }  from './widget-descriptor';
+import { WidgetDescriptor } from './widget-descriptor';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs'
 import { ServerCommand } from '../../../core/server/command'
@@ -16,9 +16,9 @@ export class WidgetDescriptorService {
 	constructor(private http: HttpService1) {
 	}
 
-	public createDescriptor(descriptor: WidgetDescriptor): Observable<Identity> {
+	public createDescriptor(descriptor: WidgetDescriptor): Observable<WidgetDescriptor> {
 		return this.http.post('/api/core/widgets/widgetDescriptor/', new ServerCommand("create", descriptor))
-			.map((res: Response) => res.json)
+			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 

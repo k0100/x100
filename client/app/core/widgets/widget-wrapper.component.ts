@@ -95,9 +95,11 @@ export class WidgetWrapperComponent {
 					x => x.componentType === this.widgetDescriptorResolverService.resolve(this.descriptor.widgetTypeName)); // Crucial: componentType.name, not componentType!!
 				this.cmpRef = (this.target as any).createComponent(factory)
 				this.instance = this.cmpRef.instance;
+				this.instance.id = this.descriptor._id;
 				this.instance.setInitialWindowState(this.descriptor.windowState);
 				this.instance.windowStateController.windowStateSubject
 					.subscribe(state => this.onWindowStateChanged(state));
+				this.instance.load();
 			});
 	}
 

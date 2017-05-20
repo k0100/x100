@@ -41,12 +41,19 @@ export class WidgetBoardComponent {
 		dragulaService.dropModel.subscribe((value: any[]) => {
 			for (let index in this.columns) {
 				const column = this.columns[index];
-				for (let descriptorIndex in column.descriptors) {
-					const descriptor = column.descriptors[descriptorIndex];
-					descriptor.column = column.index;
-					descriptor.row = parseInt(descriptorIndex);
 
-					this.widgetDescriptorService.updateDescriptor(descriptor).subscribe(x => { });
+				for (let descriptorIndex = 0; descriptorIndex < column.descriptors.length; descriptorIndex++) {
+					const descriptor = column.descriptors[descriptorIndex];
+					if (descriptor === undefined) {
+						column.descriptors.splice(descriptorIndex, 1);
+						descriptorIndex--;
+					}
+					else {
+						descriptor.column = column.index;
+						descriptor.row = descriptorIndex;
+
+						this.widgetDescriptorService.updateDescriptor(descriptor).subscribe(x => { });
+					}
 				}
 			}
 		});

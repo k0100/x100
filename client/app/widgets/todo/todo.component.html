@@ -1,14 +1,14 @@
 <div *ngIf="isMinimized">
  <ul style="overflow:auto; max-height:300px;" class="list-group">
         <li  class="list-group-item"> 
-    Total {{tasks.length}}
+    Total {{todos.length}}
     </li>
     </ul>
 </div>
 <div *ngIf="isRestored||isExpanded">
-    <form [formGroup]="form" (ngSubmit)="addNewTask(form)">
+    <form [formGroup]="form" (ngSubmit)="addNewTodo(form)">
         <div class="input-group">
-            <input type="text" class="form-control" formControlName="newTask" placeholder="New Task">
+            <input type="text" class="form-control" formControlName="newTodo" placeholder="New Todo">
             <span class="input-group-btn">
                 <button class="btn btn-secondary">
                     Add
@@ -17,10 +17,10 @@
         </div>
     </form>
     <ul style="overflow:auto; max-height:300px;" class="list-group">
-        <li *ngFor="let task of tasks" href="#" class="list-group-item"> 
-            <span class="pull-xs-right"><a class="pull-right" (click)="deleteTask(task)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+        <li *ngFor="let todo of todos" href="#" class="list-group-item"> 
+            <span class="pull-xs-right"><a class="pull-right" (click)="deleteTodo(todo)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
 
-            <h6 class="list-group-item-heading">{{ task.description }}<span class="pull-right"></span></h6>
+            <h6 class="list-group-item-heading">{{ todo.description }}<span class="pull-right"></span></h6>
         </li>
     </ul>
 </div>

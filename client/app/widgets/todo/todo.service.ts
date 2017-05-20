@@ -1,30 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs'
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Task } from './task';
+import { Todo } from './todo';
 import { ServerCommand } from '../../core/server/command'
 import { Identity } from '../../core/server/identity'
 
 @Injectable()
-export class TaskService {
+export class TodoService {
 	constructor(private http: Http) {
 	}
 
-	public getTasks(): Observable<Task[]> {
-		return this.http.post('/api/todo/', new ServerCommand("list", null))
+	public getTodos(widgetId: string): Observable<Todo[]> {
+		return this.http.post('/api/todo/', new ServerCommand("list", { widgetId: widgetId }))
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
-	public createTask(task: Task): Observable<Identity> {
-		return this.http.post('/api/todo/', new ServerCommand("create", task))
+	public createTodo(todo: Todo): Observable<Identity> {
+		return this.http.post('/api/todo/', new ServerCommand("create", todo))
 			.map((res: Response) => res.json)
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
-	public deleteTask(task: Task): Observable<Identity> {
+	public deleteTodo(todo: Todo): Observable<Identity> {
 		return this.http.post('/api/todo/', new ServerCommand("delete",
-			{ _id: task._id }))
+			{
+				_id: todo._id,
+				widgetId: todo.widgetId
+			}))
 			.map((res: Response) => res.json)
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}

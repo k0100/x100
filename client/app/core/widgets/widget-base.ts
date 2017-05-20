@@ -1,8 +1,9 @@
-import {WindowStateBase} from './window-state/window-state-base';
-import {WindowState} from './window-state/window-state';
-import {WindowStateController} from './window-state/window-state-controller';
+import { WindowStateBase } from './window-state/window-state-base';
+import { WindowState } from './window-state/window-state';
+import { WindowStateController } from './window-state/window-state-controller';
 
 export class WidgetBase {
+	public id: string;
 	public columns: number = 1;
 	public rows: number = 1;
 	public windowStateController: WindowStateController
@@ -12,11 +13,11 @@ export class WidgetBase {
 
 	constructor() {
 		let initialWindowState = WindowState.Restored;
-		
+
 		this.updateStateFlags(initialWindowState);
 
 		this.windowStateController = new WindowStateController(initialWindowState);
-		
+
 		this.windowStateController.windowStateObservable.subscribe(state => this.onWindowStateChanged(state));
 	}
 
@@ -35,4 +36,6 @@ export class WidgetBase {
 		this.isExpanded = state == WindowState.Expanded;
 	}
 
+	public load(): void {
+	}
 }

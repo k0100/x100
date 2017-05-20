@@ -4,8 +4,8 @@ import { WindowStateBase } from '../window-state/window-state-base';
 import { WindowState } from '../window-state/window-state';
 
 export class WidgetDescriptor {
-	public _id: string;
 	constructor(
+		public _id:string,
 		public widgetTypeName: string,
 		public column: number,
 		public row: number,
@@ -20,12 +20,12 @@ export class WidgetDescriptor {
 		parameters: WidgetParameter[]): WidgetDescriptor {
 
 		let descriptor = new WidgetDescriptor(
+			id,
 			widgetTypeName,
 			column,
 			row,
 			WindowState.FromValue(windowState.value),
 			parameters)
-		descriptor._id = id;
 
 		return descriptor;
 	}
