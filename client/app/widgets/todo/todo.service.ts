@@ -40,7 +40,7 @@ export class TodoService {
 				isCompleted: todo.isCompleted
 			}))
 			.map((res: Response) => res.json())
-			.catch((error: any) => Observable.throw(error.json().error) || 'Server error'));
+			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
 
 
