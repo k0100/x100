@@ -103,6 +103,11 @@ export class WidgetWrapperComponent {
 			});
 	}
 
+	menuClick(event:any){
+		console.log(event.target);
+		event.stopPropagation();
+	}
+
 	remove() {
 		this.widgetDescriptorService.deleteDescriptor(this.descriptor).subscribe(x => {
 			this.onWidgetRemove.emit(this.descriptor);
