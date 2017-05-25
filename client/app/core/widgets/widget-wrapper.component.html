@@ -1,30 +1,31 @@
 <article class="card" style="overflow:inherit;">
-<div class="card-block block">
-    <div class="row title">
-        <a href="#" *ngIf="!(instance&&instance.isMinimized)">
-            <div class="dropdown">
-                <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
-                <div class="dropdown-menu">
-                    <!--<a class="dropdown-item" href="#">Color</a>
+    <div class="card-block block">
+        <div class="row title">
+            <a href="#" *ngIf="!(instance&&instance.isMinimized)">
+                <div class="dropdown">
+                    <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
+                    <div class="dropdown-menu">
+                        <!--
                     <div class="dropdown-divider"></div>-->
-                    <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
+                        <a><input [(colorPicker)]="color" [style.background]="color" [value]="color"/></a>
+                        <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="#" *ngIf="canExpand()" (click)="expand()">
+            </a>
+            <a href="#" *ngIf="canExpand()" (click)="expand()">
             <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
         </a>
-        <a href="#" *ngIf="canRestore()" (click)="restore()">
+            <a href="#" *ngIf="canRestore()" (click)="restore()">
             <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore"></i>
         </a>
-        <a href="#" *ngIf="canMinimize()" (click)="minimize()">
+            <a href="#" *ngIf="canMinimize()" (click)="minimize()">
             <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize"></i>
         </a>
+        </div>
+        <div class="row">
+            <div #target></div>
+        </div>
     </div>
-    <div class="row">
-        <div #target></div>
-    </div>
-</div>
 
 
 </article>

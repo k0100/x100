@@ -7,7 +7,7 @@ import { routing } from './app.routes';
 import { HomeComponent } from '../app/pages/home/home.component'
 import { DragulaModule } from 'ng2-dragula/ng2-dragula'
 import { ToastyModule } from 'ng2-toasty';
-
+import { ColorPickerModule } from 'angular2-color-picker';
 
 import { WidgetBoardComponent } from '../app/core/widgets/widget-board.component'
 import { WidgetWrapperComponent } from '../app/core/widgets/widget-wrapper.component'
@@ -25,6 +25,7 @@ import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
 
 
+
 @NgModule({
 	imports: [
 		BrowserModule,
@@ -33,7 +34,8 @@ import { Router } from "@angular/router";
 		HttpModule,
 		DragulaModule,
 		routing,
-		ToastyModule
+		ToastyModule,
+		ColorPickerModule
 	],
 	providers: [
 		{
