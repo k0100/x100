@@ -6,6 +6,8 @@ import { WindowStateBase } from './window-state/window-state-base';
 import { AppModule } from '../../app.module'
 import { WidgetDescriptorResolverService } from './widget-description/widget-descriptor-resolver.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { HEX } from '../color/hex';
+import { RGB } from '../color/rgb';
 
 @Component({
 	selector: 'widget-wrapper',
@@ -33,12 +35,14 @@ export class WidgetWrapperComponent {
 	@Output() onWidgetRemove: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
 	cmpRef: ComponentRef<WidgetBase>;
 	instance: WidgetBase;
-	color: string = "#fff";
-	background: SafeStyle;
+	color: string = "#f5f9ff";
 	isColorPickerInit: boolean = false;
 
 	private isViewInitialized: boolean = false;
 	private widgetClass: string;
+	
+	private backgroundStyle: SafeStyle;
+	private controlsBackgroundColor: string;
 
 	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService, private domSanitizer: DomSanitizer) {
 
@@ -137,25 +141,6 @@ export class WidgetWrapperComponent {
 		}
 	}
 
-	convertHexToRGBA(hex: string, opacity?: number): string {
-		opacity = opacity || 1;
-
-		opacity < 0 ? opacity = 0 : opacity = opacity;
-		opacity > 1 ? opacity = 1 : opacity = opacity;
-
-		hex = hex.replace('#', '');
-
-		let r = parseInt(hex.substring(0, 2), 16);
-		let g = parseInt(hex.substring(2, 4), 16);
-		let b = parseInt(hex.substring(4, 6), 16);
-
-		return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
-
-	}
-	convertRGBAToRgb(rgba:string){
-		
-	}
-
 	onChangeColor($event: any) {
 		if (this.isColorPickerInit) {
 			this.setBackground(this.color);
@@ -177,13 +162,26 @@ export class WidgetWrapperComponent {
 		if (color === undefined)
 			return;
 
-		let rgba: string = (color.startsWith('#')) ? this.ConvertHexToRGBA(color, 0.5) : color;
-		let rgb: string = (color.startsWith('#')) ? this.ConvertHexToRGBA(color, 1) : color;
+		let rgbColor: RGB;
 
-		//rgba: rgba(255,0,0,0.7)
-		var gradient = "linear-gradient(rgba(0, 0, 0, 0), " + rgba + ")";
+		if(color.startsWith("#"))
+		{
+			let hex = new HEX(color);
+			rgbColor = hex.toRGB();
+		}
+		else if(color.startsWith("rgba("))
+		{
+			var rgb = color.replace(/^rgba?\(|\s+|\)$/g,'').split(',');
 
-		this.background = this.domSanitizer.bypassSecurityTrustStyle(gradient);
+			rgbColor = new RGB(parseFloat(rgb[0]),parseFloat(rgb[1]),parseFloat(rgb[2]));
+			rgbColor.setAlpha(parseFloat(rgb[3]));
+		}
+		let rgbGradient = rgbColor.toString();
+		let rgbControls = rgbColor.darken(100).setAlpha(1).toString();
+		
+		var gradient = "linear-gradient(rgba(0, 0, 0, 0), " + rgbGradient + ")";
+
+		this.controlsBackgroundColor = rgbControls; 
+		this.backgroundStyle = this.domSanitizer.bypassSecurityTrustStyle(gradient);
 	}
-
 }

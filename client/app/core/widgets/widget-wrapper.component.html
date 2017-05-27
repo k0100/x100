@@ -1,8 +1,8 @@
 <article class="card" style="overflow:inherit;">
-    <div class="card-block block" [style.background-image]="background">
+    <div class="card-block block" [style.background-image]="backgroundStyle">
 
         <div class="row title">
-            <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.color">
+            <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.controlsBackgroundColor">
                 <div class="dropdown">
                     <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
                     <div class="dropdown-menu" (click)="menuClick($event)">
@@ -10,7 +10,7 @@
                     <div class="dropdown-divider"></div>-->
 
                         <div class="group-control">
-                            <input [(colorPicker)]="color" [style.background]="this.color" [cpPositionRelativeToArrow]="true" (cpToggleChange)="onSetColor($event)"
+                            <input [(colorPicker)]="color" [style.background]="this.color" [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled" [cpPositionRelativeToArrow]="true" (cpToggleChange)="onSetColor($event)"
                                 (colorPickerChange)="onChangeColor($event)" [value]="color" class="form-control" />
                         </div>
 
@@ -18,14 +18,14 @@
                     </div>
                 </div>
             </span>
-            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.color">
+            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor">
             <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
         </a>
             <a href="#" *ngIf="canRestore()" (click)="restore()">
-            <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.color"></i>
+            <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
         </a>
             <a href="#" *ngIf="canMinimize()" (click)="minimize()">
-            <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.color"></i>
+            <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
         </a>
         </div>
         <div class="row">
