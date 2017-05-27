@@ -9,6 +9,7 @@ export class WidgetDescriptor {
 		public widgetTypeName: string,
 		public column: number,
 		public row: number,
+		public background: string,
 		public windowState: WindowStateBase,
 		public parameters: WidgetParameter[]) { }
 
@@ -16,6 +17,7 @@ export class WidgetDescriptor {
 		widgetTypeName: string,
 		column: number,
 		row: number,
+		background: string,
 		windowState: WindowStateBase,
 		parameters: WidgetParameter[]): WidgetDescriptor {
 
@@ -24,6 +26,7 @@ export class WidgetDescriptor {
 			widgetTypeName,
 			column,
 			row,
+			background,
 			WindowState.FromValue(windowState.value),
 			parameters)
 

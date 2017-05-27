@@ -6,6 +6,7 @@ export class WidgetBase {
 	public id: string;
 	public columns: number = 1;
 	public rows: number = 1;
+	public background: string;
 	public windowStateController: WindowStateController
 	public isMinimized: boolean;
 	public isRestored: boolean;

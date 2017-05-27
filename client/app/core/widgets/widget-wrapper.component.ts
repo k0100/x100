@@ -5,6 +5,7 @@ import { WidgetDescriptorService } from './widget-description/widget-descriptor.
 import { WindowStateBase } from './window-state/window-state-base';
 import { AppModule } from '../../app.module'
 import { WidgetDescriptorResolverService } from './widget-description/widget-descriptor-resolver.service';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
 	selector: 'widget-wrapper',
@@ -24,6 +25,7 @@ import { WidgetDescriptorResolverService } from './widget-description/widget-des
 	]
 })
 export class WidgetWrapperComponent {
+
 	@ViewChild('target', { read: ViewContainerRef }) target: WidgetBase;
 
 	@Input() descriptor: WidgetDescriptor;
@@ -31,11 +33,15 @@ export class WidgetWrapperComponent {
 	@Output() onWidgetRemove: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
 	cmpRef: ComponentRef<WidgetBase>;
 	instance: WidgetBase;
+	color: string = "#fff";
+	background: SafeStyle;
+	isColorPickerInit: boolean = false;
 
 	private isViewInitialized: boolean = false;
 	private widgetClass: string;
 
-	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService) {
+	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService, private domSanitizer: DomSanitizer) {
+
 	}
 
 	canMinimize() {
@@ -97,14 +103,16 @@ export class WidgetWrapperComponent {
 				this.instance = this.cmpRef.instance;
 				this.instance.id = this.descriptor._id;
 				this.instance.setInitialWindowState(this.descriptor.windowState);
+				this.instance.background = this.descriptor.background;
+				this.setBackground(this.descriptor.background);
 				this.instance.windowStateController.windowStateSubject
 					.subscribe(state => this.onWindowStateChanged(state));
 				this.instance.load();
 			});
 	}
 
-	menuClick(event:any){
-		console.log(event.target);
+	menuClick(event: any) {
+		//console.log(event.target);
 		event.stopPropagation();
 	}
 
@@ -129,5 +137,53 @@ export class WidgetWrapperComponent {
 		}
 	}
 
+	convertHexToRGBA(hex: string, opacity?: number): string {
+		opacity = opacity || 1;
+
+		opacity < 0 ? opacity = 0 : opacity = opacity;
+		opacity > 1 ? opacity = 1 : opacity = opacity;
+
+		hex = hex.replace('#', '');
+
+		let r = parseInt(hex.substring(0, 2), 16);
+		let g = parseInt(hex.substring(2, 4), 16);
+		let b = parseInt(hex.substring(4, 6), 16);
+
+		return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
+
+	}
+	convertRGBAToRgb(rgba:string){
+		
+	}
+
+	onChangeColor($event: any) {
+		if (this.isColorPickerInit) {
+			this.setBackground(this.color);
+
+		} else {
+			this.isColorPickerInit = true;
+			this.color = this.descriptor.background;
+		}
+	}
+
+	onSetColor($event: any) {
+		if (this.color != this.descriptor.background) {
+			this.descriptor.background = this.color;
+			this.widgetDescriptorService.setBackground(this.descriptor).subscribe(x => { });
+		}
+	}
+
+	setBackground(color: string): SafeStyle {
+		if (color === undefined)
+			return;
+
+		let rgba: string = (color.startsWith('#')) ? this.ConvertHexToRGBA(color, 0.5) : color;
+		let rgb: string = (color.startsWith('#')) ? this.ConvertHexToRGBA(color, 1) : color;
+
+		//rgba: rgba(255,0,0,0.7)
+		var gradient = "linear-gradient(rgba(0, 0, 0, 0), " + rgba + ")";
+
+		this.background = this.domSanitizer.bypassSecurityTrustStyle(gradient);
+	}
 
 }

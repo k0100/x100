@@ -83,6 +83,7 @@ export class WidgetBoardComponent {
 				descriptor.widgetTypeName,
 				descriptor.column,
 				descriptor.row,
+				descriptor.background,
 				WindowState.FromValue(descriptor.windowState.value),
 				descriptor.parameters));
 	}

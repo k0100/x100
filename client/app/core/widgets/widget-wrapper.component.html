@@ -1,34 +1,33 @@
 <article class="card" style="overflow:inherit;">
-    <div class="card-block block">
-        
+    <div class="card-block block" [style.background-image]="background">
+
         <div class="row title">
-            <a href="#" *ngIf="!(instance&&instance.isMinimized)">
+            <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.color">
                 <div class="dropdown">
                     <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
                     <div class="dropdown-menu" (click)="menuClick($event)">
                         <!--
                     <div class="dropdown-divider"></div>-->
-                        <a> 
+
                         <div class="group-control">
-                            <input [(colorPicker)]="color" [value]="color" class="form-control"/>
+                            <input [(colorPicker)]="color" [style.background]="this.color" [cpPositionRelativeToArrow]="true" (cpToggleChange)="onSetColor($event)"
+                                (colorPickerChange)="onChangeColor($event)" [value]="color" class="form-control" />
                         </div>
-                        </a>
+
                         <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
-                        <a class="dropdown-item" href="#">Other</a>
                     </div>
                 </div>
-            </a>
-            <a href="#" *ngIf="canExpand()" (click)="expand()">
+            </span>
+            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.color">
             <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
         </a>
             <a href="#" *ngIf="canRestore()" (click)="restore()">
-            <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore"></i>
+            <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.color"></i>
         </a>
             <a href="#" *ngIf="canMinimize()" (click)="minimize()">
-            <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize"></i>
+            <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.color"></i>
         </a>
         </div>
-        <div class="row title" [style.background]="color" [style.height]="'3px'"></div>
         <div class="row">
             <div #target></div>
         </div>

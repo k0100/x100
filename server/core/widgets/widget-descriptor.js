@@ -23,6 +23,7 @@ router.post('/', function (req, res, next) {
             widgetTypeName: descriptor.widgetTypeName,
             row: descriptor.row,
             column: descriptor.column,
+            background: descriptor.background,
             windowState: descriptor.windowState,
             parameters: descriptor.parameters
         });
@@ -55,6 +56,24 @@ router.post('/', function (req, res, next) {
             userId: req.user._id
         }, {
             $set: { column: descriptor.column, row: descriptor.row }
+            }, function (err, result) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(result);
+                }
+            }
+        );
+    }
+
+    if (command == 'setBackground') {
+        var descriptor = req.body.data;
+
+        WidgetDescriptor.update({
+            _id: descriptor._id,
+            userId: req.user._id
+        }, {
+            $set: { background: descriptor.background }
             }, function (err, result) {
                 if (err) {
                     res.send(err);

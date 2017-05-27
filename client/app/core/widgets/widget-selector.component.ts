@@ -46,6 +46,7 @@ export class WidgetSelectorComponent {
 						item.data.widget.name,
 						column,
 						row++,
+						"#6db1f5",
 						WindowState.Restored,
 						[]);
 				this.widgetDescriptorService.createDescriptor(descriptor)

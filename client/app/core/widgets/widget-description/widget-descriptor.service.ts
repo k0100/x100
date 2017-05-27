@@ -37,7 +37,14 @@ export class WidgetDescriptorService {
 
 	public updateDescriptor(descriptor: WidgetDescriptor): Observable<Identity> {
 		return this.http.post('/api/core/widgets/widgetDescriptor/', new ServerCommand("reposition",
-			descriptor))
+			{ _id: descriptor._id, column: descriptor.column, row: descriptor.row }))
+			.map((res: Response) => res.json())
+			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+	}
+
+	public setBackground(descriptor: WidgetDescriptor): Observable<Identity> {
+		return this.http.post('/api/core/widgets/widgetDescriptor/', new ServerCommand("setBackground",
+			{ _id: descriptor._id, background: descriptor.background }))
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
