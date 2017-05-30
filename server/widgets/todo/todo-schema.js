@@ -4,8 +4,7 @@ var Schema = mongoose.Schema;
 var todoSchema = new Schema({
     description: String,
     isCompleted: Boolean,
-    widgetId: String,
-    userId: String
+    widgetId: String
 });
 
 var schema = mongoose.model('TodoSchema', todoSchema);

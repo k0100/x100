@@ -17,12 +17,23 @@ router.post('/', function (req, res, next) {
 		return;
 	}
 
-	var widget = WidgetDescriptor.findById(widgetId).exec();
-	widget.then(function (widget) {
+	var widget = WidgetDescriptor.find(
+		{
+			_id: widgetId,
+			userId: req.user._id
+		}).exec();
+		
+	widget.then(function (found) {
+		if (found.length !== 1) {
+			res.json(400, { error: 'Bad Widget' });
+			return;
+		}
+		
+		let widget = found[0];
+
 		if (command == 'list') {
 			Todo.find({
-				widgetId: widget._id,
-				userId: req.user._id
+				widgetId: widget._id
 			}, function (err, result) {
 				if (err)
 					throw err;
@@ -32,7 +43,6 @@ router.post('/', function (req, res, next) {
 
 		if (command == 'create') {
 			var todo = req.body.data;
-
 			var newTodo = new Todo({
 				description: todo.description,
 				widgetId: widget._id,
@@ -51,8 +61,7 @@ router.post('/', function (req, res, next) {
 
 			Todo.remove({
 				_id: todo._id,
-				widgetId: widget._id,
-				userId: req.user._id,
+				widgetId: widget._id
 			}, function (err, result) {
 				if (err)
 					throw err;
@@ -65,8 +74,7 @@ router.post('/', function (req, res, next) {
 
 			Todo.update({
 				_id: todo._id,
-				widgetId: widget._id,
-				userId: req.user._id,
+				widgetId: widget._id
 			}, {
 					$set: { isCompleted: todo.isCompleted }
 				}, function (err, result) {
