@@ -2,6 +2,17 @@ var gulp = require("gulp");
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var flatten = require('gulp-flatten');
+var config = {
+    bootstrapDir: './node_modules/bootstrap/scss',
+    publicDir: './client',
+};
+gulp.task('css', function () {
+    return gulp.src('./client/scss/app.scss')
+        .pipe(sass({
+        includePaths: [config.bootstrapDir + ''],
+    }))
+        .pipe(gulp.dest(config.publicDir + '/css'));
+});
 // gulp.task("fonts", function() {
 // 	console.log('a');
 //     return gulp.src('./client/app/**/*.{eot,svg,ttf,woff,woff2,otf}')
@@ -15,5 +26,5 @@ var flatten = require('gulp-flatten');
 // 		.pipe(concat('all.css'))
 // 		.pipe(gulp.dest('./css/'));
 // });
-gulp.task("build", []);
+gulp.task("build", ["css"]);
 //# sourceMappingURL=gulpfile.js.map

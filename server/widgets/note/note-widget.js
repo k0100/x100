@@ -17,19 +17,19 @@ router.post('/', function (req, res, next) {
 		return;
 	}
 
-	var widget = WidgetDescriptor.find(
+	var widgetQuery = WidgetDescriptor.find(
 		{
 			_id: widgetId,
 			userId: req.user._id
 		}).exec();
 		
-	widget.then(function (found) {
+	widgetQuery.then(function (found) {
 		if (found.length !== 1) {
 			res.json(400, { error: 'Bad Widget' });
 			return;
 		}
 
-		let widget = found[0];
+		const widget = found[0];
 
 		if (command == 'list') {
 			Note.find({

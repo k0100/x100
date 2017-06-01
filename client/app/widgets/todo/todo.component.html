@@ -1,22 +1,13 @@
 <div *ngIf="isMinimized">
-    <ul style="overflow:auto; max-height:300px;" class="list-group">
+    <ul style="overflow:auto; max-height:700px;" class="list-group">
         <li class="list-group-item">
             Total {{todos.length}}
         </li>
     </ul>
 </div>
 <div *ngIf="isRestored||isExpanded">
-    <form [formGroup]="form" (ngSubmit)="addNewTodo(form)">
-        <div class="input-group">
-            <input type="text" class="form-control" formControlName="newTodo" placeholder="New Todo">
-            <span class="input-group-btn">
-                <button class="btn btn-secondary">
-                    Add
-                </button>
-        </span>
-        </div>
-    </form>
-    <ul style="overflow:auto; max-height:300px;" class="list-group">
+    
+    <ul style="overflow:auto; max-height:700px;" class="list-group">
         <li *ngFor="let todo of todos" href="#" class="list-group-item">
             <span class="pull-xs-right"><a class="pull-right" (click)="deleteTodo(todo)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
 
@@ -28,4 +19,14 @@
                     </span></h6>
         </li>
     </ul>
+    <form [formGroup]="form" (ngSubmit)="addNewTodo(form)">
+        <div class="input-group">
+            <input type="text" class="form-control" formControlName="newTodo" placeholder="New Todo">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary">
+                    Add
+                </button>
+        </span>
+        </div>
+    </form>
 </div>
