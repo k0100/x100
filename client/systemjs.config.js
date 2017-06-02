@@ -14,9 +14,8 @@
         'dragula': '/node_modules/dragula/dist/dragula.js',
         'ng2-dragula': '/node_modules/ng2-dragula',
         'ng2-toasty': '/node_modules/ng2-toasty/bundles/index.umd.js',
-        'angular2-color-picker': '/node_modules/angular2-color-picker'
-
-        
+        'angular2-color-picker': '/node_modules/angular2-color-picker',
+        'ng2-dnd': '/node_modules/ng2-dnd/bundles/index.umd.js'
     };
 
     // packages tells the System loader how to load when no filename and/or no extension

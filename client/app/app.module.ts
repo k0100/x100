@@ -23,8 +23,7 @@ import { NoteComponent } from '../app/widgets/note/note.component'
 import { TodoComponent } from '../app/widgets/todo/todo.component'
 import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
-
-
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
 	imports: [
@@ -35,7 +34,8 @@ import { Router } from "@angular/router";
 		DragulaModule,
 		routing,
 		ToastyModule,
-		ColorPickerModule
+		ColorPickerModule,
+		DndModule.forRoot()
 	],
 	providers: [
 		{
