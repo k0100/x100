@@ -1,12 +1,12 @@
 <div style="margin:15px">
-	<div class="row" *ngIf="!isExpanded" dnd-sortable-container>
+	<div class="row" *ngIf="!isExpanded">
 		<div *ngFor="let col of columns;" class="col-md-4 container">
 			<div [dragula]='"widgets"' [dragulaModel]='col.descriptors' style="min-height: 50px;">
 				<div *ngFor="let descriptor of col.descriptors;">
 					<widget-wrapper [descriptor]="descriptor" 
 					(onWindowStateChange)="onWindowStateChanged($event)" 
 					(onWidgetRemove)="onWidgetRemoved($event)"
-					dnd-droppable dnd-draggable [dragEnabled]="true" (onDropSuccess)="simpleDrop=$event"></widget-wrapper>
+					></widget-wrapper>
 				</div>
 			</div>
 			<div class="ignore-item">
