@@ -7,9 +7,8 @@
 </div>
 <div *ngIf="isRestored||isExpanded">
     
-    <ul style="overflow:auto; max-height:700px;" class="list-group" dnd-sortable-container [sortableData]="todos">
-        <li *ngFor="let todo of todos; let x = index" href="#" class="list-group-item"
-        dnd-sortable [sortableIndex]="x">
+    <ul style="overflow:auto; max-height:700px;" class="list-group">
+        <li *ngFor="let todo of todos; let x = index" href="#" class="list-group-item">
             <span class="pull-xs-right"><a class="pull-right" (click)="deleteTodo(todo)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
 
             <h6 class="list-group-item-heading">

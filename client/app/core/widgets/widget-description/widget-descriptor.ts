@@ -11,7 +11,8 @@ export class WidgetDescriptor {
 		public row: number,
 		public background: string,
 		public windowState: WindowStateBase,
-		public parameters: WidgetParameter[]) { }
+		public parameters: WidgetParameter[],
+		public relations: string[]) { }
 
 	public static createWithId(id: string,
 		widgetTypeName: string,
