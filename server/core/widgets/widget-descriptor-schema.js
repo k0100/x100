@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var widgetDescriptorSchema = new Schema({
     userId: String,
     widgetTypeName: String,
+    title: String,
     column: Number,
     row: Number,
     background: String,

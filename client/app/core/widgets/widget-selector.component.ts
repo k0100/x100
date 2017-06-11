@@ -44,6 +44,7 @@ export class WidgetSelectorComponent {
 					new WidgetDescriptor(
 						"",
 						item.data.widget.name,
+						"",
 						column,
 						row++,
 						"#f5f9ff",

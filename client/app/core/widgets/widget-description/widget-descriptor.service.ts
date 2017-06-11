@@ -49,4 +49,11 @@ export class WidgetDescriptorService {
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
+	public setTitle(descriptor: WidgetDescriptor): Observable<Identity> {
+		return this.http.post('/api/core/widgets/widgetDescriptor/', new ServerCommand("setTitle",
+			{ _id: descriptor._id, title: descriptor.title }))
+			.map((res: Response) => res.json())
+			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+	}
+
 }

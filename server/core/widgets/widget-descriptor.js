@@ -83,6 +83,24 @@ router.post('/', function (req, res, next) {
             }
         );
     }
+
+    if (command == 'setTitle') {
+        var descriptor = req.body.data;
+
+        WidgetDescriptor.update({
+            _id: descriptor._id,
+            userId: req.user._id
+        }, {
+            $set: { title: descriptor.title }
+            }, function (err, result) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(result);
+                }
+            }
+        );
+    }
 });
 
 module.exports = router;

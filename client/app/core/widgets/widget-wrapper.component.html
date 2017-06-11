@@ -1,7 +1,7 @@
 <article class="card" style="overflow:inherit;">
     <div class="card-block block" [style.background-image]="backgroundStyle">
 
-        <div class="row title">
+        <div class="row title drag-handle">
             <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.controlsBackgroundColor">
                 <div class="dropdown">
                     <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
@@ -19,16 +19,16 @@
                 </div>
             </span>
             <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor">
-            <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
-            
-        </a>
+                <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
+            </a>
             <a href="#" *ngIf="canRestore()" (click)="restore()">
-            <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
-        </a>
+                <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
+            </a>
             <a href="#" *ngIf="canMinimize()" (click)="minimize()">
-            <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
-        </a>
-         <inline-editor type="text" [(ngModel)]="title" (onSave)="saveEditable($event)" name="title" size="8"></inline-editor>
+                <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
+            </a>
+            <b>
+            <inline-editor class="drag-handle" type="text" [(ngModel)]="title" (onSave)="setTitle($event)" name="title" size="8" [style.color]="this.controlsBackgroundColor" empty="(enter name)"></inline-editor></b>
         </div>
         <div class="row">
             <div #target></div>

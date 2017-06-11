@@ -7,6 +7,7 @@ export class WidgetDescriptor {
 	constructor(
 		public _id:string,
 		public widgetTypeName: string,
+		public title: string,
 		public column: number,
 		public row: number,
 		public background: string,
@@ -16,6 +17,7 @@ export class WidgetDescriptor {
 
 	public static createWithId(id: string,
 		widgetTypeName: string,
+		title: string,
 		column: number,
 		row: number,
 		background: string,
@@ -26,6 +28,7 @@ export class WidgetDescriptor {
 		let descriptor = new WidgetDescriptor(
 			id,
 			widgetTypeName,
+			title,
 			column,
 			row,
 			background,

@@ -36,11 +36,12 @@ export class WidgetWrapperComponent {
 	cmpRef: ComponentRef<WidgetBase>;
 	instance: WidgetBase;
 	color: string = "#f5f9ff";
+	title: string = "";
 	isColorPickerInit: boolean = false;
 
 	private isViewInitialized: boolean = false;
 	private widgetClass: string;
-	
+
 	private backgroundStyle: SafeStyle;
 	private controlsBackgroundColor: string;
 
@@ -109,6 +110,7 @@ export class WidgetWrapperComponent {
 				this.instance.setInitialWindowState(this.descriptor.windowState);
 				this.instance.background = this.descriptor.background;
 				this.setBackground(this.descriptor.background);
+				this.title = this.descriptor.title;
 				this.instance.windowStateController.windowStateSubject
 					.subscribe(state => this.onWindowStateChanged(state));
 				this.instance.load();
@@ -164,24 +166,29 @@ export class WidgetWrapperComponent {
 
 		let rgbColor: RGB;
 
-		if(color.startsWith("#"))
-		{
+		if (color.startsWith("#")) {
 			let hex = new HEX(color);
 			rgbColor = hex.toRGB();
 		}
-		else if(color.startsWith("rgba("))
-		{
-			var rgb = color.replace(/^rgba?\(|\s+|\)$/g,'').split(',');
+		else if (color.startsWith("rgba(")) {
+			var rgb = color.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
 
-			rgbColor = new RGB(parseFloat(rgb[0]),parseFloat(rgb[1]),parseFloat(rgb[2]));
+			rgbColor = new RGB(parseFloat(rgb[0]), parseFloat(rgb[1]), parseFloat(rgb[2]));
 			rgbColor.setAlpha(parseFloat(rgb[3]));
 		}
 		let rgbGradient = rgbColor.toString();
 		let rgbControls = rgbColor.darken(100).setAlpha(1).toString();
-		
+
 		var gradient = "linear-gradient(rgba(0, 0, 0, 0), " + rgbGradient + ")";
 
-		this.controlsBackgroundColor = rgbControls; 
+		this.controlsBackgroundColor = rgbControls;
 		this.backgroundStyle = this.domSanitizer.bypassSecurityTrustStyle(gradient);
+	}
+
+	setTitle($event: any): void {
+		if (this.descriptor !== undefined) {
+			this.descriptor.title = this.title;
+			this.widgetDescriptorService.setTitle(this.descriptor).subscribe(x => { });
+		}
 	}
 }

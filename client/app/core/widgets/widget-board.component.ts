@@ -35,7 +35,7 @@ export class WidgetBoardComponent {
 		this.isExpanded = false;
 		dragulaService.setOptions('widgets', {
 			moves: function (el: any, container: any, handle: any) {
-				return handle.className.split(' ').indexOf('title') >= 0;
+				return handle.classList.contains('drag-handle')||handle.id=='inlineEditWrapper';
 			}
 		});
 		dragulaService.dropModel.subscribe((value: any[]) => {
@@ -81,6 +81,7 @@ export class WidgetBoardComponent {
 			WidgetDescriptor.createWithId(
 				descriptor._id,
 				descriptor.widgetTypeName,
+				descriptor.title,
 				descriptor.column,
 				descriptor.row,
 				descriptor.background,
