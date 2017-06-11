@@ -24,6 +24,7 @@ import { TodoComponent } from '../app/widgets/todo/todo.component'
 import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
 import { DndModule } from 'ng2-dnd';
+import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 
 @NgModule({
 	imports: [
@@ -35,7 +36,8 @@ import { DndModule } from 'ng2-dnd';
 		routing,
 		ToastyModule,
 		ColorPickerModule,
-		DndModule.forRoot()
+		DndModule.forRoot(),
+		InlineEditorModule
 	],
 	providers: [
 		{
