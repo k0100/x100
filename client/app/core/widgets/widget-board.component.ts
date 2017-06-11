@@ -85,14 +85,16 @@ export class WidgetBoardComponent {
 				descriptor.row,
 				descriptor.background,
 				WindowState.FromValue(descriptor.windowState.value),
-				descriptor.parameters));
+				descriptor.parameters,
+				descriptor.relations));
 	}
 
 	private drawBoard() {
 		this.columns = [
 			new WidgetColumn(0, []),
 			new WidgetColumn(1, []),
-			new WidgetColumn(2, [])];
+			new WidgetColumn(2, []),
+			new WidgetColumn(3, [])];
 
 		for (let index in this.descriptors) {
 			const descriptor = this.descriptors[index];

@@ -20,7 +20,8 @@ export class WidgetDescriptor {
 		row: number,
 		background: string,
 		windowState: WindowStateBase,
-		parameters: WidgetParameter[]): WidgetDescriptor {
+		parameters: WidgetParameter[],
+		relations: string[]): WidgetDescriptor {
 
 		let descriptor = new WidgetDescriptor(
 			id,
@@ -29,7 +30,8 @@ export class WidgetDescriptor {
 			row,
 			background,
 			WindowState.FromValue(windowState.value),
-			parameters)
+			parameters,
+			relations)
 
 		return descriptor;
 	}
