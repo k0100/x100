@@ -1,5 +1,5 @@
-<article class="card" style="overflow:inherit;">
-    <div class="card-block block" [style.background-image]="backgroundStyle">
+<article class="card" style="overflow:inherit;" [style.border-color]="this.controlsBackgroundColor">
+    <div class="card-block block" [style.background-image]="backgroundStyle" >
 
         <div class="row title drag-handle">
             <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.controlsBackgroundColor">
