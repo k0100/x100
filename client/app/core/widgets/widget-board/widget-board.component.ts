@@ -150,7 +150,8 @@ export class WidgetBoardComponent {
 	private updateRowMarkers(): void {
 		let rowColumns = 0;
 		this.items = this.items.filter(
-			item => item.itemType === BoardItemType.Column);
+			item => item.itemType === BoardItemType.Column && (item as WidgetBoardColumn).descriptors.length
+			>0);
 
 		let i: number = 0;
 		for (i; i < this.items.length; i++) {
@@ -172,8 +173,14 @@ export class WidgetBoardComponent {
 			}
 
 			if (currentColumns < 4 && hasAnotherColumn) {
-				const fillColumn = this.items[i + 1].usedColumns;
-				if (currentColumns + fillColumn > 4) {
+				const nextColumn = this.items[i + 1] as WidgetBoardColumn;
+				const nextColumnUsedColumns = nextColumn.usedColumns;
+
+				// if (nextColumn.descriptors.length == 0) {
+				// 	this.items.splice(i + 1, 1);
+				// }
+
+				if (currentColumns + nextColumnUsedColumns > 4) {
 					let emptyColumns = 4 - currentColumns;
 					while (emptyColumns > 0) {
 						i++;
@@ -183,6 +190,7 @@ export class WidgetBoardComponent {
 					rowColumns = 0;
 					i++;
 					this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+					i--;
 				}
 				else {
 					rowColumns = currentColumns;
