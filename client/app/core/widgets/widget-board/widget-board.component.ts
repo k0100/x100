@@ -8,13 +8,15 @@ import { WidgetBoardItem } from './widget-board-item';
 import { WidgetBoardColumn } from './widget-board-column';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { WidgetDescriptorService } from '../widget-description/widget-descriptor.service';
-
+import { WidgetBoardRowMarker } from './widget-board-row-marker';
+import { BoardItemType } from "./board-item-type";
+import { WidgetBoardItemsService } from "./widget-board-items.service";
 @Component({
 
 	selector: 'widget-board',
 	templateUrl: './app/core/widgets/widget-board/widget-board.component.html',
 	viewProviders: [DragulaService],
-	providers: [WidgetDescriptorService],
+	providers: [WidgetDescriptorService, WidgetBoardItemsService],
 	styles: [
 		`.container {
 			min-height:50px;
@@ -31,7 +33,8 @@ export class WidgetBoardComponent {
 
 	constructor(
 		private dragulaService: DragulaService,
-		private widgetDescriptorService: WidgetDescriptorService) {
+		private widgetDescriptorService: WidgetDescriptorService,
+		private widgetBoardItemsService: WidgetBoardItemsService) {
 		this.descriptors = new Array<WidgetDescriptor>();
 		this.isExpanded = false;
 		dragulaService.setOptions('widgets', {
@@ -41,9 +44,11 @@ export class WidgetBoardComponent {
 		});
 		dragulaService.dropModel.subscribe((value: any[]) => {
 			for (let index in this.items) {
-				const column = this.items[index] as WidgetBoardColumn;
-				if (column == null)
+				const item = this.items[index];
+				if (!item.canHostWidgets())
 					continue;
+
+				const column = item as WidgetBoardColumn;
 
 				for (let descriptorIndex = 0; descriptorIndex < column.descriptors.length; descriptorIndex++) {
 					const descriptor = column.descriptors[descriptorIndex];
@@ -115,7 +120,9 @@ export class WidgetBoardComponent {
 
 			this.drawBoard();
 		});
+		// this.widgetBoardItemsService.getItems().subscribe(items =>{
 
+		// });
 	}
 
 	private orderDescriptor(descriptor: WidgetDescriptor): void {
@@ -132,35 +139,54 @@ export class WidgetBoardComponent {
 
 	private expand(column: WidgetBoardColumn): void {
 		column.expand();
-		//this.autoSizeColumns(this.columns, column.index, column.columnWidth);
+		this.updateRowMarkers();
 	}
 
 	private shrink(column: WidgetBoardColumn): void {
 		column.shrink();
-		//this.autoSizeColumns(this.columns, column.index, column.columnWidth);
+		this.updateRowMarkers();
 	}
 
-	public canExpand(column: WidgetBoardColumn): boolean {
-		return column.usedColumns < 4;
-	}
+	private updateRowMarkers(): void {
+		let rowColumns = 0;
+		this.items = this.items.filter(
+			item => item.itemType === BoardItemType.Column);
 
-	public canShrink(column: WidgetBoardColumn): boolean {
-		return column.usedColumns > 1;
-	}
-
-	private updateRows(): void {
-		let totalColumns = 0;
 		let i: number = 0;
 		for (i; i < this.items.length; i++) {
-			const columns = totalColumns + this.items[i].usedColumns;
-			if (columns / 4 == 1 && columns % 4 == 0) {
-				totalColumns = 0;
+
+
+			const currentColumns = rowColumns + this.items[i].usedColumns;
+
+			const hasAnotherColumn = this.items.length - 1 > i;
+
+			if (currentColumns == 4) {
+				rowColumns = 0;
 				i++;
-				this.items.push();
+				this.items.splice(i, 0, new WidgetBoardRowMarker(i));
 			}
-			else
-			{
-				totalColumns = columns;
+
+			if (currentColumns < 4 && !hasAnotherColumn) {
+				// add mising collumns here
+				rowColumns = 0;
+			}
+
+			if (currentColumns < 4 && hasAnotherColumn) {
+				const fillColumn = this.items[i + 1].usedColumns;
+				if (currentColumns + fillColumn > 4) {
+					let emptyColumns = 4 - currentColumns;
+					while (emptyColumns > 0) {
+						i++;
+						this.items.splice(i, 0, new WidgetBoardColumn(i, 1, []));
+						emptyColumns--;
+					}
+					rowColumns = 0;
+					i++;
+					this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+				}
+				else {
+					rowColumns = currentColumns;
+				}
 			}
 		}
 	}

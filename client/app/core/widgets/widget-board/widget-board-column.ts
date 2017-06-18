@@ -1,19 +1,18 @@
 import { WidgetBase } from '../widget-base';
 import { WidgetBoardItem } from './widget-board-item';
 import { WidgetDescriptor } from '../widget-description/widget-descriptor';
+import { BoardItemType } from "./board-item-type";
 
 export class WidgetBoardColumn extends WidgetBoardItem {
-	public columnClass: string;
-
 	constructor(index: number,
 		usedColumns: number,
 		public descriptors: WidgetDescriptor[]
 	) {
-		super(index, usedColumns);
-		this.columnClass = this.getColumnClass(usedColumns);
+		super(index, usedColumns, BoardItemType.Column);
+		this.itemClass = this.getItemClass(usedColumns);
 	}
 
-	public getColumnClass(width: number): string {
+	public getItemClass(width: number): string {
 		switch (width) {
 			case 1:
 				return "col-md-3";
@@ -29,12 +28,12 @@ export class WidgetBoardColumn extends WidgetBoardItem {
 	public expand(): void {
 		this.usedColumns++;
 
-		this.columnClass = this.getColumnClass(this.usedColumns);
+		this.itemClass = this.getItemClass(this.usedColumns);
 	}
 
 	public shrink(): void {
 		this.usedColumns--;
 
-		this.columnClass = this.getColumnClass(this.usedColumns);
+		this.itemClass = this.getItemClass(this.usedColumns);
 	}
 }
