@@ -9,7 +9,7 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula'
 import { ToastyModule } from 'ng2-toasty';
 import { ColorPickerModule } from 'angular2-color-picker';
 
-import { WidgetBoardComponent } from '../app/core/widgets/widget-board.component'
+import { WidgetBoardComponent } from '../app/core/widgets/widget-board/widget-board.component'
 import { WidgetWrapperComponent } from '../app/core/widgets/widget-wrapper.component'
 import { WidgetSelectorComponent } from '../app/core/widgets/widget-selector.component'
 

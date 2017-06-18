@@ -1,6 +1,6 @@
 import { Component, ComponentRef, Input, ViewContainerRef, ViewChild, ComponentFactory} from '@angular/core'
 
-import { WidgetBoardComponent }  from '../../core/widgets/widget-board.component';
+import { WidgetBoardComponent }  from '../../core/widgets/widget-board/widget-board.component';
 import { WindowState } from '../../core/widgets/window-state/window-state';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, ComponentRef, Input, Output, ViewContainerRef, Compiler, Vie
 import { WidgetDescriptorService } from './widget-description/widget-descriptor.service';
 import { WidgetDescriptor } from './widget-description/widget-descriptor';
 import { WindowState } from '../../core/widgets/window-state/window-state';
-import { WidgetColumn } from '../../core/widgets/widget-column';
+import { WidgetBoardColumn } from '../../core/widgets/widget-board/widget-board-column';
 import { WidgetDescriptorResolverService } from './widget-description/widget-descriptor-resolver.service';
 import { SelectionItem } from '../../core/collections/selection-item'
 
@@ -15,7 +15,7 @@ import { SelectionItem } from '../../core/collections/selection-item'
 
 export class WidgetSelectorComponent {
 	@Output() onWidgetsAdded: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
-	@Input() column: WidgetColumn;
+	@Input() column: WidgetBoardColumn;
 	private items: SelectionItem[] = [];
 
 	constructor(

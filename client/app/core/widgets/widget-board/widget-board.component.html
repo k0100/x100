@@ -1,0 +1,36 @@
+<div style="margin:15px">
+	<div class="row" *ngIf="!isExpanded">
+		<div *ngFor="let item of items;" class="container" [ngClass]="item.columnClass">
+			<div class="row">
+				<div class="col-md-12">
+
+					<i class="fa fa-arrow-right pull-right" aria-hidden="true" *ngIf="canExpand(item)" (click)="expand(item)"></i>
+					<i class="fa fa-arrow-left pull-right" aria-hidden="true" *ngIf="canShrink(item)" (click)="shrink(item)"></i>
+				</div>
+			</div>
+			<div [dragula]='"widgets"' [dragulaModel]='item.descriptors' style="min-height: 50px;">
+				<div *ngFor="let descriptor of item.descriptors;">
+					<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
+				</div>
+			</div>
+
+			<div class="ignore-item row">
+
+				<a data-toggle="modal" [attr.data-target]="'#selector' + item.index"><span class="fa-stack fa-2x" style="color:rgb(212, 213, 218); display: table;
+  margin: 0 auto;">
+                	<i class="fa fa-circle fa-stack-2x"></i>
+                	<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+            	</span>
+            	</a>
+
+				<widget-selector (onWidgetsAdded)="onWidgetsAdded($event)" [column]="item"></widget-selector>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" *ngIf="isExpanded">
+		<div class="col-md-12">
+			<widget-wrapper [descriptor]="expandedWidgetDescriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
+		</div>
+	</div>
+</div>
