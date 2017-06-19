@@ -139,26 +139,51 @@ export class WidgetBoardComponent {
 
 	private expand(column: WidgetBoardColumn): void {
 		column.expand();
-		this.updateRowMarkers();
+		let next = column.index + 1;
+		if (this.items.length - 1 >= next) {
+			const nextItem = this.items[next];
+			if (nextItem.canHostWidgets() && (nextItem as WidgetBoardColumn).descriptors.length == 0) {
+				this.items.splice(next, 1);
+			}
+		}
+		this.updateRowMarkers(column);
 	}
 
 	private shrink(column: WidgetBoardColumn): void {
 		column.shrink();
-		this.updateRowMarkers();
+
+		this.updateRowMarkers(column);
 	}
 
-	private updateRowMarkers(): void {
+	private updateRowMarkers(column: WidgetBoardColumn): void {
 		let rowColumns = 0;
 		this.items = this.items.filter(
 			item => item.itemType === BoardItemType.Column
-			&& (item as WidgetBoardColumn).descriptors.length>0
-			);
+
+		);
 
 		let i: number = 0;
-		for (i; i < this.items.length; i++) {
+		// let rowPosition = 0;
+		// for (i; i < this.items.length; i++) {
+		// 	let item = (this.items[i] as WidgetBoardColumn);
+		// 	if (item.descriptors.length == 0) {
+		// 		if (rowPosition % 4 == 0 && rowPosition != 0) {
+		// 			this.items.splice(i, 1);
+		// 			i--;
+		// 		}
+		// 		else {
 
+		// 		}
+		// 	}
+		// 	else {
+		// 		rowPosition += item.usedColumns;
+		// 	}
+		// }
 
-			const currentColumns = rowColumns + this.items[i].usedColumns;
+		for (i = 0; i < this.items.length; i++) {
+			const currentColumn = this.items[i];
+			currentColumn.index = i;
+			const currentColumns = rowColumns + currentColumn.usedColumns;
 
 			const hasAnotherColumn = this.items.length - 1 > i;
 
