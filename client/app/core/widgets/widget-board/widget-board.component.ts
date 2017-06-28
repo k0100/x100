@@ -11,6 +11,7 @@ import { WidgetDescriptorService } from '../widget-description/widget-descriptor
 import { WidgetBoardRowMarker } from './widget-board-row-marker';
 import { BoardItemType } from "./board-item-type";
 import { WidgetBoardItemsService } from "./widget-board-items.service";
+import { Observable } from "rxjs/Observable";
 @Component({
 
 	selector: 'widget-board',
@@ -99,11 +100,7 @@ export class WidgetBoardComponent {
 	}
 
 	private drawBoard() {
-		this.items = [
-			new WidgetBoardColumn(0, 1, []),
-			new WidgetBoardColumn(1, 1, []),
-			new WidgetBoardColumn(2, 1, []),
-			new WidgetBoardColumn(3, 1, [])];
+		
 
 		for (let index in this.descriptors) {
 			const descriptor = this.descriptors[index];
@@ -112,17 +109,21 @@ export class WidgetBoardComponent {
 	}
 
 	public load(userId: number) {
-		this.widgetDescriptorService.getDescriptors().subscribe(descriptors => {
+		Observable.forkJoin(
+			this.widgetDescriptorService.getDescriptors(),
+			this.widgetBoardItemsService.getItems()
+		).subscribe(res => {
+			let descriptors = res[0];
+			let items = res[1];
+
 			for (let index in descriptors) {
 				const descriptor = descriptors[index];
 				this.addDescriptor(descriptor);
 			}
+			this.items = items;
 
 			this.drawBoard();
 		});
-		// this.widgetBoardItemsService.getItems().subscribe(items =>{
-
-		// });
 	}
 
 	private orderDescriptor(descriptor: WidgetDescriptor): void {
@@ -159,27 +160,9 @@ export class WidgetBoardComponent {
 		let rowColumns = 0;
 		this.items = this.items.filter(
 			item => item.itemType === BoardItemType.Column
-
 		);
 
 		let i: number = 0;
-		// let rowPosition = 0;
-		// for (i; i < this.items.length; i++) {
-		// 	let item = (this.items[i] as WidgetBoardColumn);
-		// 	if (item.descriptors.length == 0) {
-		// 		if (rowPosition % 4 == 0 && rowPosition != 0) {
-		// 			this.items.splice(i, 1);
-		// 			i--;
-		// 		}
-		// 		else {
-
-		// 		}
-		// 	}
-		// 	else {
-		// 		rowPosition += item.usedColumns;
-		// 	}
-		// }
-
 		for (i = 0; i < this.items.length; i++) {
 			const currentColumn = this.items[i];
 			currentColumn.index = i;

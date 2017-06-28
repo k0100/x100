@@ -6,6 +6,7 @@ var todo = require('./server/widgets/todo/todo-widget');
 var note = require('./server/widgets/note/note-widget');
 var secure = require('./server/secure/passport');
 var widgetDescriptor = require('./server/core/widgets/widget-descriptor');
+var widgetBoardItem = require('./server/core/widgets/widget-board-item');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
 var passport = require('passport');
@@ -46,6 +47,7 @@ app.use('/node_modules', express.static("./node_modules"));
 app.use('/api/todo/', todo);
 app.use('/api/note/', note);
 app.use('/api/core/widgets/widgetDescriptor/', widgetDescriptor);
+app.use('/api/core/widgets/widgetBoardItem/', widgetBoardItem);
 app.use('/api/secure/', secure);
 
 app.use(function (req, res) {
