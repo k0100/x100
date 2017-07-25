@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var WidgetBoardItem = require('../core/widgets/widget-board-item-schema');
 
 router.post('/', function (req, res, next) {
 
@@ -11,13 +12,25 @@ router.post('/', function (req, res, next) {
   var command = req.body.commandName;
   if (command == 'signup') {
     passport.authenticate('local-signup', function (error, user) {
-     
-      if (error) {
+      if (error) { 
         res.statusCode = 400;
         return res.json(error);
       }
+
+      var index = 0;
+      while (index < 4) {
+        var widgetBoardItem = new WidgetBoardItem({
+          userId: user._id,
+          index: index,
+          usedColumns: 1,
+          itemTypeId: 1
+        });
+        widgetBoardItem.save();
+        index++;
+      }
+
       req.login(user, function (error) {
-        
+
         if (error) {
           res.statusCode = 400;
           return res.json(error);
@@ -33,6 +46,7 @@ router.post('/', function (req, res, next) {
         res.statusCode = 400;
         return res.json(error);
       }
+
       req.login(user, function (error) {
         if (error) {
           res.statusCode = 400;

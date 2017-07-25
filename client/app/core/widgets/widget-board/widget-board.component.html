@@ -3,14 +3,14 @@
 		<div *ngFor="let item of items;" class="container" [ngClass]="item.itemClass">
 			<div class="row">
 				<div class="col-md-12">
-
+					kur
 					<i class="fa fa-arrow-right pull-right" aria-hidden="true" *ngIf="item.canExpand()" (click)="expand(item)"></i>
 					<i class="fa fa-arrow-left pull-right" aria-hidden="true" *ngIf="item.canShrink()" (click)="shrink(item)"></i>
 				</div>
 			</div>
 			<div [dragula]='"widgets"' [dragulaModel]='item.descriptors' [style.min-height]="50" *ngIf="item.canHostWidgets()">
 				<div *ngFor="let descriptor of item.descriptors;">
-					<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
+					 <widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper> 
 				</div>
 			</div>
 
