@@ -75,6 +75,7 @@ export class WidgetBoardComponent {
 
 	onWidgetsAdded(descriptor: WidgetDescriptor) {
 		this.addDescriptor(descriptor);
+		this.load();
 		this.drawBoard();
 	}
 
@@ -100,17 +101,13 @@ export class WidgetBoardComponent {
 	}
 
 	private drawBoard() {
-		
-
-		// for (let index in this.descriptors) {
-		// 	const descriptor = this.descriptors[index];
-		// 	this.orderDescriptor(descriptor);
-		// }
+		//for (let index in this.descriptors) {
+			//const descriptor = this.descriptors[index];
+			//this.orderDescriptor(descriptor);
+		//}
 	}
 
-	public load(userId: number) {
-
-			//this.widgetDescriptorService.getDescriptors(),
+	public load() {
 			this.widgetBoardItemsService.getItems()
 					.subscribe(res => {
 						this.items = res;

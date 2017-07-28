@@ -33,7 +33,7 @@ router.post('/', function (req, res, next) {
                 for (var index in items) {
 
                     var widgets = desc.filter(function (descriptor) {
-                        return descriptor.row == row && descriptor.column == column;
+                        return descriptor.column == column;
                     });
                     //console.log(index,widgets);
                     items[index].descriptors = widgets;
