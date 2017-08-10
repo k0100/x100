@@ -10,18 +10,12 @@ router.post('/', function (req, res, next) {
     if (command == 'list') {
         var boardItems = WidgetBoardItem.find({
             userId: req.user._id,
-        });
+        }).sort('index');
 
         var descriptors = WidgetDescriptor.find({
             userId: req.user._id,
         });
-
-
-        // , function (err, result) {
-        //     if (err)
-        //         throw err;
-        //     res.json(result);
-        // });
+        
         Promise.all([boardItems, descriptors])
             .then(function (data) {
                 var items = data[0];
@@ -29,7 +23,7 @@ router.post('/', function (req, res, next) {
 
                 var row = 0;
                 var column = 0;
-                //console.log(items);
+                
                 for (var index in items) {
 
                     var widgets = desc.filter(function (descriptor) {

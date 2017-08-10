@@ -76,14 +76,13 @@ export class WidgetBoardComponent {
 	onWidgetsAdded(descriptor: WidgetDescriptor) {
 		this.addDescriptor(descriptor);
 		this.load();
-		this.drawBoard();
 	}
 
 	onWidgetRemoved(descriptor: WidgetDescriptor) {
 		const removedIndex = this.descriptors.indexOf(descriptor);
 		this.descriptors.splice(removedIndex, 1);
 		this.isExpanded = false;
-		this.drawBoard();
+		this.load();
 	}
 
 	private addDescriptor(descriptor: WidgetDescriptor) {
@@ -100,20 +99,11 @@ export class WidgetBoardComponent {
 				descriptor.relations));
 	}
 
-	private drawBoard() {
-		//for (let index in this.descriptors) {
-			//const descriptor = this.descriptors[index];
-			//this.orderDescriptor(descriptor);
-		//}
-	}
-
 	public load() {
-			this.widgetBoardItemsService.getItems()
-					.subscribe(res => {
-						this.items = res;
-						console.log(res);
-						this.drawBoard();
-					});
+		this.widgetBoardItemsService.getItems()
+			.subscribe(res => {
+				this.items = res;
+			});
 	}
 
 	private orderDescriptor(descriptor: WidgetDescriptor): void {

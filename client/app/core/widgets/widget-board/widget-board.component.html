@@ -3,7 +3,7 @@
 		<div *ngFor="let item of items;" class="container" [ngClass]="item.itemClass">
 			<div class="row">
 				<div class="col-md-12">
-					kur
+					
 					<i class="fa fa-arrow-right pull-right" aria-hidden="true" *ngIf="item.canExpand()" (click)="expand(item)"></i>
 					<i class="fa fa-arrow-left pull-right" aria-hidden="true" *ngIf="item.canShrink()" (click)="shrink(item)"></i>
 				</div>

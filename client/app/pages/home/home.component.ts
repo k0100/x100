@@ -17,7 +17,7 @@ export class HomeComponent {
 
 	ngAfterViewInit() {
 		setTimeout(() => {
-			this.board.load(1);
+			this.board.load();
 		}, 0);
 	}
 }

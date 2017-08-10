@@ -118,7 +118,6 @@ export class WidgetWrapperComponent {
 	}
 
 	menuClick(event: any) {
-		//console.log(event.target);
 		event.stopPropagation();
 	}
 
