@@ -120,6 +120,7 @@ export class WidgetBoardComponent {
 
 	private expand(column: WidgetBoardColumn): void {
 		column.expand();
+
 		let next = column.index + 1;
 		if (this.items.length - 1 >= next) {
 			const nextItem = this.items[next];
@@ -127,6 +128,7 @@ export class WidgetBoardComponent {
 				this.items.splice(next, 1);
 			}
 		}
+
 		this.updateRowMarkers(column);
 	}
 
@@ -156,18 +158,20 @@ export class WidgetBoardComponent {
 				this.items.splice(i, 0, new WidgetBoardRowMarker(i));
 			}
 
-			if (currentColumns < 4 && !hasAnotherColumn) {
-				// add mising collumns here
+			if (currentColumns < 4 &&
+				!hasAnotherColumn) {
+				let emptyColumns = 4 - currentColumns;
+				while (emptyColumns > 0) {
+					i++;
+					this.items.splice(i, 0, new WidgetBoardColumn(i, 1, []));
+					emptyColumns--;
+				}
 				rowColumns = 0;
-			}
-
-			if (currentColumns < 4 && hasAnotherColumn) {
+				i++;
+				this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+			} else if (currentColumns < 4 && hasAnotherColumn) {
 				const nextColumn = this.items[i + 1] as WidgetBoardColumn;
 				const nextColumnUsedColumns = nextColumn.usedColumns;
-
-				// if (nextColumn.descriptors.length == 0) {
-				// 	this.items.splice(i + 1, 1);
-				// }
 
 				if (currentColumns + nextColumnUsedColumns > 4) {
 					let emptyColumns = 4 - currentColumns;
@@ -179,11 +183,23 @@ export class WidgetBoardComponent {
 					rowColumns = 0;
 					i++;
 					this.items.splice(i, 0, new WidgetBoardRowMarker(i));
-					i--;
 				}
 				else {
 					rowColumns = currentColumns;
 				}
+			}
+		}
+
+		for (i = this.items.length; i >= 0; i++) {
+			if (!this.items[i-1].canHostWidgets() &&
+				this.items[i - 2].canHostWidgets() && (this.items[i - 2] as WidgetBoardColumn).descriptors.length == 0 &&
+				this.items[i - 3].canHostWidgets() && (this.items[i - 3] as WidgetBoardColumn).descriptors.length == 0 &&
+				this.items[i - 4].canHostWidgets() && (this.items[i - 4] as WidgetBoardColumn).descriptors.length == 0 &&
+				this.items[i - 5].canHostWidgets() && (this.items[i - 5] as WidgetBoardColumn).descriptors.length == 0
+			) {
+
+				i -= 5;
+				this.items.splice(i, 5);
 			}
 		}
 	}
