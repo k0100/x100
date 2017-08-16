@@ -47,4 +47,9 @@ export class WidgetBoardItemsService {
 			)
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
+
+	public synchronizeItems(items: WidgetBoardItem[]): void {
+		this.http.post('/api/core/widgets/widgetBoardItem/', new ServerCommand("synchronize", items))
+			.subscribe();
+	}
 }

@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
         var descriptors = WidgetDescriptor.find({
             userId: req.user._id,
         });
-        
+
         Promise.all([boardItems, descriptors])
             .then(function (data) {
                 var items = data[0];
@@ -23,7 +23,7 @@ router.post('/', function (req, res, next) {
 
                 var row = 0;
                 var column = 0;
-                
+
                 for (var index in items) {
 
                     var widgets = desc.filter(function (descriptor) {
@@ -52,79 +52,40 @@ router.post('/', function (req, res, next) {
             index++;
         }
     }
-    //     newWidgetDescriptor.save(function (err, result) {
-    //         if (err)
-    //             throw err;
-    //         res.json(result);
-    //     });
-    // }
 
-    // if (command == 'delete') {
-    //     var descriptor = req.body.data;
+    if (command == 'synchronize') {
+        var boardItems = WidgetBoardItem.find({
+            userId: req.user._id,
+        }).sort('index');
 
-    //     WidgetDescriptor.remove({
-    //         _id: descriptor._id,
-    //         userId: req.user._id
-    //     }, function (err, result) {
-    //         if (err)
-    //             throw err;
-    //         res.json(result);
-    //     });
-    // }
+        var items = req.body.data;
 
-    // if (command == 'reposition') {
-    //     var descriptor = req.body.data;
+        Promise.all([boardItems])
+            .then(function (data) {
+                var internalItems = data[0];
 
-    //     WidgetDescriptor.update({
-    //         _id: descriptor._id,
-    //         userId: req.user._id
-    //     }, {
-    //         $set: { column: descriptor.column, row: descriptor.row }
-    //         }, function (err, result) {
-    //             if (err) {
-    //                 res.send(err);
-    //             } else {
-    //                 res.json(result);
-    //             }
-    //         }
-    //     );
-    // }
+                // for (var i in items) {
+                //     if (internalItems.length - 1 >= i) {
+                //         var item = internalItems[i];
+                //         item.usedColumns = items[i].usedColumns;
 
-    // if (command == 'setBackground') {
-    //     var descriptor = req.body.data;
+                //         //save the item
+                //         WidgetBoardItem.update({
+                //             _id: item._id,
+                //             userId: req.user._id
+                //         }, {
+                //                 $set: { usedColumns: item.usedColumns }
+                //             });
+                //     }
+                // }
+                
 
-    //     WidgetDescriptor.update({
-    //         _id: descriptor._id,
-    //         userId: req.user._id
-    //     }, {
-    //         $set: { background: descriptor.background }
-    //         }, function (err, result) {
-    //             if (err) {
-    //                 res.send(err);
-    //             } else {
-    //                 res.json(result);
-    //             }
-    //         }
-    //     );
-    // }
 
-    // if (command == 'setTitle') {
-    //     var descriptor = req.body.data;
+                //console.log(data[0]);
+                console.log(items);
 
-    //     WidgetDescriptor.update({
-    //         _id: descriptor._id,
-    //         userId: req.user._id
-    //     }, {
-    //         $set: { title: descriptor.title }
-    //         }, function (err, result) {
-    //             if (err) {
-    //                 res.send(err);
-    //             } else {
-    //                 res.json(result);
-    //             }
-    //         }
-    //     );
-    // }
+            });
+    }
 });
 
 module.exports = router;

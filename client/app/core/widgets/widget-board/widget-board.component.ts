@@ -183,6 +183,7 @@ export class WidgetBoardComponent {
 					rowColumns = 0;
 					i++;
 					this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+					i--;
 				}
 				else {
 					rowColumns = currentColumns;
@@ -190,7 +191,7 @@ export class WidgetBoardComponent {
 			}
 		}
 
-		for (i = this.items.length; i >= 0; i++) {
+		for (i = this.items.length; i >= 6; i++) {
 			if (!this.items[i-1].canHostWidgets() &&
 				this.items[i - 2].canHostWidgets() && (this.items[i - 2] as WidgetBoardColumn).descriptors.length == 0 &&
 				this.items[i - 3].canHostWidgets() && (this.items[i - 3] as WidgetBoardColumn).descriptors.length == 0 &&
@@ -202,5 +203,8 @@ export class WidgetBoardComponent {
 				this.items.splice(i, 5);
 			}
 		}
+
+		this.widgetBoardItemsService.synchronizeItems(this.items);
+		
 	}
 }
