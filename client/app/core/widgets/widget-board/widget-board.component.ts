@@ -192,7 +192,7 @@ export class WidgetBoardComponent {
 		}
 
 
-		while (this.items.length >= 5) {
+		while (this.items.length > 5) {
 			if (!this.items[i - 1].canHostWidgets() &&
 				this.items[i - 2].canHostWidgets() && (this.items[i - 2] as WidgetBoardColumn).descriptors.length == 0 &&
 				this.items[i - 3].canHostWidgets() && (this.items[i - 3] as WidgetBoardColumn).descriptors.length == 0 &&
