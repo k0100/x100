@@ -155,7 +155,7 @@ export class WidgetBoardComponent {
 			if (currentColumns == 4) {
 				rowColumns = 0;
 				i++;
-				this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+				this.items.splice(i, 0, new WidgetBoardRowMarker("", i));
 			}
 
 			if (currentColumns < 4 &&
@@ -163,12 +163,12 @@ export class WidgetBoardComponent {
 				let emptyColumns = 4 - currentColumns;
 				while (emptyColumns > 0) {
 					i++;
-					this.items.splice(i, 0, new WidgetBoardColumn(i, 1, []));
+					this.items.splice(i, 0, new WidgetBoardColumn("", i, 1, []));
 					emptyColumns--;
 				}
 				rowColumns = 0;
 				i++;
-				this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+				this.items.splice(i, 0, new WidgetBoardRowMarker("", i));
 			} else if (currentColumns < 4 && hasAnotherColumn) {
 				const nextColumn = this.items[i + 1] as WidgetBoardColumn;
 				const nextColumnUsedColumns = nextColumn.usedColumns;
@@ -177,12 +177,12 @@ export class WidgetBoardComponent {
 					let emptyColumns = 4 - currentColumns;
 					while (emptyColumns > 0) {
 						i++;
-						this.items.splice(i, 0, new WidgetBoardColumn(i, 1, []));
+						this.items.splice(i, 0, new WidgetBoardColumn("", i, 1, []));
 						emptyColumns--;
 					}
 					rowColumns = 0;
 					i++;
-					this.items.splice(i, 0, new WidgetBoardRowMarker(i));
+					this.items.splice(i, 0, new WidgetBoardRowMarker("", i));
 					i--;
 				}
 				else {
@@ -191,8 +191,9 @@ export class WidgetBoardComponent {
 			}
 		}
 
-		for (i = this.items.length; i >= 6; i++) {
-			if (!this.items[i-1].canHostWidgets() &&
+
+		while (this.items.length >= 5) {
+			if (!this.items[i - 1].canHostWidgets() &&
 				this.items[i - 2].canHostWidgets() && (this.items[i - 2] as WidgetBoardColumn).descriptors.length == 0 &&
 				this.items[i - 3].canHostWidgets() && (this.items[i - 3] as WidgetBoardColumn).descriptors.length == 0 &&
 				this.items[i - 4].canHostWidgets() && (this.items[i - 4] as WidgetBoardColumn).descriptors.length == 0 &&
@@ -202,9 +203,14 @@ export class WidgetBoardComponent {
 				i -= 5;
 				this.items.splice(i, 5);
 			}
+			else {
+				break;
+			}
 		}
 
-		this.widgetBoardItemsService.synchronizeItems(this.items);
-		
+		this.widgetBoardItemsService.synchronizeItems(this.items).subscribe(
+			x => {
+				this.load();
+			});
 	}
 }

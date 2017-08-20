@@ -28,7 +28,7 @@
                 <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
             </a>
             <b>
-            <inline-editor class="drag-handle" type="text" [(ngModel)]="title" (onSave)="setTitle($event)" name="title" size="8" [style.color]="this.controlsBackgroundColor" empty="(enter name)"></inline-editor></b>
+            <inline-editor class="drag-handle" aria-placeholder="" type="text" [(ngModel)]="title" (onSave)="setTitle($event)" name="title" size="8" [style.color]="this.controlsBackgroundColor" empty="(enter name)"></inline-editor></b>
         </div>
         <div class="row">
             <div #target></div>

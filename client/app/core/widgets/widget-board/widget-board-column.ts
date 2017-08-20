@@ -4,11 +4,13 @@ import { WidgetDescriptor } from '../widget-description/widget-descriptor';
 import { BoardItemType } from "./board-item-type";
 
 export class WidgetBoardColumn extends WidgetBoardItem {
-	constructor(index: number,
+	constructor(
+		id: string,
+		index: number,
 		usedColumns: number,
 		public descriptors: WidgetDescriptor[]
 	) {
-		super(index, usedColumns, BoardItemType.Column);
+		super(id, index, usedColumns, BoardItemType.Column);
 		this.itemClass = this.getItemClass(usedColumns);
 	}
 

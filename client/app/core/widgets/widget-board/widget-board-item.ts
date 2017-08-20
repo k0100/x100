@@ -5,6 +5,7 @@ export class WidgetBoardItem {
 
 
     constructor(
+        public _id: string,
         public index: number,
         public usedColumns: number,
         public itemType: BoardItemTypeBase

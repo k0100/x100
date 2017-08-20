@@ -6,9 +6,12 @@ import { BoardItemType } from "./board-item-type";
 export class WidgetBoardRowMarker extends WidgetBoardItem {
 	public itemClass: string;
 
-	constructor(index: number,
+	constructor(
+		id: string, 
+	index: number,
 	) {
-		super(index, 0, BoardItemType.RowMarker);
+		super(id, index, 0, BoardItemType.RowMarker);
+		this.itemClass = "clearfix ignore-item";
 	}
 
 	public canExpand(): boolean {

@@ -31,9 +31,7 @@ router.post('/', function (req, res, next) {
                     });
                     //console.log(index,widgets);
                     items[index].descriptors = widgets;
-                    column += items[index].usedColumns;
-
-                    console.log(items[index]);//this.addDescriptor(descriptor);
+                    column++;
                 }
 
                 res.json(items);
@@ -60,30 +58,51 @@ router.post('/', function (req, res, next) {
 
         var items = req.body.data;
 
-        Promise.all([boardItems])
+        Promise
+            .all([boardItems])
             .then(function (data) {
-                var internalItems = data[0];
+                var dbItems = data[0];
+                var deleteIds = [];
 
-                // for (var i in items) {
-                //     if (internalItems.length - 1 >= i) {
-                //         var item = internalItems[i];
-                //         item.usedColumns = items[i].usedColumns;
+                for (var i in dbItems) {
 
-                //         //save the item
-                //         WidgetBoardItem.update({
-                //             _id: item._id,
-                //             userId: req.user._id
-                //         }, {
-                //                 $set: { usedColumns: item.usedColumns }
-                //             });
-                //     }
-                // }
-                
+                    var foundItem = items.find(x => x._id == dbItems[i]._id);
+                    //console.log(foundItem);
+                    if (foundItem === undefined) {
+                        deleteIds.push(dbItems[i]._id);
+                    }
+                }
 
+                WidgetBoardItem.remove({ _id: { $in: deleteIds } },
+                    function (err) { });
 
-                //console.log(data[0]);
-                console.log(items);
+                for (var i in items) {
+                    var currentItem = items[i];
+                    if (currentItem._id !== "") {
+                        WidgetBoardItem.update({
+                            _id: currentItem._id,
+                            userId: req.user._id
+                        }, {
+                                $set: { usedColumns: currentItem.usedColumns, index: currentItem.index }
+                            }, function (err, result) {
+                            }
+                        );
+                    }
+                    else {
+                        var newItem = new WidgetBoardItem({
+                            userId: req.user._id,
+                            index: currentItem.index,
+                            usedColumns: currentItem.usedColumns,
+                            itemTypeId: currentItem.itemType.id,
+                            descriptors: []
+                        }
+                        );
+                        newItem.save(function (err, result) {
+                        });
+                    }
 
+                }
+                res.json("ok");
             });
     }
 });

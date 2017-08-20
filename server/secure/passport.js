@@ -12,18 +12,18 @@ router.post('/', function (req, res, next) {
   var command = req.body.commandName;
   if (command == 'signup') {
     passport.authenticate('local-signup', function (error, user) {
-      if (error) { 
+      if (error) {
         res.statusCode = 400;
         return res.json(error);
       }
 
       var index = 0;
-      while (index < 4) {
+      while (index < 5) {
         var widgetBoardItem = new WidgetBoardItem({
           userId: user._id,
           index: index,
           usedColumns: 1,
-          itemTypeId: 1
+          itemTypeId: index < 4 ? 1 : 2
         });
         widgetBoardItem.save();
         index++;
