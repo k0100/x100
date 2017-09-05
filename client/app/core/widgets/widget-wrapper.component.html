@@ -1,19 +1,18 @@
 <article class="card" style="overflow:inherit;" [style.border-color]="this.controlsBackgroundColor">
     <div class="card-block block" [style.background-image]="backgroundStyle" >
-
         <div class="row title drag-handle">
             <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.controlsBackgroundColor">
                 <div class="dropdown">
                     <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
                     <div class="dropdown-menu" (click)="menuClick($event)">
-                        <!--
-                    <div class="dropdown-divider"></div>-->
-
                         <div class="group-control">
-                            <input [(colorPicker)]="color" [style.background]="this.color" [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled" [cpPositionRelativeToArrow]="true" (cpToggleChange)="onSetColor($event)"
-                                (colorPickerChange)="onChangeColor($event)" [value]="color" class="form-control" />
+                            <input [(colorPicker)]="color" [style.background]="this.color" [cpOutputFormat]="rgba" 
+                                [cpAlphaChannel]="disabled" [cpPositionRelativeToArrow]="true" 
+                                [value]="color"
+                                (cpToggleChange)="onSetColor($event)"
+                                (colorPickerChange)="onChangeColor($event)" 
+                                class="form-control" />
                         </div>
-
                         <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
                     </div>
                 </div>
@@ -22,18 +21,21 @@
                 <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
             </a>
             <a href="#" *ngIf="canRestore()" (click)="restore()">
-                <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
+                <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" 
+                    [style.color]="this.controlsBackgroundColor"></i>
             </a>
             <a href="#" *ngIf="canMinimize()" (click)="minimize()">
-                <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
+                <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" 
+                    [style.color]="this.controlsBackgroundColor"></i>
             </a>
             <b>
-            <inline-editor class="drag-handle" aria-placeholder="" type="text" [(ngModel)]="title" (onSave)="setTitle($event)" name="title" size="8" [style.color]="this.controlsBackgroundColor" empty="(enter name)"></inline-editor></b>
+            <inline-editor class="drag-handle" aria-placeholder="" type="text" [(ngModel)]="title" 
+                (onSave)="setTitle($event)" name="title" size="8" 
+                [style.color]="this.controlsBackgroundColor" 
+                empty="(enter name)"></inline-editor></b>
         </div>
         <div class="row">
             <div #target></div>
         </div>
     </div>
-
-
 </article>

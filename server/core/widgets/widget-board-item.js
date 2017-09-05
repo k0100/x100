@@ -25,11 +25,12 @@ router.post('/', function (req, res, next) {
                 var column = 0;
 
                 for (var index in items) {
-
-                    var widgets = desc.filter(function (descriptor) {
-                        return descriptor.column == column;
-                    });
-                    //console.log(index,widgets);
+                    var widgets = desc
+                        .filter(function (descriptor) {
+                            return descriptor.columnId == items[index]._id;
+                        })
+                        .sort((a, b) => (a.row - b.row));
+                    
                     items[index].descriptors = widgets;
                     column++;
                 }

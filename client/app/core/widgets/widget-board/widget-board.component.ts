@@ -58,7 +58,7 @@ export class WidgetBoardComponent {
 						descriptorIndex--;
 					}
 					else {
-						descriptor.column = column.index;
+						descriptor.columnId = column._id;
 						descriptor.row = descriptorIndex;
 
 						this.widgetDescriptorService.updateDescriptor(descriptor).subscribe(x => { });
@@ -91,7 +91,7 @@ export class WidgetBoardComponent {
 				descriptor._id,
 				descriptor.widgetTypeName,
 				descriptor.title,
-				descriptor.column,
+				descriptor.columnId,
 				descriptor.row,
 				descriptor.background,
 				WindowState.FromValue(descriptor.windowState.value),
@@ -106,14 +106,6 @@ export class WidgetBoardComponent {
 			});
 	}
 
-	private orderDescriptor(descriptor: WidgetDescriptor): void {
-		const column = this.items[descriptor.column] as WidgetBoardColumn;
-		if (column == null)
-			return;
-		column.descriptors.push(descriptor);
-		column.descriptors = column.descriptors.sort(this.widgetDescriptorRowComparer);
-	}
-
 	private widgetDescriptorRowComparer(a: WidgetDescriptor, b: WidgetDescriptor): number {
 		return a.row - b.row;
 	}
@@ -121,19 +113,27 @@ export class WidgetBoardComponent {
 	private expand(column: WidgetBoardColumn): void {
 		column.expand();
 
-		let next = column.index + 1;
-		if (this.items.length - 1 >= next) {
-			const nextItem = this.items[next];
+		let columnIndex = column.index + 1;
+		while (this.items.length - 1 >= columnIndex) {
+			const nextItem = this.items[columnIndex];
+			if (!nextItem.canHostWidgets()) {
+				break;
+			};
 			if (nextItem.canHostWidgets() && (nextItem as WidgetBoardColumn).descriptors.length == 0) {
-				this.items.splice(next, 1);
+				this.items.splice(columnIndex, 1);
+				break;
 			}
+			columnIndex++;
 		}
-
+		
 		this.updateRowMarkers(column);
 	}
 
 	private shrink(column: WidgetBoardColumn): void {
 		column.shrink();
+
+		let columnIndex = column.index + 1;
+		this.items.splice(columnIndex, 0, new WidgetBoardColumn("", columnIndex, 1, []));
 
 		this.updateRowMarkers(column);
 	}
@@ -157,7 +157,6 @@ export class WidgetBoardComponent {
 				i++;
 				this.items.splice(i, 0, new WidgetBoardRowMarker("", i));
 			}
-
 			if (currentColumns < 4 &&
 				!hasAnotherColumn) {
 				let emptyColumns = 4 - currentColumns;

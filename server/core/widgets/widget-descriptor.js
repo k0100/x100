@@ -22,7 +22,7 @@ router.post('/', function (req, res, next) {
             userId: req.user._id,
             widgetTypeName: descriptor.widgetTypeName,
             row: descriptor.row,
-            column: descriptor.column,
+            columnId: descriptor.columnId,
             background: descriptor.background,
             windowState: descriptor.windowState,
             parameters: descriptor.parameters
@@ -55,7 +55,7 @@ router.post('/', function (req, res, next) {
             _id: descriptor._id,
             userId: req.user._id
         }, {
-            $set: { column: descriptor.column, row: descriptor.row }
+            $set: { columnId: descriptor.columnId, row: descriptor.row }
             }, function (err, result) {
                 if (err) {
                     res.send(err);

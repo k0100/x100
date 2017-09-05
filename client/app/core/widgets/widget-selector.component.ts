@@ -33,7 +33,7 @@ export class WidgetSelectorComponent {
 	}
 
 	private add(): void {
-		const column = this.column.index;
+		const column = this.column;
 		let row = this.column.descriptors.length;
 
 		for (let i in this.items) {
@@ -45,7 +45,7 @@ export class WidgetSelectorComponent {
 						"",
 						item.data.widget.name,
 						"",
-						column,
+						column._id,
 						row++,
 						"#f5f9ff",
 						WindowState.Restored,

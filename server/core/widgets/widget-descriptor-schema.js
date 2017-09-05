@@ -5,7 +5,7 @@ var widgetDescriptorSchema = new Schema({
     userId: String,
     widgetTypeName: String,
     title: String,
-    column: Number,
+    columnId: String,
     row: Number,
     background: String,
     windowState: { value: Number },

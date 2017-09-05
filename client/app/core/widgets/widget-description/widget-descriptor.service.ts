@@ -37,7 +37,7 @@ export class WidgetDescriptorService {
 
 	public updateDescriptor(descriptor: WidgetDescriptor): Observable<Identity> {
 		return this.http.post('/api/core/widgets/widgetDescriptor/', new ServerCommand("reposition",
-			{ _id: descriptor._id, column: descriptor.column, row: descriptor.row }))
+			{ _id: descriptor._id, columnId: descriptor.columnId, row: descriptor.row }))
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
