@@ -23,7 +23,6 @@ import { RGB } from '../color/rgb';
 		`.card-block {
 			padding: 5 20 5 20
 		}`
-
 	]
 })
 export class WidgetWrapperComponent {
@@ -31,11 +30,12 @@ export class WidgetWrapperComponent {
 	@ViewChild('target', { read: ViewContainerRef }) target: WidgetBase;
 
 	@Input() descriptor: WidgetDescriptor;
+	@Input() index: number;
 	@Output() onWindowStateChange: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
 	@Output() onWidgetRemove: EventEmitter<WidgetDescriptor> = new EventEmitter<WidgetDescriptor>();
 	cmpRef: ComponentRef<WidgetBase>;
 	instance: WidgetBase;
-	color: string = "#f5f9ff";
+	color: string = "#3d81e6";
 	title: string = "";
 	isColorPickerInit: boolean = false;
 
@@ -155,6 +155,7 @@ export class WidgetWrapperComponent {
 	onSetColor($event: any) {
 		if (this.color != this.descriptor.background) {
 			this.descriptor.background = this.color;
+			this.updateComponent();
 			this.widgetDescriptorService.setBackground(this.descriptor).subscribe(x => { });
 		}
 	}
@@ -176,7 +177,7 @@ export class WidgetWrapperComponent {
 			rgbColor.setAlpha(parseFloat(rgb[3]));
 		}
 		let rgbGradient = rgbColor.toString();
-		let rgbControls = rgbColor.darken(100).setAlpha(1).toString();
+		let rgbControls = rgbColor.darken(10).setAlpha(1).toString();
 
 		var gradient = "linear-gradient(rgba(0, 0, 0, 0), " + rgbGradient + ")";
 

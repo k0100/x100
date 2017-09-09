@@ -47,7 +47,7 @@ export class WidgetSelectorComponent {
 						"",
 						column._id,
 						row++,
-						"#f5f9ff",
+						"#3d81e6",
 						WindowState.Restored,
 						[],
 						[]);

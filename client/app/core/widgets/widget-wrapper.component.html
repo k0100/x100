@@ -1,22 +1,18 @@
 <article class="card" style="overflow:inherit;" [style.border-color]="this.controlsBackgroundColor">
-    <div class="card-block block" [style.background-image]="backgroundStyle" >
+    <div class="card-block block">
         <div class="row title drag-handle">
-            <span *ngIf="!(instance&&instance.isMinimized)" [style.color]="this.controlsBackgroundColor">
+            <span *ngIf="!(instance&&instance.isMinimized)">
                 <div class="dropdown">
-                    <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true"></i>
+                    <i class="fa fa-cog pull-left" data-toggle="dropdown" aria-hidden="true" [style.color]="this.controlsBackgroundColor"></i>
                     <div class="dropdown-menu" (click)="menuClick($event)">
-                        <div class="group-control">
-                            <input [(colorPicker)]="color" [style.background]="this.color" [cpOutputFormat]="rgba" 
-                                [cpAlphaChannel]="disabled" [cpPositionRelativeToArrow]="true" 
-                                [value]="color"
-                                (cpToggleChange)="onSetColor($event)"
-                                (colorPickerChange)="onChangeColor($event)" 
-                                class="form-control" />
-                        </div>
-                        <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
+                        <div class="input-group">
+                        <input [(colorPicker)]="color" [style.color]="this.color"  [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled" [cpPositionRelativeToArrow]="true" [value]="color"
+                (cpToggleChange)="onSetColor($event)" (colorPickerChange)="onChangeColor($event)" class="dropdown-item" />
                     </div>
-                </div>
-            </span>
+        <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
+    </div>
+    </div>
+    </span>
             <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor">
                 <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
             </a>
@@ -29,7 +25,9 @@
                     [style.color]="this.controlsBackgroundColor"></i>
             </a>
             <b>
-            <inline-editor class="drag-handle" aria-placeholder="" type="text" [(ngModel)]="title" 
+            <inline-editor class="drag-handle" aria-placeholder=""
+                type="text" [(ngModel)]="title"
+                placeholder=""
                 (onSave)="setTitle($event)" name="title" size="8" 
                 [style.color]="this.controlsBackgroundColor" 
                 empty="(enter name)"></inline-editor></b>
