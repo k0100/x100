@@ -17,6 +17,8 @@
         'angular2-color-picker': '/node_modules/angular2-color-picker',
         'ng2-dnd': '/node_modules/ng2-dnd/bundles/index.umd.js',
         '@qontu/ngx-inline-editor': '/node_modules/@qontu/ngx-inline-editor/ngx-inline-editor.umd.js',
+        'moment': '/node_modules/moment/moment.js',
+        'ngx-bootstrap': '/node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.js',
     };
 
     // packages tells the System loader how to load when no filename and/or no extension

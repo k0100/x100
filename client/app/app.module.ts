@@ -25,6 +25,7 @@ import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
 import { DndModule } from 'ng2-dnd';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,8 @@ import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 		ToastyModule,
 		ColorPickerModule,
 		DndModule.forRoot(),
-		InlineEditorModule
+		InlineEditorModule,
+		BsDropdownModule.forRoot()
 	],
 	providers: [
 		{

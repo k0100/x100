@@ -8,6 +8,7 @@ import { WidgetDescriptorResolverService } from './widget-description/widget-des
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { HEX } from '../color/hex';
 import { RGB } from '../color/rgb';
+import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
 	selector: 'widget-wrapper',
@@ -36,7 +37,7 @@ export class WidgetWrapperComponent {
 	cmpRef: ComponentRef<WidgetBase>;
 	instance: WidgetBase;
 	color: string = "#3d81e6";
-	title: string = "";
+	title = new FormControl("", Validators.required);
 	isColorPickerInit: boolean = false;
 
 	private isViewInitialized: boolean = false;
@@ -44,9 +45,12 @@ export class WidgetWrapperComponent {
 
 	private backgroundStyle: SafeStyle;
 	private controlsBackgroundColor: string;
+	private form: FormGroup;
 
-	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService, private domSanitizer: DomSanitizer) {
-
+	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService, private domSanitizer: DomSanitizer, fb: FormBuilder) {
+		this.form = fb.group({
+			"title": this.title
+		});
 	}
 
 	canMinimize() {
@@ -110,15 +114,20 @@ export class WidgetWrapperComponent {
 				this.instance.setInitialWindowState(this.descriptor.windowState);
 				this.instance.background = this.descriptor.background;
 				this.setBackground(this.descriptor.background);
-				this.title = this.descriptor.title;
+				this.title.setValue(this.descriptor.title);
 				this.instance.windowStateController.windowStateSubject
 					.subscribe(state => this.onWindowStateChanged(state));
 				this.instance.load();
 			});
 	}
 
-	menuClick(event: any) {
-		event.stopPropagation();
+	menuClick(event: any): boolean {
+		if (event.target.type !== 'submit') {
+			event.stopPropagation();
+			return false;
+		}
+		else
+			return true;
 	}
 
 	remove() {
@@ -185,10 +194,16 @@ export class WidgetWrapperComponent {
 		this.backgroundStyle = this.domSanitizer.bypassSecurityTrustStyle(gradient);
 	}
 
-	setTitle($event: any): void {
+	setTitle(title: string): void {
 		if (this.descriptor !== undefined) {
-			this.descriptor.title = this.title;
+			this.descriptor.title = title;
 			this.widgetDescriptorService.setTitle(this.descriptor).subscribe(x => { });
+		}
+	}
+
+	public setLabel(form: FormGroup) {
+		if (form.valid) {
+			this.setTitle(this.title.value);
 		}
 	}
 }
