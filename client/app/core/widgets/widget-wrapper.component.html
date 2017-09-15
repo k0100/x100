@@ -1,68 +1,47 @@
 <article class="card" style="overflow:inherit;" [style.border-color]="this.controlsBackgroundColor">
     <div class="card-block block">
         <div class="row title drag-handle">
-
-            <!-- <div class="btn-group" dropdown>
-  <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-    Button dropdown <span class="caret"></span>
-  </button>
-  <ul *dropdownMenu class="dropdown-menu" role="menu">
-    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-    <li class="divider dropdown-divider"></li>
-    <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
-    </li>
-  </ul>
-</div> -->
-
-
-            <span *ngIf="!(instance&&instance.isMinimized)">
-                    
-                <div class="btn-group" dropdown>
-                    <i class="fa fa-cog pull-left" aria-hidden="true" [style.color]="this.controlsBackgroundColor" dropdownToggle></i>
-                        <div *dropdownMenu class="dropdown-menu" role="menu" (isOpenChange)="change($event)">
-                
-                <form role="menuitem" class="dropdown-item" [formGroup]="form" (ngSubmit)="setLabel(form)">
-                    <div class="input-group">
-                        <input type="text" class="form-control" formControlName="title" placeholder="Label">
-                        <span class="input-group-btn">
-                                <button class="btn btn-secondary" [style.color]="this.background">
-                                    Set Label
-                                </button>
-                        </span>
-        </div>
-        </form>
-        <input role="menuitem" [(colorPicker)]="color" [style.color]="this.color" [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled"
-            [cpPositionRelativeToArrow]="true" [value]="color" (cpToggleChange)="onSetColor($event)" (colorPickerChange)="onChangeColor($event)"
-            class="dropdown-item" />
-
-        <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
-    </div>
-
-
-
-
-
-    </div>
-    </span>
-    <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor">
+            <div *ngIf="!(instance&&instance.isMinimized)">
+                <div dropdown style="position:relative;" (click)="menuClick($event)">
+                    <a href dropdownToggle (click)="false">
+                        <i class="fa fa-cog pull-left" aria-hidden="true" [style.color]="this.controlsBackgroundColor">
+                    </i>
+                    </a>
+                    <div *dropdownMenu class="dropdown-menu" style="width:100%;" role="menu" (isOpenChange)="change($event)">
+                        <form role="menuitem" class="dropdown-item" [formGroup]="form" (ngSubmit)="setLabel(form)">
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="title" placeholder="Label" />
+                                <span class="input-group-btn">
+                                            <button class="btn btn-secondary" [style.color]="this.background">
+                                                Set Label
+                                            </button>
+                                    </span>
+                            </div>
+                        </form>
+                        <input role="menuitem" [(colorPicker)]="color" [style.color]="this.color" [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled"
+                            [cpPositionRelativeToArrow]="true" [value]="color" [cpPosition]="'bottom'" (cpToggleChange)="onSetColor($event)" (colorPickerChange)="onChangeColor($event)"
+                            class="dropdown-item" />
+                        <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
+                    </div>
+                </div>
+            </div>
+            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor">
                 <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
             </a>
-    <a href="#" *ngIf="canRestore()" (click)="restore()">
+            <a href="#" *ngIf="canRestore()" (click)="restore()">
                 <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" 
                     [style.color]="this.controlsBackgroundColor"></i>
             </a>
-    <a href="#" *ngIf="canMinimize()" (click)="minimize()">
+            <a href="#" *ngIf="canMinimize()" (click)="minimize()">
                 <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" 
                     [style.color]="this.controlsBackgroundColor"></i>
             </a>
-    <b>
+            <b class="drag-handle">
             {{title.value}}
             </b>
-    </div>
-    <div class="row">
-        <div #target></div>
-    </div>
+        </div>
+        <div class="row">
+            <div #target></div>
+        </div>
     </div>
 </article>

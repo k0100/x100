@@ -1,19 +1,18 @@
 <div style="margin:15px">
 	<div class="row" *ngIf="!isExpanded">
-		<div *ngFor="let item of items;" class="container" [ngClass]="item.itemClass">
+		<div *ngFor="let item of items;trackBy:trackByItem" class="container" [ngClass]="item.itemClass">
 			<div class="row">
 				<div class="col-md-12">
-					
+
 					<i class="fa fa-arrow-right pull-right" aria-hidden="true" *ngIf="item.canExpand()" (click)="expand(item)"></i>
 					<i class="fa fa-arrow-left pull-right" aria-hidden="true" *ngIf="item.canShrink()" (click)="shrink(item)"></i>
 				</div>
 			</div>
 			<div [dragula]='"widgets"' [dragulaModel]='item.descriptors' [style.min-height]="50" *ngIf="item.canHostWidgets()">
-				<div *ngFor="let descriptor of item.descriptors;">
-					 <widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper> 
+				<div *ngFor="let descriptor of item.descriptors;trackBy:trackByDescriptor">
+					<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 				</div>
 			</div>
-
 			<div class="ignore-item row" *ngIf="item.canHostWidgets()">
 				<a data-toggle="modal" [attr.data-target]="'#selector' + item.index"><span class="fa-stack fa-2x" style="color:rgb(212, 213, 218); display: table;
   margin: 0 auto;">

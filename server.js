@@ -11,11 +11,12 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
 var passport = require('passport');
 var path = require('path');
-
+var promise = require('promise');
 //var LocalStrategy = require('passport-local').LocalStrategy;
 var session = require('express-session');
 var strategy = require('./server/secure/passport-strategy');
 
+mongoose.Promise = promise;
 mongoose.connect(config.mongoUrl);
 strategy(passport);
 

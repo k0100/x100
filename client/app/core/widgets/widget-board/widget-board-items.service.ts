@@ -26,37 +26,37 @@ export class WidgetBoardItemsService {
 			.map((res: Response) => res.json()
 				.map(
 				(item: any) =>
-					item.itemTypeId == 1?
-					new WidgetBoardColumn
-						(
-						item._id,
-						item.index,
-						item.usedColumns,
-						item.descriptors.map((descriptor: any) => WidgetDescriptor.createWithId(
-							descriptor._id,
-							descriptor.widgetTypeName,
-							descriptor.title,
-							descriptor.column,
-							descriptor.row,
-							descriptor.background,
-							WindowState.FromValue(descriptor.windowState.value),
-							descriptor.parameters,
-							descriptor.relations)
-						)
-						// item.descriptors.map(x:any)=>
-						// 	new WidgetDescriptor(x._id)
-						):
-					new WidgetBoardRowMarker
-						(
-						item._id,
-						item.index
-						)
+					item.itemTypeId == 1 ?
+						new WidgetBoardColumn
+							(
+							item._id,
+							item.index,
+							item.usedColumns,
+							item.descriptors.map((descriptor: any) => WidgetDescriptor.createWithId(
+								descriptor._id,
+								descriptor.widgetTypeName,
+								descriptor.title,
+								descriptor.columnId,
+								descriptor.row,
+								descriptor.background,
+								WindowState.FromValue(descriptor.windowState.value),
+								descriptor.parameters,
+								descriptor.relations)
+							)
+							) :
+						new WidgetBoardRowMarker
+							(
+							item._id,
+							item.index
+							)
 				)
 			)
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
-	public synchronizeItems(items: WidgetBoardItem[]): Observable<Response> {
-		return this.http.post('/api/core/widgets/widgetBoardItem/', new ServerCommand("synchronize", items));
+	public synchronizeItems(items: WidgetBoardItem[]): Observable<WidgetBoardItem[]> {
+		return this.http.post('/api/core/widgets/widgetBoardItem/', new ServerCommand("synchronize", items))
+			.map((res: Response) => res.json())
+			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 }

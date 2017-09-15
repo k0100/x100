@@ -36,7 +36,7 @@ export class WidgetBoardComponent {
 		private dragulaService: DragulaService,
 		private widgetDescriptorService: WidgetDescriptorService,
 		private widgetBoardItemsService: WidgetBoardItemsService) {
-		this.descriptors = new Array<WidgetDescriptor>();
+
 		this.isExpanded = false;
 		dragulaService.setOptions('widgets', {
 			moves: function (el: any, container: any, handle: any) {
@@ -74,40 +74,35 @@ export class WidgetBoardComponent {
 	}
 
 	onWidgetsAdded(descriptor: WidgetDescriptor) {
-		this.addDescriptor(descriptor);
-		this.load();
+		let columnItem = this.items.find(x => x._id == descriptor.columnId);
+
+		if (columnItem.canHostWidgets()) {
+			let column = (columnItem as WidgetBoardColumn);
+
+			column.descriptors.splice(column.descriptors.length, 0, descriptor);
+		}
 	}
 
 	onWidgetRemoved(descriptor: WidgetDescriptor) {
-		const removedIndex = this.descriptors.indexOf(descriptor);
-		this.descriptors.splice(removedIndex, 1);
-		this.isExpanded = false;
-		this.load();
+		let columnItem = this.items.find(x => x._id == descriptor.columnId);
+
+		if (columnItem.canHostWidgets()) {
+			let column = (columnItem as WidgetBoardColumn);
+
+			let index = column.descriptors.indexOf(descriptor);
+
+			column.descriptors.splice(index, 1);
+
+			this.isExpanded = false;
+		}
 	}
 
-	private addDescriptor(descriptor: WidgetDescriptor) {
-		this.descriptors.push(
-			WidgetDescriptor.createWithId(
-				descriptor._id,
-				descriptor.widgetTypeName,
-				descriptor.title,
-				descriptor.columnId,
-				descriptor.row,
-				descriptor.background,
-				WindowState.FromValue(descriptor.windowState.value),
-				descriptor.parameters,
-				descriptor.relations));
-	}
 
 	public load() {
 		this.widgetBoardItemsService.getItems()
 			.subscribe(res => {
 				this.items = res;
 			});
-	}
-
-	private widgetDescriptorRowComparer(a: WidgetDescriptor, b: WidgetDescriptor): number {
-		return a.row - b.row;
 	}
 
 	private expand(column: WidgetBoardColumn): void {
@@ -125,7 +120,6 @@ export class WidgetBoardComponent {
 			}
 			columnIndex++;
 		}
-		
 		this.updateRowMarkers(column);
 	}
 
@@ -136,6 +130,14 @@ export class WidgetBoardComponent {
 		this.items.splice(columnIndex, 0, new WidgetBoardColumn("", columnIndex, 1, []));
 
 		this.updateRowMarkers(column);
+	}
+
+	private trackByItem(index: number, item: WidgetBoardItem): string {
+		return item != null ? item._id : null;
+	}
+
+	private trackByDescriptor(index: number, descriptor: WidgetDescriptor): string {
+		return descriptor != null ? descriptor._id : null;
 	}
 
 	private updateRowMarkers(column: WidgetBoardColumn): void {
@@ -157,6 +159,7 @@ export class WidgetBoardComponent {
 				i++;
 				this.items.splice(i, 0, new WidgetBoardRowMarker("", i));
 			}
+
 			if (currentColumns < 4 &&
 				!hasAnotherColumn) {
 				let emptyColumns = 4 - currentColumns;
@@ -190,7 +193,6 @@ export class WidgetBoardComponent {
 			}
 		}
 
-
 		while (this.items.length > 5) {
 			if (!this.items[i - 1].canHostWidgets() &&
 				this.items[i - 2].canHostWidgets() && (this.items[i - 2] as WidgetBoardColumn).descriptors.length == 0 &&
@@ -208,8 +210,11 @@ export class WidgetBoardComponent {
 		}
 
 		this.widgetBoardItemsService.synchronizeItems(this.items).subscribe(
-			x => {
-				this.load();
+			result => {
+				let columnsWithoutId = this.items.filter(x => x._id == "");
+				columnsWithoutId.map((item) => item._id = result[item.index]._id);
 			});
 	}
+
+
 }
