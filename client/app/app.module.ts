@@ -21,12 +21,14 @@ import { ClockComponent } from '../app/widgets/clock/clock.component'
 import { EmptyComponent } from '../app/widgets/empty/empty.component'
 import { NoteComponent } from '../app/widgets/note/note.component'
 import { TodoComponent } from '../app/widgets/todo/todo.component'
+import { LibraryComponent } from './widgets/library/library.component';
 import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
 import { DndModule } from 'ng2-dnd';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { BsDropdownModule } from 'ngx-bootstrap';
-
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { FileUploadModule } from 'ng2-file-upload';
 @NgModule({
 	imports: [
 		BrowserModule,
@@ -39,7 +41,8 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 		ColorPickerModule,
 		DndModule.forRoot(),
 		InlineEditorModule,
-		BsDropdownModule.forRoot()
+		BsDropdownModule.forRoot(),
+		FileUploadModule
 	],
 	providers: [
 		{
@@ -54,6 +57,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 		AppComponent,
 		HomeComponent,
 
+		PdfViewerComponent,
 		SignUpComponent,
 		SignInComponent,
 
@@ -64,7 +68,11 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 		ClockComponent,
 		EmptyComponent,
 		NoteComponent,
-		TodoComponent
+		TodoComponent,
+		LibraryComponent,
+		
+	
+		
 	],
 	bootstrap: [AppComponent]
 })

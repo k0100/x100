@@ -2,7 +2,7 @@
  * System configuration for Angular 2 samples
  * Adjust as necessary for your application needs.
  */
-(function(global) {
+(function (global) {
 
     // map tells the System loader where to look for things
     var map = {
@@ -19,17 +19,22 @@
         '@qontu/ngx-inline-editor': '/node_modules/@qontu/ngx-inline-editor/ngx-inline-editor.umd.js',
         'moment': '/node_modules/moment/moment.js',
         'ngx-bootstrap': '/node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.js',
+        'ng2-pdf-viewer': '/node_modules/ng2-pdf-viewer',
+        'pdfjs-dist': '/node_modules/pdfjs-dist',
+        'ng2-file-upload': '/node_modules/ng2-file-upload'
     };
 
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
         'app': { main: 'main.js', defaultExtension: 'js' },
-        'rxjs': { main:'Rx.js', defaultExtension: 'js' },
+        'rxjs': { main: 'Rx.js', defaultExtension: 'js' },
         'dragula': { defaultExtension: "js" },
         'ng2-dragula': { defaultExtension: "js" },
         'ng2-toasty': { defaultExtension: "js" },
-        'angular2-color-picker': {main:'index.js', defaultExtension: 'js'}
-        
+        'angular2-color-picker': { main: 'index.js', defaultExtension: 'js' },
+        'ng2-pdf-viewer': { main: 'dist/index.js', defaultExtension: 'js' },
+        'pdfjs-dist': { defaultExtension: 'js' },
+        'ng2-file-upload': { main: 'ng2-file-upload.js', defaultExtension: 'js' }
     };
 
     var ngPackageNames = [
