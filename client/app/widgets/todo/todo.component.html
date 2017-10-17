@@ -10,24 +10,29 @@
 
         <ul style="overflow:auto; max-height:700px;" class="list-group">
             <li *ngFor="let todo of todos; let x = index" href="#" class="list-group-item">
-                <span class="pull-xs-right"><a class="pull-right" (click)="deleteTodo(todo)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                <span class="pull-xs-right">
+                    <a class="pull-right" (click)="deleteTodo(todo)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </span>
 
                 <h6 class="list-group-item-heading">
                     <i class="fa fa-lg fa-check" aria-hidden="true" *ngIf="todo.isCompleted" (click)="toggleTodo(todo)"></i>
-                    <i class="fa fa-lg fa-square-o" aria-hidden="true" *ngIf="!todo.isCompleted" (click)="toggleTodo(todo)"></i>                    {{todo.description }}
-
+                    <i class="fa fa-lg fa-square-o" aria-hidden="true" *ngIf="!todo.isCompleted" (click)="toggleTodo(todo)"></i>
+                    {{todo.description }}
                     <span class="pull-right">
-                    </span></h6>
+                    </span>
+                </h6>
             </li>
         </ul>
         <form [formGroup]="form" (ngSubmit)="addNewTodo(form)">
             <div class="input-group">
                 <input type="text" class="form-control" formControlName="newTodo" placeholder="New Todo">
                 <span class="input-group-btn">
-                <button class="btn btn-secondary" [style.color]="this.background">
-                    Add
-                </button>
-        </span>
+                    <button class="btn btn-secondary" [style.color]="this.background">
+                        Add
+                    </button>
+                </span>
             </div>
         </form>
     </div>

@@ -57,7 +57,6 @@ import { FileUploadModule } from 'ng2-file-upload';
 		AppComponent,
 		HomeComponent,
 
-		PdfViewerComponent,
 		SignUpComponent,
 		SignInComponent,
 
@@ -71,7 +70,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 		TodoComponent,
 		LibraryComponent,
 		
-	
+		PdfViewerComponent
 		
 	],
 	bootstrap: [AppComponent]

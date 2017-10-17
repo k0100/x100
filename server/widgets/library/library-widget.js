@@ -2,31 +2,168 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var fs = require('fs');
+var Book = require('./book-schema');
+var WidgetDescriptor = require('./../../core/widgets/widget-descriptor-schema');
+
 
 var DIR = './uploads/';
 
 var upload = multer({ dest: DIR }).single('file');
 
-router.post('/upload', function (req, res) {
-    upload(req, res, function (err) {
-        if (err) {
-            return res.end(err.toString());
+router.post('/', function (req, res) {
+
+    var command = req.body.commandName;
+    var widgetId = req.body.data.widgetId;
+
+    if (!req.user) {
+        res.json({ error: 'Bad User' });
+        return;
+    }
+
+    if (!widgetId) {
+        res.json(400, { error: 'Bad Widget' });
+        return;
+    }
+
+    var widgetQuery = WidgetDescriptor.find(
+        {
+            _id: widgetId,
+            userId: req.user._id
+        }).exec();
+
+    widgetQuery.then(function (found) {
+        if (found.length !== 1) {
+            res.json(400, { error: 'Bad Widget' });
+            return;
         }
 
-        res.end('File is uploaded');
+        const widget = found[0];
+
+        if (command == 'list') {
+            Book.find({
+                widgetId: widget._id
+            }, function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        }
+
+        if (command == 'delete') {
+			var book = req.body.data;
+
+			Book.remove({
+				_id: book._id,
+				widgetId: widget._id
+			}, function (err, result) {
+				if (err)
+					throw err;
+				res.json(result);
+			});
+		}
+    });
+
+});
+
+
+router.post('/upload', function (req, res) {
+    if (!req.user) {
+        res.json({ error: 'Bad User' });
+        return;
+    }
+
+    upload(req, res, function (err) {
+        var widgetId = JSON.parse(req.body.data).widgetId;
+
+        if (!widgetId) {
+            res.json(400, { error: 'Bad Widget' });
+            return;
+        }
+
+        var widgetQuery = WidgetDescriptor.find(
+            {
+                _id: widgetId,
+                userId: req.user._id
+            }).exec();
+
+        widgetQuery.then(function (found) {
+            if (found.length !== 1) {
+                res.json(400, { error: 'Bad Widget' });
+                return;
+            }
+
+            const widget = found[0];
+
+            if (err) {
+                return res.end(err.toString());
+            }
+
+            console.log(req.file);
+            var book = new Book({
+                fileName: req.file.filename,
+                name: req.file.originalname,
+                size: req.file.size,
+                date: new Date(),
+                widgetId: widget._id,
+                userId: req.user._id,
+            });
+
+            book.save(function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
     });
 });
 
 router.get('/upload', function (req, res) {
-    var file = DIR + "1.pdf";
-    fs.exists(file, (exists) => {
-        if (!exists) {
-            res.end("No file is found");
-        } else {
-            res.setHeader("content-type", "application/pdf");
-            fs.createReadStream(file).pipe(res);
+
+    var bookId = req.query.id;
+    var widgetId = req.query.widgetId;
+
+    if (!widgetId) {
+        res.json(400, { error: 'Bad Widget' });
+        return;
+    }
+
+    var widgetQuery = WidgetDescriptor.find(
+        {
+            _id: widgetId,
+            userId: req.user._id
+        }).exec();
+
+    widgetQuery.then(function (found) {
+        if (found.length !== 1) {
+            res.json(400, { error: 'Bad Widget' });
+            return;
         }
-    })
+
+        const widget = found[0];
+
+        Book.findOne({
+            _id: bookId,
+            widgetId: widget._id
+        }, function (err, result) {
+            if (err)
+                throw err;
+
+            var file = DIR + result.fileName;
+
+            fs.exists(file, (exists) => {
+                if (!exists) {
+                    res.end("No file is found");
+                } else {
+                    fs.stat(file, function (error, stat) {
+                        res.setHeader('Content-Length', stat.size);
+                        res.setHeader("Content-Type", "application/pdf");
+                        res.setHeader('Content-Disposition', 'inline; filename=quote.pdf');
+                        fs.createReadStream(file).pipe(res);
+                    });
+                }
+            });
+        });
+    });
 });
 
 module.exports = router;
