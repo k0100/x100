@@ -10,4 +10,7 @@ import {WidgetBase} from '../../core/widgets/widget-base';
 })
 
 export class EmptyComponent extends WidgetBase {
+	load(): void {
+		
+	}
 }

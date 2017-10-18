@@ -9,6 +9,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { HEX } from '../color/hex';
 import { RGB } from '../color/rgb';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { WidgetMenuItem } from './widget-menu/widget-menu-item';
 
 @Component({
 	selector: 'widget-wrapper',
@@ -39,7 +40,7 @@ export class WidgetWrapperComponent {
 	color: string = "#3d81e6";
 	title = new FormControl("", Validators.required);
 	isColorPickerInit: boolean = false;
-
+	menuItems: WidgetMenuItem[];
 	private isViewInitialized: boolean = false;
 	private widgetClass: string;
 
@@ -117,7 +118,10 @@ export class WidgetWrapperComponent {
 				this.title.setValue(this.descriptor.title);
 				this.instance.windowStateController.windowStateSubject
 					.subscribe(state => this.onWindowStateChanged(state));
-				this.instance.load();
+
+				this.instance.init();
+
+				this.menuItems = this.instance.menuItems;
 			});
 	}
 

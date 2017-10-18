@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule}from '@angular/forms';
-import {WidgetBase} from '../../core/widgets/widget-base';
-import {Observable} from 'rxjs/Rx';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { WidgetBase } from '../../core/widgets/widget-base';
+import { Observable } from 'rxjs/Rx';
+import { WidgetMenuItem } from '../../core/widgets/widget-menu/widget-menu-item';
+import { SetClockWidgetMenuItem } from './menu/SetClockWidgetMenuItem';
 
 @Component({
 	selector: 'clock',
@@ -9,6 +11,14 @@ import {Observable} from 'rxjs/Rx';
 })
 
 export class ClockComponent extends WidgetBase {
+	initMenuItems(): WidgetMenuItem[] {
+		let menuItems = new Array<WidgetMenuItem>();
+		menuItems.push(new SetClockWidgetMenuItem(this.id));
+		return menuItems;
+	}
+	load(): void {
+
+	}
 	private now: Date;
 	constructor() {
 		super();
@@ -22,7 +32,7 @@ export class ClockComponent extends WidgetBase {
 			.subscribe(x => this.now = x);
 	}
 
-	public test(){
+	public test() {
 		this.isMinimized = true;
 	}
 }
