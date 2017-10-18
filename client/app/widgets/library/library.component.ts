@@ -38,6 +38,18 @@ export class LibraryComponent extends WidgetBase {
 
     constructor(private http: Http, private service: LibraryService) {
         super();
+
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            const responseBook = JSON.parse(response);
+            const book: Book = new Book(responseBook.widgetId, responseBook.name);
+            book._id = response._id;
+            this.books.push(book);
+        };
+
+        this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
+            form.append('data', JSON.stringify({ widgetId: this.id }));
+        };
+
     }
 
     public fileOverBase(e: any): void {
@@ -45,9 +57,6 @@ export class LibraryComponent extends WidgetBase {
     }
 
     public onFileSelected() {
-        this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-            form.append('data', JSON.stringify({ widgetId: this.id }));
-        };
         this.uploader.uploadAll();
     }
 
