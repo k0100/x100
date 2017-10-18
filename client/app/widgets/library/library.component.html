@@ -1,6 +1,6 @@
 <div>
     <div *ngIf="!isBookLoaded">
-        <ul style="overflow:auto; max-height:700px;" class="list-group">
+        <ul style="overflow:auto; max-height:700px;" class="list-group" [style.color]="this.background">
             <li *ngFor="let book of books; let x = index" href="#" class="list-group-item">
                 <span class="pull-xs-right">
                     <a class="pull-right" (click)="deleteBook(book)">
@@ -15,12 +15,16 @@
                 </h6>
             </li>
         </ul>
-
+        <form>
+            <div class="input-group">
+                <label ng2FileDrop [uploader]="uploader" class="form-control">
+                    Drag and Drop File Here
+                    <input type="file" ng2FileSelect [uploader]="uploader" style="display: none" (change)="onFileSelected()" />
+                </label>
+            </div>
+        </form>
         <div>
-            <label ng2FileDrop [uploader]="uploader" class="my-drop-zone">
-                Drag and Drop File Here
-                <input type="file" ng2FileSelect [uploader]="uploader" style="display: none" (change)="onFileSelected()" />
-            </label>
+
         </div>
     </div>
     <div id="file" *ngIf="isBookLoaded">
