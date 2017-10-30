@@ -3,24 +3,26 @@ import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } 
 import { WidgetBase } from '../../core/widgets/widget-base';
 import { Observable } from 'rxjs/Rx';
 import { WidgetMenuItem } from '../../core/widgets/widget-menu/widget-menu-item';
-import { SetClockWidgetMenuItem } from './menu/SetClockWidgetMenuItem';
+import { TimezoneMenuItem } from './menu/TimezoneMenuItem';
+import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
 	selector: 'clock',
-	templateUrl: './app/widgets/clock/clock.component.html',
+	templateUrl: './app/widgets/clock/clock.component.html'
 })
 
 export class ClockComponent extends WidgetBase {
+
 	initMenuItems(): WidgetMenuItem[] {
 		let menuItems = new Array<WidgetMenuItem>();
-		menuItems.push(new SetClockWidgetMenuItem(this.id));
+		menuItems.push(new TimezoneMenuItem(this.id, this.modalService));
 		return menuItems;
 	}
 	load(): void {
 
 	}
 	private now: Date;
-	constructor() {
+	constructor(protected modalService: BsModalService) {
 		super();
 		this.now = new Date();
 		this.startClock();
@@ -30,9 +32,5 @@ export class ClockComponent extends WidgetBase {
 		Observable.interval(60000)
 			.map(x => new Date())
 			.subscribe(x => this.now = x);
-	}
-
-	public test() {
-		this.isMinimized = true;
 	}
 }

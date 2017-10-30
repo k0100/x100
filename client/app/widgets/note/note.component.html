@@ -1,9 +1,9 @@
 <ul style="overflow:auto; max-height:700px;" class="list-group">
 	<li *ngFor="let note of notes" href="#" class="list-group-item">
 		<span class="pull-xs-right">
-			<a class="pull-right" (click)="deleteNote(note)">
+			<a class="pull-right" style="margin-left:10px" (click)="deleteNote(note)">
 				<i class="fa fa-times" aria-hidden="true"></i>
-			</a>&nbsp;
+			</a>
 		</span>
 		<span class="pull-right">
 			<small>

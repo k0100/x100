@@ -20,7 +20,6 @@
                 	<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
             	</span>
             	</a>
-
 				<widget-selector (onWidgetsAdded)="onWidgetsAdded($event)" [column]="item"></widget-selector>
 			</div>
 		</div>
@@ -28,6 +27,7 @@
 
 	<div class="row" *ngIf="isExpanded">
 		<div class="col-md-12">
+			
 			<widget-wrapper [descriptor]="expandedWidgetDescriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 		</div>
 	</div>

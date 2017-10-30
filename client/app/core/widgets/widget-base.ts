@@ -2,6 +2,7 @@ import { WindowStateBase } from './window-state/window-state-base';
 import { WindowState } from './window-state/window-state';
 import { WindowStateController } from './window-state/window-state-controller';
 import { WidgetMenuItem } from './widget-menu/widget-menu-item';
+import { BsModalService } from 'ngx-bootstrap';
 
 export abstract class WidgetBase {
 	public id: string;

@@ -19,6 +19,7 @@ export class NoteComponent extends WidgetBase {
 
 	public notes: Note[] = [];
 
+	
 	constructor(private service: NoteService, fb: FormBuilder) {
 		super();
 		this.form = fb.group({

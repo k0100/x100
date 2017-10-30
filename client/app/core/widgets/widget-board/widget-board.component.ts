@@ -12,6 +12,7 @@ import { WidgetBoardRowMarker } from './widget-board-row-marker';
 import { BoardItemType } from "./board-item-type";
 import { WidgetBoardItemsService } from "./widget-board-items.service";
 import { Observable } from "rxjs/Observable";
+
 @Component({
 
 	selector: 'widget-board',
@@ -26,6 +27,7 @@ import { Observable } from "rxjs/Observable";
 	`]
 })
 export class WidgetBoardComponent {
+
 	public items: WidgetBoardItem[] = [];
 
 	private descriptors: WidgetDescriptor[];
@@ -35,7 +37,8 @@ export class WidgetBoardComponent {
 	constructor(
 		private dragulaService: DragulaService,
 		private widgetDescriptorService: WidgetDescriptorService,
-		private widgetBoardItemsService: WidgetBoardItemsService) {
+		private widgetBoardItemsService: WidgetBoardItemsService
+	) {
 
 		this.isExpanded = false;
 		dragulaService.setOptions('widgets', {
@@ -215,6 +218,4 @@ export class WidgetBoardComponent {
 				columnsWithoutId.map((item) => item._id = result[item.index]._id);
 			});
 	}
-
-
 }
