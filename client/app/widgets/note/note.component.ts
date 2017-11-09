@@ -8,7 +8,8 @@ import { NoteService } from './notes.service';
 @Component({
 	selector: 'note',
 	templateUrl: './app/widgets/note/note.component.html',
-	providers: [NoteService]
+	providers: [NoteService],
+	host: { class: 'widget' },
 })
 
 export class NoteComponent extends WidgetBase {

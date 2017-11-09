@@ -11,6 +11,7 @@ import { Book } from './book';
     selector: 'library',
     templateUrl: './app/widgets/library/library.component.html',
     providers: [LibraryService],
+    host: { class: 'widget' },
     styles: [`.my-drop-zone {
         border: dotted 3px lightgray;
     }

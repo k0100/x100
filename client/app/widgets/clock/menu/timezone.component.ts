@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 @Component({
     selector: 'modal-content',
     templateUrl: './app/widgets/clock/menu/timezone.component.html',
+    host: { class: 'widget' },
 })
 
 export class TimezoneComponent {

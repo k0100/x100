@@ -8,7 +8,8 @@ import { TodoService } from './todo.service';
 @Component({
 	selector: 'todo',
 	templateUrl: './app/widgets/todo/todo.component.html',
-	providers: [TodoService]
+	providers: [TodoService],
+	host: { class: 'widget' },
 })
 
 export class TodoComponent extends WidgetBase {
