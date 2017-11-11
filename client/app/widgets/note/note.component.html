@@ -1,22 +1,24 @@
-<ul style="overflow:auto; max-height:700px;" class="list-group">
-	<li *ngFor="let note of notes" href="#" class="list-group-item">
-		<span class="pull-xs-right">
-			<a class="pull-right" style="margin-left:10px" (click)="deleteNote(note)">
-				<i class="fa fa-times" aria-hidden="true"></i>
-			</a>
-		</span>
-		<span class="pull-right">
-			<small>
-				<i>{{note.date|date:"MM/dd/yy"}}</i>
-			</small>
-		</span>
-		<pre class="list-group-item-text"><h6>{{ getNoteHeading(note) }}{{ getNoteSubHeading(note) }}</h6></pre>
-	</li>
-</ul>
-<form [formGroup]="form" (ngSubmit)="addNewNote(form)">
-	<textarea formControlName="newNote" class="form-control" placeholder="New Note"></textarea>
-	<button class="btn btn-secondary pull-right">
-		Add
-	</button>
-</form>
-<div style="clear:both"></div>
+<div *ngIf="isRestored||isExpanded" class="col-12">
+	<ul style="overflow:auto; max-height:700px;" class="list-group row">
+		<li *ngFor="let note of notes" href="#" class="list-group-item d-block">
+			<pre class="list-group-item-text float-left"><h6>{{ getNoteHeading(note) }}{{ getNoteSubHeading(note) }}</h6></pre>
+			<span class="float-right">
+				<a class="float-right" style="margin-left:10px" (click)="deleteNote(note)">
+					<i class="fa fa-times" aria-hidden="true"></i>
+				</a>
+			</span>
+			<span class="float-right">
+				<small>
+					<i>{{note.date|date:"MM/dd/yy"}}</i>
+				</small>
+			</span>
+		</li>
+	</ul>
+	<form [formGroup]="form" (ngSubmit)="addNewNote(form)" class="row">
+		<textarea formControlName="newNote" class="form-control" placeholder="New Note"></textarea>
+		<button class="btn btn-secondary pull-right">
+			Add
+		</button>
+	</form>
+	<div style="clear:both"></div>
+</div>

@@ -22,7 +22,8 @@ export class ClockComponent extends WidgetBase {
 
 	}
 	private now: Date;
-	constructor(protected modalService: BsModalService) {
+	constructor(protected modalService: BsModalService
+	) {
 		super();
 		this.now = new Date();
 		this.startClock();

@@ -1,7 +1,7 @@
 <article class="card" style="overflow:inherit;" [style.border-color]="this.controlsBackgroundColor">
     <div class="card-block block">
-        <div class="row title drag-handle">
-            <div *ngIf="!(instance&&instance.isMinimized)">
+        <div class="row title drag-handle d-block">
+            <div *ngIf="!(instance&&instance.isMinimized)" class="float-left">
                 <div dropdown style="position:relative;" (click)="menuClick($event)">
                     <a href dropdownToggle (click)="false">
                         <i class="fa fa-cog pull-left" aria-hidden="true" [style.color]="this.controlsBackgroundColor">
@@ -26,18 +26,19 @@
                     </div>
                 </div>
             </div>
-            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor">
-                <i class="fa fa-external-link pull-right" aria-hidden="true" title="Expand"></i>
-            </a>
-            <a href="#" *ngIf="canRestore()" (click)="restore()">
-                <i class=" fa fa-square-o pull-right" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
-            </a>
-            <a href="#" *ngIf="canMinimize()" (click)="minimize()">
-                <i class="fa fa-minus pull-right clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
-            </a>
             <b class="drag-handle">
-                {{title.value}}
+                &nbsp;{{title.value}}
             </b>
+            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor" class="float-right">
+                <i class="fa fa-external-link" aria-hidden="true" title="Expand"></i>
+            </a>
+            <a href="#" *ngIf="canRestore()" (click)="restore()" class="float-right">
+                <i class=" fa fa-square-o" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
+            </a>
+            <a href="#" *ngIf="canMinimize()" (click)="minimize()" class="float-right">
+                <i class="fa fa-minus clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
+            </a>
+
         </div>
         <div class="row">
             <div #target style="width:100%"></div>

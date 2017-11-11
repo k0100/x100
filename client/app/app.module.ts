@@ -26,7 +26,7 @@ import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
 import { DndModule } from 'ng2-dnd';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
-import { BsDropdownModule, BsModalService, ModalBackdropComponent, ModalModule, TooltipModule } from 'ngx-bootstrap';
+import { BsDropdownModule, BsModalService, ModalBackdropComponent, ModalModule, TooltipModule, ComponentLoaderFactory } from 'ngx-bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
@@ -43,8 +43,7 @@ import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
 		ColorPickerModule,
 		DndModule.forRoot(),
 		InlineEditorModule,
-		ModalModule,
-		
+		ModalModule.forRoot(),
 		PdfViewerModule, 
 		FileUploadModule
 	],
@@ -57,7 +56,7 @@ import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
 			}
 		}
 		,
-		BsModalService,
+		ComponentLoaderFactory 
 	],
 	declarations: [
 		AppComponent,
