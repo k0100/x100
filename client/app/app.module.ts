@@ -44,6 +44,7 @@ import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
 		DndModule.forRoot(),
 		InlineEditorModule,
 		ModalModule.forRoot(),
+		BsDropdownModule.forRoot(),
 		PdfViewerModule, 
 		FileUploadModule
 	],

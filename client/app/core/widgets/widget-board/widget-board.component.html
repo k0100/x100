@@ -1,8 +1,12 @@
 <div style="margin:15px">
 	<div class="row" *ngIf="!isExpanded">
-		<div *ngFor="let item of items;trackBy:trackByItem" class="container-fluid" [ngClass]="item.itemClass">
-			<div class="row">
+		<div *ngFor="let item of items;trackBy:trackByItem" [ngClass]="item.itemClass">
+			<div class="row" *ngIf="item.canHostWidgets()">
 				<div class="col-md-12">
+
+					<a data-toggle="modal" [attr.data-target]="'#selector' + item.index" class="fa fa-plus">
+					</a>
+					<widget-selector (onWidgetsAdded)="onWidgetsAdded($event)" [column]="item"></widget-selector>
 
 					<i class="fa fa-arrow-right pull-right" aria-hidden="true" *ngIf="item.canExpand()" (click)="expand(item)"></i>
 					<i class="fa fa-arrow-left pull-right" aria-hidden="true" *ngIf="item.canShrink()" (click)="shrink(item)"></i>
@@ -13,21 +17,13 @@
 					<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 				</div>
 			</div>
-			<div class="ignore-item row" *ngIf="item.canHostWidgets()">
-				<a data-toggle="modal" [attr.data-target]="'#selector' + item.index"><span class="fa-stack fa-2x" style="color:rgb(212, 213, 218); display: table;
-  margin: 0 auto;">
-                	<i class="fa fa-circle fa-stack-2x"></i>
-                	<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-            	</span>
-            	</a>
-				<widget-selector (onWidgetsAdded)="onWidgetsAdded($event)" [column]="item"></widget-selector>
-			</div>
+
 		</div>
 	</div>
 
 	<div class="row" *ngIf="isExpanded">
 		<div class="col-md-12">
-			
+
 			<widget-wrapper [descriptor]="expandedWidgetDescriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 		</div>
 	</div>

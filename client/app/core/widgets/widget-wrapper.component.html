@@ -1,7 +1,7 @@
 <article class="card" style="overflow:inherit;" [style.border-color]="this.controlsBackgroundColor">
     <div class="card-block block">
         <div class="row title drag-handle d-block">
-            <div *ngIf="!(instance&&instance.isMinimized)" class="float-left">
+            <div *ngIf="!(instance&&instance.isMinimized)">
                 <div dropdown style="position:relative;" (click)="menuClick($event)">
                     <a href dropdownToggle (click)="false">
                         <i class="fa fa-cog pull-left" aria-hidden="true" [style.color]="this.controlsBackgroundColor">
