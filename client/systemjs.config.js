@@ -14,11 +14,12 @@
         'dragula': '/node_modules/dragula/dist/dragula.js',
         'ng2-dragula': '/node_modules/ng2-dragula',
         'ng2-toasty': '/node_modules/ng2-toasty/bundles/index.umd.js',
-        'angular2-color-picker': '/node_modules/angular2-color-picker',
+        
         'ng2-dnd': '/node_modules/ng2-dnd/bundles/index.umd.js',
         '@qontu/ngx-inline-editor': '/node_modules/@qontu/ngx-inline-editor/ngx-inline-editor.umd.js',
         'moment': '/node_modules/moment/moment.js',
         'ngx-bootstrap': '/node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.js',
+        'ngx-color-picker': '/node_modules/ngx-color-picker',
         'ng2-pdf-viewer': '/node_modules/ng2-pdf-viewer',
         'pdfjs-dist': '/node_modules/pdfjs-dist',
         'ng2-file-upload': '/node_modules/ng2-file-upload'
@@ -31,7 +32,7 @@
         'dragula': { defaultExtension: "js" },
         'ng2-dragula': { defaultExtension: "js" },
         'ng2-toasty': { defaultExtension: "js" },
-        'angular2-color-picker': { main: 'index.js', defaultExtension: 'js' },
+        'ngx-color-picker': { main: 'bundles/ngx-color-picker.umd.js', defaultExtension: 'js' },
         'ng2-pdf-viewer': { main: 'dist/index.js', defaultExtension: 'js' },
         'pdfjs-dist': { defaultExtension: 'js' },
         'ng2-file-upload': { main: 'ng2-file-upload.js', defaultExtension: 'js' }
@@ -71,7 +72,8 @@
 
     var config = {
         map: map,
-        packages: packages
+        packages: packages,
+       // transpiler: 'es6-module-transpiler'
     };
 
     System.config(config);

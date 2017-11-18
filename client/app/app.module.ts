@@ -7,7 +7,7 @@ import { routing } from './app.routes';
 import { HomeComponent } from '../app/pages/home/home.component'
 import { DragulaModule } from 'ng2-dragula/ng2-dragula'
 import { ToastyModule } from 'ng2-toasty';
-import { ColorPickerModule } from 'angular2-color-picker';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { WidgetBoardComponent } from '../app/core/widgets/widget-board/widget-board.component'
 import { WidgetWrapperComponent } from '../app/core/widgets/widget-wrapper.component'
