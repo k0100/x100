@@ -1,7 +1,8 @@
 <div *ngIf="isRestored||isExpanded" class="col-12">
 	<ul style="overflow:auto; max-height:700px;" class="list-group row">
 		<li *ngFor="let note of notes" href="#" class="list-group-item d-block">
-			<pre class="list-group-item-text float-left"><h6>{{ getNoteHeading(note) }}{{ getNoteSubHeading(note) }}</h6></pre>
+			<pre class="list-group-item-text float-left">
+				<div>{{ getNoteHeading(note) }}{{ getNoteSubHeading(note) }}</div></pre>
 			<span class="float-right">
 				<a class="float-right" style="margin-left:10px" (click)="deleteNote(note)">
 					<i class="fa fa-times" aria-hidden="true"></i>

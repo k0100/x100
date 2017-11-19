@@ -2,15 +2,27 @@ var gulp = require("gulp");
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var flatten = require('gulp-flatten');
+var filenames = require("gulp-filenames");
+var gutil = require('gulp-util');
+var fs = require('fs');
+var path = require('path');
+
 var config = {
     bootstrapDir: './node_modules/bootstrap/scss',
+    bootstrapCustom: './client/scss',
     publicDir: './client',
 };
+
 gulp.task('css', function () {
+    const customBootstrapFile = config.bootstrapDir + '/_custom.scss';
+
+    if (fs.existsSync(customBootstrapFile))
+        fs.unlinkSync(customBootstrapFile);
+
     return gulp.src('./client/scss/app.scss')
         .pipe(sass({
-        includePaths: [config.bootstrapDir + ''],
-    }))
+            includePaths: [config.bootstrapCustom, config.bootstrapDir],
+        }))
         .pipe(gulp.dest(config.publicDir + '/css'));
 });
 // gulp.task("fonts", function() {
