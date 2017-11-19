@@ -2,17 +2,16 @@
     <div *ngIf="!isBookLoaded">
         <ul style="overflow:auto; max-height:700px;" class="list-group" [style.color]="this.background">
             <li *ngFor="let book of books; let x = index" href="#" class="list-group-item">
-                <span class="pull-xs-right">
+                <div class="list-group-item-heading">
+                    <span (click)="loadBook(book)">{{book.name}}</span>
+                    <span class="pull-right">
+                    </span>
+                </div>
+                <span class="float-right">
                     <a class="pull-right" (click)="deleteBook(book)">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </a>
                 </span>
-
-                <h6 class="list-group-item-heading">
-                    <span (click)="loadBook(book)">{{book.name}}</span>
-                    <span class="pull-right">
-                    </span>
-                </h6>
             </li>
         </ul>
         <form>
