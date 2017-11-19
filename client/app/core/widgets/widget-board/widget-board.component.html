@@ -3,7 +3,6 @@
 		<div *ngFor="let item of items;trackBy:trackByItem" [ngClass]="item.itemClass">
 			<div class="row" *ngIf="item.canHostWidgets()">
 				<div class="col-md-12">
-
 					<a data-toggle="modal" [attr.data-target]="'#selector' + item.index" class="fa fa-plus">
 					</a>
 					<widget-selector (onWidgetsAdded)="onWidgetsAdded($event)" [column]="item"></widget-selector>
@@ -17,7 +16,6 @@
 					<widget-wrapper [descriptor]="descriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 				</div>
 			</div>
-
 		</div>
 	</div>
 

@@ -5996,3 +5996,24 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 
 .widget {
   width: 100%; }
+
+.root-line-height {
+  line-height: 1.5 !important; }
+
+.widget-menu i {
+  line-height: 1.5;
+  padding-right: 3px; }
+
+.widget-menu i.last {
+  padding-right: 0px; }
+
+.widget-wrapper {
+  overflow: inherit;
+  margin-bottom: 10px; }
+
+.break-word {
+  word-wrap: break-word; }
+
+a,
+.clickable {
+  cursor: pointer; }

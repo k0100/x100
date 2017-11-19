@@ -11,3 +11,31 @@
 .widget{
   width:100%;
 }
+
+.root-line-height{
+  line-height: $line-height-base!important;
+}
+
+.widget-menu i{
+  line-height: $line-height-base;
+  padding-right: 3px;
+}
+
+
+.widget-menu i.last{
+  padding-right: 0px;
+}
+
+.widget-wrapper{
+  overflow:inherit;
+  margin-bottom: 10px;
+}
+
+.break-word{
+  word-wrap: break-word;
+}
+
+a,
+.clickable{
+  cursor: pointer;
+}

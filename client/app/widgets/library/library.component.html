@@ -2,21 +2,18 @@
     <div *ngIf="!isBookLoaded">
         <ul style="overflow:auto; max-height:700px;" class="list-group" [style.color]="this.background">
             <li *ngFor="let book of books; let x = index" href="#" class="list-group-item d-block">
-                <div class="list-group-item-heading float-left">
-                    <span (click)="loadBook(book)">{{book.name}}</span>
-                    <span class="pull-right">
-                    </span>
-                </div>
+
                 <span class="float-right">
                     <a class="pull-right" (click)="deleteBook(book)">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <i class="fa fa-times root-line-height" aria-hidden="true"></i>
                     </a>
                 </span>
+                <span (click)="loadBook(book)" class="break-word clickable">{{book.name}}</span>
             </li>
         </ul>
         <form>
             <div class="input-group">
-                <label ng2FileDrop [uploader]="uploader" class="form-control">
+                <label ng2FileDrop [uploader]="uploader" class="form-control clickable">
                     Drag and Drop File Here
                     <input type="file" ng2FileSelect [uploader]="uploader" style="display: none" (change)="onFileSelected()" />
                 </label>
@@ -33,9 +30,13 @@
             </a>
 
             <label>Page:</label>
-            <input type="number" placeholder="Page" [(ngModel)]="page">
+            {{page}}
+            <!-- <input type="number" placeholder="Page" [(ngModel)]="page"> -->
+        </div>
+        <div style="overflow:auto; max-height:700px;">
+            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [stick-to-page]="true" [(page)]="page" [original-size]="true"
+                [fit-to-page]="true" style="display: block;"></pdf-viewer>
         </div>
 
-        <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [page]="page" [original-size]="false" style="display: block;"></pdf-viewer>
     </div>
 </div>

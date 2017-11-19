@@ -1,18 +1,15 @@
 <div *ngIf="isRestored||isExpanded" class="col-12">
 	<ul style="overflow:auto; max-height:700px;" class="list-group row">
-		<li *ngFor="let note of notes" href="#" class="list-group-item d-block">
-			<pre class="list-group-item-text float-left">
-				<div>{{ getNoteHeading(note) }}{{ getNoteSubHeading(note) }}</div></pre>
-			<span class="float-right">
-				<a class="float-right" style="margin-left:10px" (click)="deleteNote(note)">
-					<i class="fa fa-times" aria-hidden="true"></i>
-				</a>
-			</span>
-			<span class="float-right">
+		<li *ngFor="let note of notes" href="#" class="list-group-item d-block break-word">
+			<div class="float-right">
 				<small>
-					<i>{{note.date|date:"MM/dd/yy"}}</i>
+					<i class="root-line-height">{{note.date|date:"MM/dd/yy"}}</i>
 				</small>
-			</span>
+				<a style="margin-left:10px" class="float-right" (click)="deleteNote(note)">
+					<i class="fa fa-times root-line-height" aria-hidden="true"></i>
+				</a>
+			</div>
+			{{ note.body }}
 		</li>
 	</ul>
 	<form [formGroup]="form" (ngSubmit)="addNewNote(form)" class="row">

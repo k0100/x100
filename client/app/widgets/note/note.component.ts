@@ -20,7 +20,7 @@ export class NoteComponent extends WidgetBase {
 
 	public notes: Note[] = [];
 
-	
+
 	constructor(private service: NoteService, fb: FormBuilder) {
 		super();
 		this.form = fb.group({
@@ -28,18 +28,6 @@ export class NoteComponent extends WidgetBase {
 		});
 
 
-	}
-
-	public getNoteHeading(note: Note): string {
-		return note.body.substr(0, this.maxHeadingLength);
-	}
-
-	public getNoteSubHeading(note: Note): string {
-		let bodyLen = note.body.length;
-		let subHeading = bodyLen < this.maxHeadingLength ?
-			"" : note.body.substr(this.maxHeadingLength, this.maxSubHeadingLength);
-		subHeading += bodyLen < this.maxHeadingLength + this.maxSubHeadingLength ? "" : "...";
-		return subHeading;
 	}
 
 	public addNewNote(form: FormGroup) {
