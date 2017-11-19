@@ -1,8 +1,8 @@
 <div>
     <div *ngIf="!isBookLoaded">
         <ul style="overflow:auto; max-height:700px;" class="list-group" [style.color]="this.background">
-            <li *ngFor="let book of books; let x = index" href="#" class="list-group-item">
-                <div class="list-group-item-heading">
+            <li *ngFor="let book of books; let x = index" href="#" class="list-group-item d-block">
+                <div class="list-group-item-heading float-left">
                     <span (click)="loadBook(book)">{{book.name}}</span>
                     <span class="pull-right">
                     </span>
