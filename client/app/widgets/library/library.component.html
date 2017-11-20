@@ -19,9 +19,6 @@
                 </label>
             </div>
         </form>
-        <div>
-
-        </div>
     </div>
     <div id="file" *ngIf="isBookLoaded">
         <div>
@@ -29,13 +26,20 @@
                 <i class="fa fa-times" aria-hidden="true"></i>
             </a>
 
+
             <label>Page:</label>
             {{page}}
+            <a (click)="previous()">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+            <a (click)="next()">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
             <!-- <input type="number" placeholder="Page" [(ngModel)]="page"> -->
         </div>
-        <div style="overflow:auto; max-height:700px;">
-            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [stick-to-page]="true" [(page)]="page" [original-size]="true"
-                [fit-to-page]="true" style="display: block;"></pdf-viewer>
+        <div style="overflow:auto;">
+            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [autoresize]="true" [original-size]="false" [show-all]="false" [stick-to-page]="true"
+                [(page)]="page" style="display: block;"></pdf-viewer>
         </div>
 
     </div>

@@ -81,7 +81,6 @@ export class LibraryComponent extends WidgetBase {
     private loadBook(book: Book) {
         this.isBookLoaded = true;
         this.pdfSrc = '/api/library/upload?id=' + book._id + '&widgetId=' + this.id;
-
     }
 
     private loadList() {
@@ -97,5 +96,13 @@ export class LibraryComponent extends WidgetBase {
             this.pdfSrc = '/api/library/upload';
 
         }, 0);
+    }
+
+    private previous() {
+        this.page--;
+    }
+
+    private next() {
+        this.page++;
     }
 }
