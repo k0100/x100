@@ -35,11 +35,24 @@
             <a (click)="next()">
                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
-            <!-- <input type="number" placeholder="Page" [(ngModel)]="page"> -->
+            <a (click)="zoomOut()">
+                <i class="fa fa-search-minus" aria-hidden="true"></i>
+            </a>
+            <a (click)="zoomIn()">
+                <i class="fa fa-search-plus" aria-hidden="true"></i>
+            </a>
         </div>
-        <div style="overflow:auto;">
-            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [autoresize]="true" [original-size]="false" [show-all]="false" [stick-to-page]="true"
-                [(page)]="page" style="display: block;"></pdf-viewer>
+        <div fill-height [delta]="20">
+            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [(page)]="page" [(zoom)]="zoom" [stick-to-page]="true"
+                style="display: block;" (after-load-complete)="callBackFn($event)"></pdf-viewer>
+            <label>Page:</label>
+            {{page}}
+            <a (click)="previous()">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+            <a (click)="next()">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
         </div>
 
     </div>

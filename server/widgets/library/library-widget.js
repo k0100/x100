@@ -154,6 +154,10 @@ router.get('/upload', function (req, res) {
                 if (!exists) {
                     res.end("No file is found");
                 } else {
+                    // const audioBuffer = fetchAudioBuffer();
+                    // res.set('Content-Type', 'audio/mp4');
+                    // res.sendSeekable(audioBuffer);
+
                     fs.stat(file, function (error, stat) {
                         res.setHeader('Content-Length', stat.size);
                         res.setHeader("Content-Type", "application/pdf");

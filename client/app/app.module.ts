@@ -30,6 +30,7 @@ import { BsDropdownModule, BsModalService, ModalBackdropComponent, ModalModule, 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
+import { FillHeightDirective } from './core/view/fill-height.directive';
 
 @NgModule({
 	imports: [
@@ -77,6 +78,7 @@ import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
 		NoteComponent,
 		TodoComponent,
 		LibraryComponent,
+		FillHeightDirective
 	],
 	entryComponents:[
 		TimezoneComponent

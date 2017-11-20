@@ -14,6 +14,8 @@ var cookieParser = require('cookie-parser')
 var passport = require('passport');
 var path = require('path');
 var promise = require('promise');
+var sendSeekable = require('send-seekable');
+
 //var LocalStrategy = require('passport-local').LocalStrategy;
 var session = require('express-session');
 var strategy = require('./server/secure/passport-strategy');
@@ -23,7 +25,7 @@ mongoose.connect(config.mongoUrl);
 strategy(passport);
 
 var app = express()
-
+app.use(sendSeekable);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -36,6 +38,7 @@ app.use(bodyParser.urlencoded({
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
 
 app.use(function (req, res, next) {
   if (!req.user && req.path.startsWith('/api/') && !req.path.startsWith('/api/secure'))

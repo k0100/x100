@@ -35,6 +35,7 @@ export class LibraryComponent extends WidgetBase {
     books: Book[];
     pdfSrc: string;
     page: number = 1;
+    zoom: number = 0.8;
     isBookLoaded: boolean = false;
 
     constructor(private http: Http, private service: LibraryService) {
@@ -105,4 +106,18 @@ export class LibraryComponent extends WidgetBase {
     private next() {
         this.page++;
     }
+
+
+    private zoomOut() {
+        this.zoom -= 0.1;
+    }
+
+    private zoomIn() {
+        this.zoom += 0.1;
+    }
+
+    callBackFn(pdf: PDFDocumentProxy) {
+        console.log(pdf);
+     }
+
 }
