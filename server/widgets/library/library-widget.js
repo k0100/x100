@@ -4,7 +4,7 @@ var multer = require('multer');
 var fs = require('fs');
 var Book = require('./book-schema');
 var WidgetDescriptor = require('./../../core/widgets/widget-descriptor-schema');
-
+var path = require('path');
 
 var DIR = './uploads/';
 
@@ -50,17 +50,52 @@ router.post('/', function (req, res) {
         }
 
         if (command == 'delete') {
-			var book = req.body.data;
+            var book = req.body.data;
 
-			Book.remove({
+            Book.remove({
+                _id: book._id,
+                widgetId: widget._id
+            }, function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        }
+
+        if (command == 'setpage') {
+            var book = req.body.data;
+            
+            Book.update({
 				_id: book._id,
 				widgetId: widget._id
-			}, function (err, result) {
-				if (err)
-					throw err;
-				res.json(result);
-			});
-		}
+			}, {
+					$set: { page: book.page }
+				}, function (err, result) {
+					if (err) {
+						res.send(err);
+					} else {
+						res.json(result);
+					}
+				});
+        }
+
+        if (command == 'setzoom') {
+            var book = req.body.data;
+            
+            Book.update({
+				_id: book._id,
+				widgetId: widget._id
+			}, {
+					$set: { zoom: book.zoom }
+				}, function (err, result) {
+					if (err) {
+						res.send(err);
+					} else {
+						res.json(result);
+					}
+				});
+        }
+
     });
 
 });
@@ -158,12 +193,14 @@ router.get('/upload', function (req, res) {
                     // res.set('Content-Type', 'audio/mp4');
                     // res.sendSeekable(audioBuffer);
 
-                    fs.stat(file, function (error, stat) {
-                        res.setHeader('Content-Length', stat.size);
-                        res.setHeader("Content-Type", "application/pdf");
-                        res.setHeader('Content-Disposition', 'inline; filename=quote.pdf');
-                        fs.createReadStream(file).pipe(res);
-                    });
+                    res.sendFile( result.fileName, { root: path.join(__dirname, '../../../uploads') });
+                    // fs.stat(file, function (error, stat) {
+                    //     res.setHeader('Content-Length', stat.size);
+                    //     res.setHeader("Content-Type", "application/pdf");
+                    //     res.setHeader('Content-Disposition', 'inline; filename=quote.pdf');
+                    //     res.sendFile(file);
+                    //     //fs.createReadStream(file).pipe(res);
+                    // });
                 }
             });
         });

@@ -43,10 +43,9 @@
             </a>
         </div>
         <div fill-height [delta]="20">
-            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [(page)]="page" [(zoom)]="zoom" [stick-to-page]="true"
+            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [page]="page" [(zoom)]="zoom" [stick-to-page]="true"
                 style="display: block;" (after-load-complete)="callBackFn($event)"></pdf-viewer>
             <label>Page:</label>
-            {{page}}
             <a (click)="previous()">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </a>

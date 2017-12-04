@@ -7,7 +7,9 @@ var bookSchema = new Schema({
     name: String,
     size: Number,
     widgetId: String,
-    userId: String
+    userId: String,
+    page: Number,
+    zoom: Number
 });
 
 var schema = mongoose.model('BookSchema', bookSchema);

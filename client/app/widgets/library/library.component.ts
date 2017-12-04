@@ -37,13 +37,14 @@ export class LibraryComponent extends WidgetBase {
     page: number = 1;
     zoom: number = 0.8;
     isBookLoaded: boolean = false;
+    currentBook: Book;
 
     constructor(private http: Http, private service: LibraryService) {
         super();
 
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             const responseBook = JSON.parse(response);
-            const book: Book = new Book(responseBook.widgetId, responseBook.name);
+            const book: Book = new Book(responseBook.widgetId, responseBook.name, responseBook.page);
             book._id = responseBook._id;
             this.books.push(book);
         };
@@ -81,6 +82,9 @@ export class LibraryComponent extends WidgetBase {
 
     private loadBook(book: Book) {
         this.isBookLoaded = true;
+        this.currentBook = book;
+        this.page = book.page == null ? 1 : book.page;
+        this.zoom = book.zoom == null ? 2 : book.zoom;
         this.pdfSrc = '/api/library/upload?id=' + book._id + '&widgetId=' + this.id;
     }
 
@@ -90,34 +94,40 @@ export class LibraryComponent extends WidgetBase {
     }
 
     onError(error: any) {
-        console.log(error);
     }
     ngAfterViewInit() {
         setTimeout(() => {
             this.pdfSrc = '/api/library/upload';
-
         }, 0);
     }
 
     private previous() {
         this.page--;
+        this.currentBook.page = this.page;
+        this.service.setPage(this.currentBook).subscribe();
     }
 
     private next() {
         this.page++;
+        this.currentBook.page = this.page;
+        this.service.setPage(this.currentBook).subscribe();
     }
 
 
     private zoomOut() {
-        this.zoom -= 0.1;
+        this.zoom -= 0.3;
+        this.currentBook.zoom = this.zoom;
+        this.service.setZoom(this.currentBook).subscribe();
     }
 
     private zoomIn() {
-        this.zoom += 0.1;
+        this.zoom += 0.3;
+        this.currentBook.zoom = this.zoom;
+        this.service.setZoom(this.currentBook).subscribe();
     }
 
     callBackFn(pdf: PDFDocumentProxy) {
         console.log(pdf);
-     }
+    }
 
 }
