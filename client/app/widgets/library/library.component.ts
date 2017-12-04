@@ -44,7 +44,7 @@ export class LibraryComponent extends WidgetBase {
 
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             const responseBook = JSON.parse(response);
-            const book: Book = new Book(responseBook.widgetId, responseBook.name, responseBook.page);
+            const book: Book = new Book(responseBook.widgetId, responseBook.name, responseBook.page, response.zoom);
             book._id = responseBook._id;
             this.books.push(book);
         };
