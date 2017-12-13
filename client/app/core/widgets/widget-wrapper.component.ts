@@ -17,7 +17,7 @@ import { WidgetMenuItem } from './widget-menu/widget-menu-item';
 	providers: [WidgetDescriptorResolverService, WidgetDescriptorService],
 	styles: [
 		`.title {
-			background-color:rgba(0,0,0,0.04);
+			background-color:rgba(255, 255, 255, 0.5);
 			margin-bottom: 7px;
 			padding:0 4px 0 4px;
 			cursor: move;
@@ -46,6 +46,7 @@ export class WidgetWrapperComponent {
 
 	private backgroundStyle: SafeStyle;
 	private controlsBackgroundColor: string;
+	private widgetBackgroundColor: string;
 	private form: FormGroup;
 
 	constructor(private compiler: Compiler, private widgetDescriptorResolverService: WidgetDescriptorResolverService, private widgetDescriptorService: WidgetDescriptorService, private domSanitizer: DomSanitizer, fb: FormBuilder) {
@@ -191,10 +192,13 @@ export class WidgetWrapperComponent {
 		}
 		let rgbGradient = rgbColor.toString();
 		let rgbControls = rgbColor.darken(10).setAlpha(1).toString();
+		let rgbWidget = rgbColor.setAlpha(0.4).toString();
 
 		var gradient = "linear-gradient(rgba(0, 0, 0, 0), " + rgbGradient + ")";
 
 		this.controlsBackgroundColor = rgbControls;
+		this.widgetBackgroundColor = rgbWidget;
+
 		this.backgroundStyle = this.domSanitizer.bypassSecurityTrustStyle(gradient);
 	}
 
