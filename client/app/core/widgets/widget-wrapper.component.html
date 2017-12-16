@@ -1,6 +1,6 @@
 <article class="card widget-wrapper" [style.border-color]="this.controlsBackgroundColor">
-    <div class="card-block block">
-        <div class="row title drag-handle d-block widget-menu">
+    <div class="card-block block" [style.background-color]="this.widgetBackgroundColor">
+        <div class="row title drag-handle d-block widget-menu" >
             <div *ngIf="!(instance&&instance.isMinimized)">
                 <div dropdown style="position:relative;" (click)="menuClick($event)">
                     <a href dropdownToggle (click)="false">

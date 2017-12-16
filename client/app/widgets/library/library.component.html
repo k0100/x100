@@ -1,6 +1,6 @@
 <div>
     <div *ngIf="!isBookLoaded">
-        <ul style="overflow:auto; max-height:700px;" class="list-group" [style.color]="this.background">
+        <ul style="overflow:auto; max-height:700px;" class="list-group">
             <li *ngFor="let book of books; let x = index" href="#" class="list-group-item d-block">
 
                 <span class="float-right">
@@ -20,39 +20,38 @@
             </div>
         </form>
     </div>
-    <div id="file" *ngIf="isBookLoaded">
+    <div id="file" *ngIf="isBookLoaded" style="background:whitesmoke;">
         <div>
-            <a class="pull-right" (click)="loadList()">
+            <button (click)="previous()" class="pull-left">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+           
+            <button class="pull-right" (click)="loadList()">
                 <i class="fa fa-times" aria-hidden="true"></i>
-            </a>
-
-
+            </button>
+            <button (click)="next()" class="pull-right">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+            <button (click)="zoomOut()">
+                <i class="fa fa-search-minus" aria-hidden="true"></i>
+            </button>
+            <button (click)="zoomIn()">
+                <i class="fa fa-search-plus" aria-hidden="true"></i>
+            </button>
             <label>Page:</label>
             {{page}}
-            <a (click)="previous()">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            </a>
-            <a (click)="next()">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            </a>
-            <a (click)="zoomOut()">
-                <i class="fa fa-search-minus" aria-hidden="true"></i>
-            </a>
-            <a (click)="zoomIn()">
-                <i class="fa fa-search-plus" aria-hidden="true"></i>
-            </a>
         </div>
         <div fill-height [delta]="20" scroll-control>
             <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [page]="page" [(zoom)]="zoom" [stick-to-page]="true"
                 style="display: block;" (after-load-complete)="callBackFn($event)"></pdf-viewer>
-            <label>Page:</label>
-            <a (click)="previous()">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            </a>
-            <a (click)="next()">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            </a>
         </div>
-
+        <div>
+            <button (click)="previous()" class="pull-left">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button type="button" (click)="next()" class="pull-right">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+        </div>
     </div>
 </div>
