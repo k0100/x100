@@ -5,11 +5,15 @@ import { validateConfig } from '@angular/router/src/config';
 
 export class ScrollControltDirective implements AfterViewInit {
 
-    private offset: number;
+    private offset: number = 0;
+
+    scrollElement(offset: number): void {
+        this.el.nativeElement.scrollTop = offset;
+    }
 
     @Input() set scrollOffset(value: number) {
         this.offset = value;
-        scroll(this.offset);
+        this.scrollElement(this.offset);
     }
 
     get scrollOffset(): number {
@@ -19,11 +23,8 @@ export class ScrollControltDirective implements AfterViewInit {
     constructor(private el: ElementRef) {
     }
 
-    ngAfterViewInit(): void {
-        scroll(this.offset);
-    }
 
-    scroll(offset: number): void {
-        this.el.nativeElement.scrollTop = offset;
+    ngAfterViewInit(): void {
+        this.scrollElement(this.offset);
     }
 }
