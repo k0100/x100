@@ -41,8 +41,8 @@
             <label>Page:</label>
             {{page}}
         </div>
-        <div fill-height [delta]="20" scroll-control>
-            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [page]="page" [(zoom)]="zoom" [stick-to-page]="true"
+        <div fill-height [delta]="35" scroll-control [scrollOffset]="offset">
+            <pdf-viewer [src]="pdfSrc" (error)="onError($event)" [show-all]="false" [(page)]="page" [(zoom)]="zoom" [stick-to-page]="true"
                 style="display: block;" (after-load-complete)="callBackFn($event)"></pdf-viewer>
         </div>
         <div>

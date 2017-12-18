@@ -31,6 +31,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
 import { FillHeightDirective } from './core/view/fill-height.directive';
+import { ScrollControltDirective } from './core/view/scroll-control.directive';
 
 @NgModule({
 	imports: [
@@ -78,7 +79,8 @@ import { FillHeightDirective } from './core/view/fill-height.directive';
 		NoteComponent,
 		TodoComponent,
 		LibraryComponent,
-		FillHeightDirective
+		FillHeightDirective,
+		ScrollControltDirective
 	],
 	entryComponents:[
 		TimezoneComponent

@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { WidgetBase } from '../../core/widgets/widget-base';
 import { Observable } from 'rxjs/Rx';
@@ -38,6 +38,7 @@ export class LibraryComponent extends WidgetBase {
     zoom: number = 0.8;
     isBookLoaded: boolean = false;
     currentBook: Book;
+    offset: Number = 0;
 
     constructor(private http: Http, private service: LibraryService) {
         super();
@@ -102,12 +103,14 @@ export class LibraryComponent extends WidgetBase {
     }
 
     private previous() {
+        this.offset = new Number(0);
         this.page--;
         this.currentBook.page = this.page;
         this.service.setPage(this.currentBook).subscribe();
     }
 
     private next() {
+        this.offset = new Number(0);
         this.page++;
         this.currentBook.page = this.page;
         this.service.setPage(this.currentBook).subscribe();
@@ -127,7 +130,12 @@ export class LibraryComponent extends WidgetBase {
     }
 
     callBackFn(pdf: PDFDocumentProxy) {
+        this.offset = 100;
         console.log(pdf);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        console.log('asds');
     }
 
 }
