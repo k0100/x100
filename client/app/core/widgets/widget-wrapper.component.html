@@ -1,5 +1,5 @@
-<article class="card widget-wrapper" [style.border-color]="this.controlsBackgroundColor">
-    <div class="card-block block" [style.background-color]="this.widgetBackgroundColor">
+     <div class="card-block block" [ngClass]="{'widget-wrapper' : canExpand() }" [style.background-color]="this.widgetBackgroundColor">
+        
         <div class="row title drag-handle d-block widget-menu" >
             <div *ngIf="!(instance&&instance.isMinimized)">
                 <div dropdown style="position:relative;" (click)="menuClick($event)">
@@ -44,4 +44,4 @@
             <div #target style="width:100%"></div>
         </div>
     </div>
-</article>
+ 

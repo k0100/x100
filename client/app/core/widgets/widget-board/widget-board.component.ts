@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Input, ViewContainerRef, Compiler, ViewChild, ComponentFactory } from '@angular/core'
+import { Component, ComponentRef, Input, ViewContainerRef, Compiler, ViewChild, ComponentFactory, Output, EventEmitter } from '@angular/core'
 import { WidgetDescriptor } from '../widget-description/widget-descriptor';
 import { WidgetParameter } from '../widget-description/widget-parameter';
 import { WidgetWrapperComponent } from '../../../core/widgets/widget-wrapper.component';
@@ -26,14 +26,16 @@ import { Observable } from "rxjs/Observable";
 		}
 	`]
 })
+
 export class WidgetBoardComponent {
 
 	public items: WidgetBoardItem[] = [];
-
+	
 	private descriptors: WidgetDescriptor[];
 	private expandedWidgetDescriptor: WidgetDescriptor;
 	private isExpanded: boolean;
-
+	
+	@Output() onWindowStateChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 	constructor(
 		private dragulaService: DragulaService,
 		private widgetDescriptorService: WidgetDescriptorService,
@@ -74,6 +76,7 @@ export class WidgetBoardComponent {
 	onWindowStateChanged(descriptor: WidgetDescriptor) {
 		this.expandedWidgetDescriptor = descriptor;
 		this.isExpanded = !this.expandedWidgetDescriptor.windowState.canExpand();
+		this.onWindowStateChange.emit(this.isExpanded);
 	}
 
 	onWidgetsAdded(descriptor: WidgetDescriptor) {
