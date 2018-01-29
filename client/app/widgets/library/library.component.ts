@@ -118,13 +118,13 @@ export class LibraryComponent extends WidgetBase {
 
 
     private zoomOut() {
-        this.zoom -= 0.3;
+        this.zoom -= 0.05;
         this.currentBook.zoom = this.zoom;
         this.service.setZoom(this.currentBook).subscribe();
     }
 
     private zoomIn() {
-        this.zoom += 0.3;
+        this.zoom += 0.05;
         this.currentBook.zoom = this.zoom;
         this.service.setZoom(this.currentBook).subscribe();
     }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { WidgetBase } from '../widget-base';
 import { TodoComponent } from '../../../widgets/todo/todo.component';
 import { NoteComponent } from '../../../widgets/note/note.component';
-import { ClockComponent } from '../../../widgets/clock/clock.component';
 import { LibraryComponent } from '../../../widgets/library/library.component';
 
 @Injectable()
@@ -15,9 +14,6 @@ export class WidgetDescriptorResolverService {
 		};
 		this.mappings[NoteComponent.name] = {
 			name: 'Notes Widget', widget: NoteComponent
-		};
-		this.mappings[ClockComponent.name] = {
-			name: 'Clock Widget', widget: ClockComponent
 		};
 		this.mappings[LibraryComponent.name] = {
 			name: 'Library Widget', widget: LibraryComponent

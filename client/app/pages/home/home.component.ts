@@ -2,6 +2,7 @@ import { Component, ComponentRef, Input, ViewContainerRef, ViewChild, ComponentF
 
 import { WidgetBoardComponent } from '../../core/widgets/widget-board/widget-board.component';
 import { WindowState } from '../../core/widgets/window-state/window-state';
+import { fail } from 'assert';
 
 @Component({
 	selector: 'home',
@@ -10,10 +11,16 @@ import { WindowState } from '../../core/widgets/window-state/window-state';
 })
 
 export class HomeComponent {
+	showHeader: boolean;
 	@ViewChild('board') board: WidgetBoardComponent;
 
-	constructor() { }
+	constructor() {
+		this.showHeader = true;
+	 }
 
+	onWindowStateChanged(isExpanded: boolean){
+		this.showHeader = !isExpanded;
+	}
 	ngAfterViewInit() {
 		setTimeout(() => {
 			this.board.load();

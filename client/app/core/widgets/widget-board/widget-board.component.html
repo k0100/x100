@@ -1,6 +1,6 @@
 <div style="margin:0 15px 0 15px">
 	<div class="row" *ngIf="!isExpanded">
-		<div *ngFor="let item of items;trackBy:trackByItem" [ngClass]="item.itemClass">
+		<div *ngFor="let item of items;trackBy:trackByItem" [ngClass]="item.itemClass" >
 			<div class="row" *ngIf="item.canHostWidgets()">
 				<div class="col-md-12">
 					<a data-toggle="modal" [attr.data-target]="'#selector' + item.index" class="fa fa-plus">
@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="row" *ngIf="isExpanded">
-		<div class="col-md-12">
+		<div class="col-md-12" style="padding:0;">
 			<widget-wrapper [descriptor]="expandedWidgetDescriptor" (onWindowStateChange)="onWindowStateChanged($event)" (onWidgetRemove)="onWidgetRemoved($event)"></widget-wrapper>
 		</div>
 	</div>

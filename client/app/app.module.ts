@@ -16,8 +16,6 @@ import { WidgetSelectorComponent } from '../app/core/widgets/widget-selector.com
 import { SignUpComponent } from './pages/secure/signup.component';
 import { SignInComponent } from './pages/secure/signin.component';
 
-
-import { ClockComponent } from '../app/widgets/clock/clock.component'
 import { EmptyComponent } from '../app/widgets/empty/empty.component'
 import { NoteComponent } from '../app/widgets/note/note.component'
 import { TodoComponent } from '../app/widgets/todo/todo.component'
@@ -29,7 +27,6 @@ import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { BsDropdownModule, BsModalService, ModalBackdropComponent, ModalModule, TooltipModule, ComponentLoaderFactory } from 'ngx-bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
-import { TimezoneComponent } from './widgets/clock/menu/timezone.component';
 import { FillHeightDirective } from './core/view/fill-height.directive';
 import { ScrollControltDirective } from './core/view/scroll-control.directive';
 
@@ -71,9 +68,6 @@ import { ScrollControltDirective } from './core/view/scroll-control.directive';
 		WidgetBoardComponent,
 		WidgetWrapperComponent,
 		WidgetSelectorComponent,
-
-		TimezoneComponent,
-		ClockComponent,
 		
 		EmptyComponent,
 		NoteComponent,
@@ -83,7 +77,6 @@ import { ScrollControltDirective } from './core/view/scroll-control.directive';
 		ScrollControltDirective
 	],
 	entryComponents:[
-		TimezoneComponent
 	],
 	bootstrap: [AppComponent]
 })
