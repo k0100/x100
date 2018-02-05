@@ -9,7 +9,7 @@
 					<i class="fa fa-times root-line-height" aria-hidden="true"></i>
 				</a>
 			</div>
-			{{ note.body }}
+			<div html-text [text]="note.body"></div>
 		</li>
 	</ul>
 	<form [formGroup]="form" (ngSubmit)="addNewNote(form)" class="row">

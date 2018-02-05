@@ -29,6 +29,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FillHeightDirective } from './core/view/fill-height.directive';
 import { ScrollControltDirective } from './core/view/scroll-control.directive';
+import { HtmlTextDirective } from './core/formatting/html-text.directive';
 
 @NgModule({
 	imports: [
@@ -74,7 +75,8 @@ import { ScrollControltDirective } from './core/view/scroll-control.directive';
 		TodoComponent,
 		LibraryComponent,
 		FillHeightDirective,
-		ScrollControltDirective
+		ScrollControltDirective,
+		HtmlTextDirective,
 	],
 	entryComponents:[
 	],
