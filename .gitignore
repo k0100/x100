@@ -12,6 +12,7 @@ e2e/**/*.js.map
 _test-output
 _temp
 
+!/client/assets/*.js
 !**/*e2e-spec.js
 !karma*.js
 !protractor*.js
