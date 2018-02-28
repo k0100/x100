@@ -6,29 +6,36 @@ import { LibraryComponent } from '../../../widgets/library/library.component';
 
 @Injectable()
 export class WidgetDescriptorResolverService {
-	private mappings: { [name: string]: { widget: new (...args: any[]) => WidgetBase, name: string } } = {};
+	public types: { widget: new (...args: any[]) => WidgetBase, name: string, className: string }[] = [];
 
 	constructor() {
-		this.mappings[TodoComponent.name] = {
-			name: 'Tasks Widget', widget: TodoComponent
-		};
-		this.mappings[NoteComponent.name] = {
-			name: 'Notes Widget', widget: NoteComponent
-		};
-		this.mappings[LibraryComponent.name] = {
-			name: 'Library Widget', widget: LibraryComponent
-		};
+
+		this.types = [];
+
+		this.types.push({
+			name: 'Library Widget', widget: LibraryComponent, className: 'LibraryComponent'
+		});
+
+		this.types.push({
+			name: 'Tasks Widget', widget: TodoComponent, className: 'TodoComponent'
+		});
+
+		this.types.push({
+			name: 'Notes Widget', widget: NoteComponent, className: 'NoteComponent'
+		});
+
+
+		console.log(this.types);
 	}
 
 	public resolve(name: string): new (...args: any[]) => WidgetBase {
-		return this.mappings[name].widget;
+		var found = this.types.find(x => x.className == name);
+
+		return found ? found.widget : null;
+
 	}
 
-	public getMappings(): { widget: new (...args: any[]) => WidgetBase, name: string }[] {
-		let types: { widget: new (...args: any[]) => WidgetBase, name: string }[] = [];
-		for (let i in this.mappings) {
-			types.push(this.mappings[i]);
-		}
-		return types;
+	public getMappings(): { widget: new (...args: any[]) => WidgetBase, className: string, name: string }[] {
+		return this.types;
 	}
 }

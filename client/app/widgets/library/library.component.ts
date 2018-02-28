@@ -131,11 +131,8 @@ export class LibraryComponent extends WidgetBase {
 
     callBackFn(pdf: PDFDocumentProxy) {
         this.offset = 100;
-        console.log(pdf);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        console.log('asds');
     }
-
 }

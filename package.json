@@ -108,7 +108,9 @@
     "nodemon": "^1.11.0",
     "protractor": "^5.2.0",
     "rimraf": "^2.5.2",
-    "tslint": "^5.8.0"
+    "tslint": "^5.8.0",
+    "uglifyjs-webpack-plugin": "",
+    "webpack": "^4.0.1"
   },
   "repository": {}
 }
