@@ -8,6 +8,7 @@ import { HomeComponent } from '../app/pages/home/home.component'
 import { DragulaModule } from 'ng2-dragula/ng2-dragula'
 import { ToastyModule } from 'ng2-toasty';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { WidgetBoardComponent } from '../app/core/widgets/widget-board/widget-board.component'
 import { WidgetWrapperComponent } from '../app/core/widgets/widget-wrapper.component'
@@ -20,6 +21,7 @@ import { EmptyComponent } from '../app/widgets/empty/empty.component'
 import { NoteComponent } from '../app/widgets/note/note.component'
 import { TodoComponent } from '../app/widgets/todo/todo.component'
 import { LibraryComponent } from './widgets/library/library.component';
+import { ContactComponent } from './widgets/contact/contact.component';
 import { HttpService1 } from "./core/http/http-intercept";
 import { Router } from "@angular/router";
 import { DndModule } from 'ng2-dnd';
@@ -30,6 +32,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FillHeightDirective } from './core/view/fill-height.directive';
 import { ScrollControltDirective } from './core/view/scroll-control.directive';
 import { HtmlTextDirective } from './core/formatting/html-text.directive';
+
 
 @NgModule({
 	imports: [
@@ -46,7 +49,9 @@ import { HtmlTextDirective } from './core/formatting/html-text.directive';
 		ModalModule.forRoot(),
 		BsDropdownModule.forRoot(),
 		PdfViewerModule, 
-		FileUploadModule
+		FileUploadModule,
+		OwlDateTimeModule, 
+        OwlNativeDateTimeModule,
 	],
 	providers: [
 		{
@@ -74,6 +79,7 @@ import { HtmlTextDirective } from './core/formatting/html-text.directive';
 		NoteComponent,
 		TodoComponent,
 		LibraryComponent,
+		ContactComponent,
 		FillHeightDirective,
 		ScrollControltDirective,
 		HtmlTextDirective,

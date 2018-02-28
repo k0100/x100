@@ -26,8 +26,6 @@ export class NoteComponent extends WidgetBase {
 		this.form = fb.group({
 			"newNote": this.newNote
 		});
-
-
 	}
 
 	public addNewNote(form: FormGroup) {

@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var todo = require('./server/widgets/todo/todo-widget');
 var note = require('./server/widgets/note/note-widget');
 var library = require('./server/widgets/library/library-widget');
+var contact = require('./server/widgets/contact/contact-widget');
 
 var secure = require('./server/secure/passport');
 var widgetDescriptor = require('./server/core/widgets/widget-descriptor');
@@ -53,6 +54,7 @@ app.use('/node_modules', express.static("./node_modules"));
 app.use('/api/todo/', todo);
 app.use('/api/note/', note);
 app.use('/api/library/', library);
+app.use('/api/contact/', contact);
 
 app.use('/api/core/widgets/widgetDescriptor/', widgetDescriptor);
 app.use('/api/core/widgets/widgetBoardItem/', widgetBoardItem);
