@@ -1,47 +1,45 @@
-     <div class="card-block block" [ngClass]="{'widget-wrapper' : canExpand() }" [style.background-color]="this.widgetBackgroundColor">
-        
-        <div class="row title drag-handle d-block widget-menu" >
-            <div *ngIf="!(instance&&instance.isMinimized)">
-                <div dropdown style="position:relative;" (click)="menuClick($event)">
-                    <a href dropdownToggle (click)="false">
-                        <i class="fa fa-cog pull-left" aria-hidden="true" [style.color]="this.controlsBackgroundColor">
-                        </i>
-                    </a>
-                    <div *dropdownMenu class="dropdown-menu" style="width:100%;" role="menu" (isOpenChange)="change($event)">
-                        <form role="menuitem" class="dropdown-item" [formGroup]="form" (ngSubmit)="setLabel(form)">
-                            <div class="input-group">
-                                <input type="text" class="form-control" formControlName="title" placeholder="Label" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-secondary" [style.color]="this.background">
-                                        Save
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                        <input role="menuitem" [(colorPicker)]="color" [style.color]="this.color" [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled"
-                            [cpPositionRelativeToArrow]="true" [value]="color" [cpPosition]="'bottom'" (cpToggleChange)="onSetColor($event)"
-                            (colorPickerChange)="onChangeColor($event)" class="dropdown-item" />
-                        <a class="dropdown-item" *ngFor="let menuItem of menuItems;" (click)="menuItem.invoke()">{{menuItem.name}}</a>
-                        <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
-                    </div>
+<div class="card-block block" [ngClass]="{'widget-wrapper' : canExpand() }" [style.background-color]="this.widgetBackgroundColor">
+
+    <div class="row title drag-handle d-block widget-menu">
+        <div *ngIf="!(instance&&instance.isMinimized)">
+            <div dropdown style="position:relative;" (click)="menuClick($event)">
+                <a href dropdownToggle (click)="false">
+                    <i class="fa fa-cog pull-left" aria-hidden="true" [style.color]="this.controlsBackgroundColor">
+                    </i>
+                </a>
+                <div *dropdownMenu class="dropdown-menu" style="width:100%;" role="menu" (isOpenChange)="change($event)">
+                    <form role="menuitem" class="dropdown-item" [formGroup]="form" (ngSubmit)="setLabel(form)">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="title" placeholder="Label" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" [style.color]="this.background">
+                                    Save
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <input role="menuitem" [(colorPicker)]="color" [style.color]="this.color" [cpOutputFormat]="rgba" [cpAlphaChannel]="disabled"
+                        [cpPositionRelativeToArrow]="true" [value]="color" [cpPosition]="'bottom'" (cpToggleChange)="onSetColor($event)"
+                        (colorPickerChange)="onChangeColor($event)" class="dropdown-item" />
+                    <a class="dropdown-item" *ngFor="let menuItem of menuItems;" (click)="menuItem.invoke()">{{menuItem.name}}</a>
+                    <a class="dropdown-item" href="#" (click)="remove()">Remove</a>
                 </div>
             </div>
-            <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor" class="float-right">
-                <i class="fa fa-external-link last" aria-hidden="true" title="Expand"></i>
-            </a>
-            <a href="#" *ngIf="canRestore()" (click)="restore()" class="float-right">
-                <i class="fa fa-square-o" ng-class="last:!canExpand()" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
-            </a>
-            <a href="#" *ngIf="canMinimize()" (click)="minimize()" class="float-right">
-                <i class="fa fa-minus clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
-            </a>
-            <b class="drag-handle">
-                {{title.value}}&nbsp;
-            </b>
-
         </div>
-        <div class="row">
-            <div #target style="width:100%"></div>
-        </div>
+        <a href="#" *ngIf="canExpand()" (click)="expand()" [style.color]="this.controlsBackgroundColor" class="float-right">
+            <i class="fa fa-external-link last" aria-hidden="true" title="Expand"></i>
+        </a>
+        <a href="#" *ngIf="canRestore()" (click)="restore()" class="float-right">
+            <i class="fa fa-square-o" ng-class="last:!canExpand()" aria-hidden="true" title="Restore" [style.color]="this.controlsBackgroundColor"></i>
+        </a>
+        <a href="#" *ngIf="canMinimize()" (click)="minimize()" class="float-right">
+            <i class="fa fa-minus clickable" aria-hidden="true" title="Minimize" [style.color]="this.controlsBackgroundColor"></i>
+        </a>
+        <b class="drag-handle">
+            {{title.value}}&nbsp;
+        </b>
     </div>
- 
+    <div class="row">
+        <div #target style="width:100%"></div>
+    </div>
+</div>
