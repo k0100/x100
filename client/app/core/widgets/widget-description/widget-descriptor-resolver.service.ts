@@ -3,6 +3,7 @@ import { WidgetBase } from '../widget-base';
 import { TodoComponent } from '../../../widgets/todo/todo.component';
 import { NoteComponent } from '../../../widgets/note/note.component';
 import { LibraryComponent } from '../../../widgets/library/library.component';
+import { ContactComponent } from '../../../widgets/contact/contact.component';
 
 @Injectable()
 export class WidgetDescriptorResolverService {
@@ -24,8 +25,9 @@ export class WidgetDescriptorResolverService {
 			name: 'Notes Widget', widget: NoteComponent, className: 'NoteComponent'
 		});
 
-
-		console.log(this.types);
+		this.types.push({
+			name: 'Contact Widget', widget: ContactComponent, className: 'ContactComponent'
+		});
 	}
 
 	public resolve(name: string): new (...args: any[]) => WidgetBase {

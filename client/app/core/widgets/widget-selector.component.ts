@@ -5,6 +5,7 @@ import { WindowState } from '../../core/widgets/window-state/window-state';
 import { WidgetBoardColumn } from '../../core/widgets/widget-board/widget-board-column';
 import { WidgetDescriptorResolverService } from './widget-description/widget-descriptor-resolver.service';
 import { SelectionItem } from '../../core/collections/selection-item'
+import { debug } from 'util';
 
 @Component({
 	selector: 'widget-selector',
@@ -40,10 +41,11 @@ export class WidgetSelectorComponent {
 			const item = this.items[i];
 			if (item.isSelected) {
 				item.isSelected = false;
+				debugger;
 				const descriptor =
 					new WidgetDescriptor(
 						"",
-						item.data.widget.name,
+						item.data.className,
 						"",
 						column._id,
 						row++,

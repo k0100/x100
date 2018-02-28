@@ -15,9 +15,10 @@ import { concat } from 'rxjs/observable/concat';
 
 export class ContactComponent extends WidgetBase {
     form: FormGroup;
-    newContactName = new FormControl("", Validators.required);
-    newContactPhone = new FormControl("", Validators.required);
-    newContactNote = new FormControl("", Validators.required);
+    newName = new FormControl("", Validators.required);
+    newPhone = new FormControl("", Validators.required);
+    newNote = new FormControl("", Validators.required);
+    newBirthday = new FormControl("");
     
     private maxHeadingLength: number = 30;
     private maxSubHeadingLength: number = 130;
@@ -29,23 +30,25 @@ export class ContactComponent extends WidgetBase {
     constructor(private service: ContactService, fb: FormBuilder) {
         super();
         this.form = fb.group({
-            "newContactName": this.newContactName,
-            "newContactPhone": this.newContactPhone,
-            "newContactNote": this.newContactNote
+            "newName": this.newName,
+            "newPhone": this.newPhone,
+            "newNote": this.newNote,
+            "newBirthday": this.newBirthday
         });
     }
 
     public addContact(form: FormGroup) {
         if (form.valid) {
             const contact = new Contact(this.id,
-                this.newContactName.value,
-                this.newContactNote.value,
-                new Date(), []);
+                this.newName.value,
+                this.newNote.value,
+                new Date(this.newBirthday.value), []);
 
             this.service.createContact(contact).subscribe(result => {
                 this.contacts.push(contact);
-                this.newContactName.setValue('');
-                this.newContactNote.setValue('');
+                this.newName.setValue('');
+                this.newNote.setValue('');
+                this.newBirthday.setValue('');
                 this.addNew = false;
             });
         }

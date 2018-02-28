@@ -10,19 +10,21 @@
                 </a>
             </div>
             <div html-text [text]="contact.name"></div>
+            <div html-text [text]="contact.birthday"></div>
         </li>
     </ul>
     <div class="row" *ngIf="!addNew">
-       
-        
+
+
         <button class="btn btn-secondary" (click)="addNew=true" [style.color]="this.background">
             Add
         </button>
     </div>
     <form [formGroup]="form" *ngIf="addNew" (ngSubmit)="addContact(form)" class="row">
-        <input formControlName="newContactName" class="form-control" placeholder="Name">
-        <input formControlName="newContactPhone" class="form-control" placeholder="Phone">
-        <textarea formControlName="newContactNote" class="form-control" placeholder="Note"></textarea>
+        <input formControlName="newName" class="form-control" placeholder="Name">
+        <input formControlName="newPhone" class="form-control" placeholder="Phone">
+        <input formControlName="newBirthday"class="form-control" bsDatepicker placeholder="Birthday">
+        <textarea formControlName="newNote" class="form-control" placeholder="Note"></textarea>
         <button class="btn btn-secondary" [style.color]="this.background">
             Add
         </button>
