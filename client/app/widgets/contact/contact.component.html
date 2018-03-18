@@ -9,8 +9,8 @@
                     <i class="fa fa-times root-line-height" aria-hidden="true"></i>
                 </a>
             </div>
-            <div html-text [text]="contact.name"></div>
-            <div html-text [text]="contact.birthday"></div>
+            {{contact.name}}
+            <br> {{contact.birthday}}
         </li>
     </ul>
     <div class="row" *ngIf="!addNew">
@@ -23,7 +23,7 @@
     <form [formGroup]="form" *ngIf="addNew" (ngSubmit)="addContact(form)" class="row">
         <input formControlName="newName" class="form-control" placeholder="Name">
         <input formControlName="newPhone" class="form-control" placeholder="Phone">
-        <input formControlName="newBirthday"class="form-control" bsDatepicker placeholder="Birthday">
+        <input formControlName="newBirthday" class="form-control" bsDatepicker placeholder="Birthday">
         <textarea formControlName="newNote" class="form-control" placeholder="Note"></textarea>
         <button class="btn btn-secondary" [style.color]="this.background">
             Add

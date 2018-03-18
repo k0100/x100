@@ -127,11 +127,10 @@ export class LibraryComponent extends WidgetBase {
         this.zoom += 0.05;
         this.currentBook.zoom = this.zoom;
         this.service.setZoom(this.currentBook).subscribe();
+
     }
 
-    callBackFn(pdf: PDFDocumentProxy) {
-        this.offset = 100;
-    }
+    
 
     ngOnChanges(changes: SimpleChanges) {
     }

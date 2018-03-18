@@ -19,7 +19,7 @@ export class ContactComponent extends WidgetBase {
     newPhone = new FormControl("", Validators.required);
     newNote = new FormControl("", Validators.required);
     newBirthday = new FormControl("");
-    
+
     private maxHeadingLength: number = 30;
     private maxSubHeadingLength: number = 130;
 
@@ -42,10 +42,12 @@ export class ContactComponent extends WidgetBase {
             const contact = new Contact(this.id,
                 this.newName.value,
                 this.newNote.value,
-                new Date(this.newBirthday.value), []);
+
+                new Date(this.newBirthday.value), [...this.newPhone.value]);
 
             this.service.createContact(contact).subscribe(result => {
                 this.contacts.push(contact);
+                this.newPhone.setValue('');
                 this.newName.setValue('');
                 this.newNote.setValue('');
                 this.newBirthday.setValue('');
