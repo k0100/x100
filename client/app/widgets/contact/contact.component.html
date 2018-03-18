@@ -10,7 +10,7 @@
                 </a>
             </div>
             {{contact.name}}
-            <br> {{contact.birthday}}
+            <br> {{contact.birthday|date:"MM/dd/yy"}}
         </li>
     </ul>
     <div class="row" *ngIf="!addNew">
